@@ -1,8 +1,5 @@
 deploy demo to github pages
 
-add scss support
-add element ui
-
 add plans api
 create plans page
 

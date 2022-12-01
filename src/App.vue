@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+
 </script>
 
 <template>
-	<header>
-		<img alt="n8n logo" class="logo" src="@/assets/logo.png" height="25" />
-	</header>
+  <el-config-provider size="small" :z-index="3000">
+		<header>
+			<img alt="n8n logo" class="logo" src="@/assets/logo.png" height="25" />
+		</header>
 
-	<RouterView />
+		<RouterView />
+  </el-config-provider>
 </template>
 
 <style module></style>

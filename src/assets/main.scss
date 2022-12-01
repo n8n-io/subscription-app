@@ -1,4 +1,5 @@
-@import './base.css';
+@import './element.scss';
+@import './base.scss';
 
 #app {
   max-width: 1280px;
@@ -25,3 +26,4 @@ a,
 		color: var(--color-primary-shade-2);
 	}
 }
+
