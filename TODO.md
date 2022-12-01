@@ -1,5 +1,3 @@
-clean up project
-add husky with conventional commits
 deploy demo to github pages
 replace favicon
 replace colors
