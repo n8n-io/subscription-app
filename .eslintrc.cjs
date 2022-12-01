@@ -15,6 +15,9 @@ module.exports = {
 			extends: ['plugin:cypress/recommended'],
 		},
 	],
+	rules: {
+		'no-prototype-builtins': 'off',
+	},
 	parserOptions: {
 		ecmaVersion: 'latest',
 	},
