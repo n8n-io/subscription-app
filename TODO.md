@@ -1,6 +1,8 @@
 deploy demo to github pages
-replace favicon
-replace colors
+
+i18n
+add scss support
+add element ui
 
 add plans api
 create plans page

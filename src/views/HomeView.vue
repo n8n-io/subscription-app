@@ -3,6 +3,6 @@
 
 <template>
 	<main>
-		Hello $$$ 
+		Hello <a>test</a>$$$ 
 	</main>
 </template>
