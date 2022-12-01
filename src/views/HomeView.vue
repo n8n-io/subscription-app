@@ -1,5 +1,12 @@
 <script setup lang="ts"></script>
 
 <template>
-	<main>{{ $t('hello.world') }}</main>
+	<main>
+		<div :class="$style.test">{{ $t('hello.world') }}</div></main>
 </template>
+
+<style lang="scss" module>
+.test {
+	color: red;
+}
+</style>
