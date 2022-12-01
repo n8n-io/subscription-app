@@ -1,6 +1,5 @@
 deploy demo to github pages
 
-i18n
 add scss support
 add element ui
 

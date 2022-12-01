@@ -1,8 +1,5 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-	<main>
-		Hello <a>test</a>$$$ 
-	</main>
+	<main>{{ $t('hello.world') }}</main>
 </template>
