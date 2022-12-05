@@ -5,7 +5,7 @@ export interface OpenApiError {
 }
 
 export interface Option {
-	value: string;
+	value: string | number;
 	labelKey?: string;
 }
 
@@ -39,3 +39,42 @@ export interface CustomPlan extends PlanBase {
 }
 
 export type Plan = LimitedPlan | FreePlan | CustomPlan;
+
+export interface ExtraPackage {
+	id: string;
+	max: number;
+	min: number;
+	price: {
+		USD: number;
+	};
+	quota: string;
+	type: 'package';
+	units: number;
+};
+
+export interface ActiveWorkflowsExtraPackage extends ExtraPackage {
+	id: 'activeWorkflows';
+	quota: 'quota:activeWorkflows';
+}
+
+export type Extras = ActiveWorkflowsExtraPackage;
+
+export type Product = {
+	group: 'on-prem';
+	metadata: {
+		planName: string;
+		position: number;
+		terms: {
+			billingFrequency: 'monthly' | 'yearly';
+			isMainPlan: boolean;
+			paddlePlanId: number;
+			price: {
+				USD: number;
+			};
+			trialDays: number;
+			extras: Extras[];
+		};
+	};
+	productId: string;
+	tenantId: number;
+};

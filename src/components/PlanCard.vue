@@ -1,23 +1,46 @@
 <script setup lang="ts">
-import type { Plan } from '@/Interface';
-import { defineProps, ref } from 'vue';
+import type { Plan, Product } from '@/Interface';
+import { computed, defineProps, ref, type Ref } from 'vue';
 import {
 	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
 	MORE_THAN_MAX_OPTION,
 	SUPPORT_EMAIL,
+	CURRENCY_USD,
 } from '@/constants';
 
 export interface Props {
 	plan: Plan;
+	product?: Product;
 }
 
-const selected = ref(DEFAULT_ACTIVE_WORKFLOWS_OPTION);
+const selected: Ref<string | number> = ref(DEFAULT_ACTIVE_WORKFLOWS_OPTION);
 
 const props = defineProps<Props>();
 
 const openMainSupport = () => {
 	window.location.href = `mailto:${SUPPORT_EMAIL}`;
 };
+
+const price = computed(() => {
+	const basePrice = props.product?.metadata.terms.price[CURRENCY_USD] ?? 0;
+	if (typeof selected.value === 'number') {
+		const extras = props.product?.metadata.terms.extras ?? [];
+		const activeWorkflow = extras.find(
+			(extra) => extra.id === 'activeWorkflows'
+		);
+
+		if (activeWorkflow) {
+			const monthlyPrice = activeWorkflow.price[CURRENCY_USD];
+
+			return (
+				basePrice +
+				(monthlyPrice * selected.value) / activeWorkflow.units
+			);
+		}
+	}
+
+	return basePrice;
+});
 </script>
 
 <template>
@@ -31,7 +54,13 @@ const openMainSupport = () => {
 			</div>
 		</div>
 		<div :class="$style.pricing">
-			<span :class="$style.quote" v-if="props.plan.pricing === 'quote'">
+			<span
+				:class="$style.quote"
+				v-if="
+					props.plan.pricing === 'quote' ||
+					MORE_THAN_MAX_OPTION === selected
+				"
+			>
 				{{ $t('pricing.getquote') }}
 			</span>
 			<span v-else>
@@ -41,7 +70,7 @@ const openMainSupport = () => {
 				<span :class="$style.price" v-if="plan.pricing === 'free'">
 					0
 				</span>
-				<span :class="$style.price" v-else> 50 </span>
+				<span :class="$style.price" v-else> {{ price }} </span>
 				<span> {{ $t('pricing.permonth') }} </span>
 			</span>
 		</div>

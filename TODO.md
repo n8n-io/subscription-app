@@ -1,7 +1,6 @@
 deploy demo to github pages
 
-add plans api
-create plans page
+add tenant id var
 
 create management page
 add cancellation api

@@ -18,7 +18,7 @@ export const FEATURE_LDAP: Feature = {
 	labelKey: 'feature.ldap',
 };
 
-export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = '10';
+export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 10;
 export const MORE_THAN_MAX_OPTION = '100+';
 
 export const COMMUNITY_PLAN: FreePlan = {
@@ -39,25 +39,25 @@ export const TEAM_PLAN: LimitedPlan = {
 	secondaryCTA: 'email',
 	unlimited: false,
 	options: [
-		{ value: '5' },
-		{ value: '10' },
-		{ value: '15' },
-		{ value: '20' },
-		{ value: '25' },
-		{ value: '30' },
-		{ value: '35' },
-		{ value: '40' },
-		{ value: '45' },
-		{ value: '50' },
-		{ value: '55' },
-		{ value: '60' },
-		{ value: '65' },
-		{ value: '70' },
-		{ value: '75' },
-		{ value: '80' },
-		{ value: '85' },
-		{ value: '90' },
-		{ value: '95' },
+		{ value: 5 },
+		{ value: 10 },
+		{ value: 15 },
+		{ value: 20 },
+		{ value: 25 },
+		{ value: 30 },
+		{ value: 35 },
+		{ value: 40 },
+		{ value: 45 },
+		{ value: 50 },
+		{ value: 55 },
+		{ value: 60 },
+		{ value: 65 },
+		{ value: 70 },
+		{ value: 75 },
+		{ value: 80 },
+		{ value: 85 },
+		{ value: 90 },
+		{ value: 95 },
 		{ value: MORE_THAN_MAX_OPTION },
 	],
 	pricing: 'custom',
@@ -74,3 +74,7 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 };
 
 export const SUPPORT_EMAIL = 'sales@n8n.io';
+export const TENANT_ID = '1';
+export const PLANS_ON_PREM_GROUP = 'on-prem';
+export const TEAM_PLAN_NAME = 'Team';
+export const CURRENCY_USD = 'USD';
