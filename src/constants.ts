@@ -74,7 +74,7 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 };
 
 export const SUPPORT_EMAIL = 'sales@n8n.io';
-export const TENANT_ID = '1';
+export const TENANT_ID = '1001';
 export const PLANS_ON_PREM_GROUP = 'on-prem';
 export const TEAM_PLAN_NAME = 'Team';
 export const CURRENCY_USD = 'USD';
