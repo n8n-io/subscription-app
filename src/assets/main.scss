@@ -9,21 +9,6 @@
   font-weight: normal;
 }
 
-a,
-.primary {
-  text-decoration: none;
-  color: var(--color-primary);
-  transition: 0.4s;
+.tritiary {
+	color: var(--color-tritiary);
 }
-
-@media (hover: hover) {
-  a:hover {
-  	color: var(--color-primary-shade-1);
-		cursor: pointer;
-  }
-
-	a:active {
-		color: var(--color-primary-shade-2);
-	}
-}
-

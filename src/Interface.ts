@@ -25,18 +25,17 @@ export interface PlanBase {
 export interface LimitedPlan extends PlanBase {
 	unlimited: false;
 	options: Option[];
+	pricing: 'custom';
 }
 
-export interface UnlimitedPlan extends PlanBase {
+export interface FreePlan extends PlanBase {
 	unlimited: true;
+	pricing: 'free';
 }
 
-export interface FreePlan extends UnlimitedPlan {
-	free: true;
+export interface CustomPlan extends PlanBase {
+	unlimited: true;
+	pricing: 'quote';
 }
 
-export interface CustomPlan extends UnlimitedPlan {
-	custom: true;
-}
-
-export type Plan = LimitedPlan | UnlimitedPlan;
+export type Plan = LimitedPlan | FreePlan | CustomPlan;

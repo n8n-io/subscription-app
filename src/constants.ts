@@ -6,6 +6,10 @@ export const FEATURE_FORUM_SUPPORT: Feature = {
 	labelKey: 'feature.forumSupport',
 };
 
+export const FEATURE_DEDICATED_SUPPORT: Feature = {
+	labelKey: 'feature.dedicatedSupport',
+};
+
 export const FEATURE_SHARING: Feature = {
 	labelKey: 'feature.sharing',
 };
@@ -14,6 +18,7 @@ export const FEATURE_LDAP: Feature = {
 	labelKey: 'feature.ldap',
 };
 
+export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = '10';
 export const MORE_THAN_MAX_OPTION = '100+';
 
 export const COMMUNITY_PLAN: FreePlan = {
@@ -22,7 +27,7 @@ export const COMMUNITY_PLAN: FreePlan = {
 	descriptionKey: 'plan.community.description',
 	features: [FEATURE_FORUM_SUPPORT],
 	unlimited: true,
-	free: true,
+	pricing: 'free',
 };
 
 export const TEAM_PLAN: LimitedPlan = {
@@ -34,28 +39,36 @@ export const TEAM_PLAN: LimitedPlan = {
 	secondaryCTA: 'email',
 	unlimited: false,
 	options: [
+		{ value: '5' },
 		{ value: '10' },
 		{ value: '15' },
 		{ value: '20' },
+		{ value: '25' },
 		{ value: '30' },
+		{ value: '35' },
 		{ value: '40' },
+		{ value: '45' },
 		{ value: '50' },
+		{ value: '55' },
 		{ value: '60' },
+		{ value: '65' },
 		{ value: '70' },
+		{ value: '75' },
 		{ value: '80' },
+		{ value: '85' },
 		{ value: '90' },
+		{ value: '95' },
 		{ value: MORE_THAN_MAX_OPTION },
 	],
+	pricing: 'custom',
 };
 
 export const ENTERPRISE_PLAN: CustomPlan = {
 	id: 'enterprise',
 	nameKey: 'plan.enterprise',
 	descriptionKey: 'plan.enterprise.description',
-	features: [FEATURE_FORUM_SUPPORT],
+	features: [FEATURE_DEDICATED_SUPPORT, FEATURE_SHARING, FEATURE_LDAP],
 	unlimited: true,
-	custom: true,
-	secondaryCTA: 'email',
+	pricing: 'quote',
+	primaryCTA: 'email',
 };
-
-export const PLANS = [COMMUNITY_PLAN, TEAM_PLAN, ENTERPRISE_PLAN];
