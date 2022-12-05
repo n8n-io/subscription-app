@@ -4,6 +4,7 @@ import { defineProps, ref } from 'vue';
 import {
 	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
 	MORE_THAN_MAX_OPTION,
+	SUPPORT_EMAIL,
 } from '@/constants';
 
 export interface Props {
@@ -13,6 +14,10 @@ export interface Props {
 const selected = ref(DEFAULT_ACTIVE_WORKFLOWS_OPTION);
 
 const props = defineProps<Props>();
+
+const openMainSupport = () => {
+	window.location.href = `mailto:${SUPPORT_EMAIL}`;
+};
 </script>
 
 <template>
@@ -84,6 +89,7 @@ const props = defineProps<Props>();
 							plan.primaryCTA === 'email' ||
 							selected === MORE_THAN_MAX_OPTION
 						"
+						@click="openMainSupport"
 					>
 						{{ $t('cta.contactUs') }}
 					</el-button>
@@ -103,6 +109,7 @@ const props = defineProps<Props>();
 						"
 						size="medium"
 						link
+						@click="openMainSupport"
 						>{{ $t('cta.contactUs') }}</el-button
 					>
 				</div>

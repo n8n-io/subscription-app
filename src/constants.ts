@@ -72,3 +72,5 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 	pricing: 'quote',
 	primaryCTA: 'email',
 };
+
+export const SUPPORT_EMAIL = 'sales@n8n.io';
