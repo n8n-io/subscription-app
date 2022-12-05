@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { Plan } from '@/Interface';
 import { defineProps, ref } from 'vue';
-import { DEFAULT_ACTIVE_WORKFLOWS_OPTION } from '@/constants';
+import {
+	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
+	MORE_THAN_MAX_OPTION,
+} from '@/constants';
 
 export interface Props {
 	plan: Plan;
@@ -45,7 +48,7 @@ const props = defineProps<Props>();
 				<div v-if="props.plan.unlimited" :class="$style.unlimited">
 					{{ $t('features.activeWorkflows.unlimited') }}
 				</div>
-				<div v-else>
+				<div v-else :class="$style.select">
 					<el-select size="medium" v-model="selected">
 						<el-option
 							v-for="item in props.plan.options"
@@ -73,23 +76,31 @@ const props = defineProps<Props>();
 				</div>
 			</div>
 			<div :class="$style.cta">
-				<div v-if="plan.primaryCTA">
+				<div v-if="plan.primaryCTA" :class="$style.primaryButton">
 					<el-button
 						type="primary"
 						size="medium"
-						v-if="plan.primaryCTA === 'start-trial'"
-						>{{ $t('cta.startFreeTrial') }}</el-button
+						v-if="
+							plan.primaryCTA === 'email' ||
+							selected === MORE_THAN_MAX_OPTION
+						"
 					>
+						{{ $t('cta.contactUs') }}
+					</el-button>
 					<el-button
 						type="primary"
 						size="medium"
-						v-else-if="plan.primaryCTA === 'email'"
-						>{{ $t('cta.contactUs') }}</el-button
+						v-else-if="plan.primaryCTA === 'start-trial'"
 					>
+						{{ $t('cta.startFreeTrial') }}
+					</el-button>
 				</div>
 				<div v-if="plan.secondaryCTA">
 					<el-button
-						v-if="plan.secondaryCTA === 'email'"
+						v-if="
+							plan.secondaryCTA === 'email' &&
+							selected !== MORE_THAN_MAX_OPTION
+						"
 						size="medium"
 						link
 						>{{ $t('cta.contactUs') }}</el-button
@@ -104,7 +115,7 @@ const props = defineProps<Props>();
 .container {
 	min-width: 223px;
 	max-width: 223px;
-	padding: 40px 24px 0 24px;
+	padding: 40px 24px 12px 24px;
 	border: var(--border-base);
 	border-radius: var(--border-radius-large);
 	background-color: var(--color-background-xlight);
@@ -151,8 +162,12 @@ const props = defineProps<Props>();
 	font-weight: 700;
 }
 
+.select input {
+	font-size: var(--font-size-xs);
+}
+
 .unlimited {
-	font-size: var(--font-size-2xs);
+	font-size: var(--font-size-xs);
 	border: var(--border-base);
 	border-radius: var(--border-radius-base);
 	height: 32px;
@@ -184,5 +199,9 @@ const props = defineProps<Props>();
 	> * {
 		margin-bottom: var(--spacing-3xs);
 	}
+}
+
+.primaryButton button {
+	width: 100%;
 }
 </style>
