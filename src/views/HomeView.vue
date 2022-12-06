@@ -29,7 +29,7 @@ const teamProduct = computed(() => {
 </script>
 
 <template>
-	<div :class="$style.plans">
+	<div :class="$style.plans" v-if="!loading">
 		<PlanCard :plan="COMMUNITY_PLAN" />
 		<PlanCard :plan="TEAM_PLAN" :product="teamProduct" />
 		<PlanCard :plan="ENTERPRISE_PLAN" />
@@ -37,7 +37,6 @@ const teamProduct = computed(() => {
 </template>
 
 <style lang="scss" module>
-
 .plans {
 	display: flex;
 	justify-content: center;
