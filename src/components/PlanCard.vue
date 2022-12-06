@@ -17,6 +17,10 @@ const selected: Ref<string | number> = ref(DEFAULT_ACTIVE_WORKFLOWS_OPTION);
 
 const props = defineProps<Props>();
 
+const emit = defineEmits<{
+	(event: 'startTrial', productId: string, activeWorkflows: number): void;
+}>();
+
 const openMainSupport = () => {
 	window.location.href = `mailto:${SUPPORT_EMAIL}`;
 };
@@ -41,6 +45,14 @@ const price = computed(() => {
 
 	return basePrice;
 });
+
+function onStartTrial() {
+	if (!props.product || typeof selected.value !== 'number') {
+		return;
+	}
+
+	emit('startTrial', props.product.productId, selected.value);
+}
 </script>
 
 <template>
@@ -126,6 +138,7 @@ const price = computed(() => {
 						type="primary"
 						size="medium"
 						v-else-if="plan.primaryCTA === 'start-trial'"
+						@click="onStartTrial"
 					>
 						{{ $t('cta.startFreeTrial') }}
 					</el-button>

@@ -24,11 +24,23 @@ export async function fetchPlans(): Promise<Product[]> {
 	return data;
 }
 
-export async function checkout(): Promise<CheckoutSession> {
+export async function checkout(
+	productId: string,
+	activeWorkflows: number
+): Promise<CheckoutSession> {
 	const url = new URL('/v1/checkout', LICENSE_SERVER_URL);
 
 	const response = await fetch(url.toString(), {
 		method: 'POST',
+		body: JSON.stringify({
+			productId,
+			extras: [
+				{
+					id: 'activeWorkflows',
+					values: [activeWorkflows],
+				},
+			],
+		}),
 	});
 
 	const data = response.json();

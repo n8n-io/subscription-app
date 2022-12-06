@@ -1,6 +1,6 @@
 import { ref, type Ref } from 'vue';
 import { defineStore } from 'pinia';
-import { fetchPlans } from '@/api/plans';
+import { checkout, fetchPlans } from '@/api/plans';
 import type { Product } from '@/Interface';
 
 export const usePlansStore = defineStore('plans', () => {
@@ -16,5 +16,6 @@ export const usePlansStore = defineStore('plans', () => {
 			plans.value = await fetchPlans();
 			return plans.value;
 		},
+		checkout,
 	};
 });

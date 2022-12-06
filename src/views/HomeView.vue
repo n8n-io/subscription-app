@@ -26,12 +26,20 @@ const teamProduct = computed(() => {
 			plan.metadata.terms.billingFrequency === 'monthly'
 	);
 });
+
+function onCheckout(productId: string, activeWorkflows: number) {
+	const checkoutSession = plansStore.checkout(productId, activeWorkflows);
+}
 </script>
 
 <template>
 	<div :class="$style.plans" v-if="!loading">
 		<PlanCard :plan="COMMUNITY_PLAN" />
-		<PlanCard :plan="TEAM_PLAN" :product="teamProduct" />
+		<PlanCard
+			:plan="TEAM_PLAN"
+			:product="teamProduct"
+			@start-trial="onCheckout"
+		/>
 		<PlanCard :plan="ENTERPRISE_PLAN" />
 	</div>
 </template>
