@@ -19,10 +19,6 @@ onMounted(async () => {
 	plans.value = await plansStore.getPlans();
 	loading.value = false;
 
-	if (window.Paddle) {
-		// todo only enable for test
-		window.Paddle.Environment.set('sandbox');
-	}
 });
 
 const teamProduct = computed(() => {
@@ -49,6 +45,9 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 		productId,
 		activeWorkflows
 	);
+	if (checkoutSession.paddle.sandbox) {
+		window.Paddle.Environment.set('sandbox');
+	}
 
 	window.Paddle.Checkout.open({
 		override: checkoutSession.paddle.checkout.override,
