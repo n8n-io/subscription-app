@@ -18,7 +18,6 @@ const subscription: Ref<Subscription | null> = ref(null);
 onMounted(async () => {
 	plans.value = await plansStore.getPlans();
 	loading.value = false;
-
 });
 
 const teamProduct = computed(() => {
@@ -45,6 +44,9 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 		productId,
 		activeWorkflows
 	);
+
+	window.Paddle.Setup({ vendor: checkoutSession.paddle.setup.vendor });
+
 	if (checkoutSession.paddle.sandbox) {
 		window.Paddle.Environment.set('sandbox');
 	}
@@ -67,7 +69,9 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 		/>
 		<PlanCard :plan="ENTERPRISE_PLAN" />
 	</div>
-	<div v-if="subscription"></div>
+	<div v-if="subscription">
+		activation key: {{ subscription.reservationId }}
+	</div>
 </template>
 
 <style lang="scss" module>

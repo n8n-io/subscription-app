@@ -92,7 +92,7 @@ function onStartTrial() {
 					{{ $t('features.activeWorkflows.unlimited') }}
 				</div>
 				<div v-else :class="$style.select">
-					<el-select size="medium" v-model="selected">
+					<el-select size="default" v-model="selected">
 						<el-option
 							v-for="item in props.plan.options"
 							:key="item.value"
@@ -125,7 +125,7 @@ function onStartTrial() {
 				<div v-if="plan.primaryCTA" :class="$style.primaryButton">
 					<el-button
 						type="primary"
-						size="medium"
+						size="default"
 						v-if="
 							plan.primaryCTA === 'email' ||
 							selected === MORE_THAN_MAX_OPTION
@@ -136,7 +136,7 @@ function onStartTrial() {
 					</el-button>
 					<el-button
 						type="primary"
-						size="medium"
+						size="default"
 						v-else-if="plan.primaryCTA === 'start-trial'"
 						@click="onStartTrial"
 					>
@@ -149,7 +149,7 @@ function onStartTrial() {
 							plan.secondaryCTA === 'email' &&
 							selected !== MORE_THAN_MAX_OPTION
 						"
-						size="medium"
+						size="default"
 						link
 						@click="openMainSupport"
 						>{{ $t('cta.contactUs') }}</el-button
