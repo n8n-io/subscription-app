@@ -36,10 +36,7 @@ const price = computed(() => {
 		if (activeWorkflow) {
 			const monthlyPrice = activeWorkflow.price[CURRENCY_USD];
 
-			return (
-				basePrice +
-				(monthlyPrice * selected.value) / activeWorkflow.units
-			);
+			return basePrice + monthlyPrice * selected.value;
 		}
 	}
 
@@ -102,7 +99,10 @@ function onStartTrial() {
 							:value="item.value"
 							:label="
 								$t('features.activeWorkflows.count', {
-									count: item.value,
+									count:
+										typeof item.value === 'number'
+											? item.value * props.plan.unitSize
+											: item.value,
 								})
 							"
 						/>

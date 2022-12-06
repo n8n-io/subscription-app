@@ -48,7 +48,6 @@ export interface OpenApiError {
 
 export interface Option {
 	value: string | number;
-	labelKey?: string;
 }
 
 export interface Feature {
@@ -66,6 +65,7 @@ export interface PlanBase {
 
 export interface LimitedPlan extends PlanBase {
 	unlimited: false;
+	unitSize: number;
 	options: Option[];
 	pricing: 'custom';
 }

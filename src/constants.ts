@@ -18,7 +18,7 @@ export const FEATURE_LDAP: Feature = {
 	labelKey: 'feature.ldap',
 };
 
-export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 10;
+export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 2;
 export const MORE_THAN_MAX_OPTION = '100+';
 
 export const COMMUNITY_PLAN: FreePlan = {
@@ -38,26 +38,27 @@ export const TEAM_PLAN: LimitedPlan = {
 	primaryCTA: 'start-trial',
 	secondaryCTA: 'email',
 	unlimited: false,
+	unitSize: 5,
 	options: [
+		{ value: 1 },
+		{ value: 2 },
+		{ value: 3 },
+		{ value: 4 },
 		{ value: 5 },
+		{ value: 6 },
+		{ value: 7 },
+		{ value: 8 },
+		{ value: 9 },
 		{ value: 10 },
+		{ value: 11 },
+		{ value: 12 },
+		{ value: 13 },
+		{ value: 14 },
 		{ value: 15 },
-		{ value: 20 },
-		{ value: 25 },
-		{ value: 30 },
-		{ value: 35 },
-		{ value: 40 },
-		{ value: 45 },
-		{ value: 50 },
-		{ value: 55 },
-		{ value: 60 },
-		{ value: 65 },
-		{ value: 70 },
-		{ value: 75 },
-		{ value: 80 },
-		{ value: 85 },
-		{ value: 90 },
-		{ value: 95 },
+		{ value: 16 },
+		{ value: 17 },
+		{ value: 18 },
+		{ value: 19 },
 		{ value: MORE_THAN_MAX_OPTION },
 	],
 	pricing: 'custom',
