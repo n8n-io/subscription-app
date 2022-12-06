@@ -3,7 +3,7 @@ import {
 	TENANT_ID,
 	PLANS_ON_PREM_GROUP,
 } from '@/constants';
-import type { Product } from '@/Interface';
+import type { CheckoutSession, Product } from '@/Interface';
 import { isOpenApiError } from '@/type-guards';
 
 export async function fetchPlans(): Promise<Product[]> {
@@ -11,6 +11,25 @@ export async function fetchPlans(): Promise<Product[]> {
 	url.searchParams.set('tenantId', TENANT_ID);
 	url.searchParams.set('group', PLANS_ON_PREM_GROUP);
 	const response = await fetch(url.toString());
+
+	const data = response.json();
+	if (!response.ok && data) {
+		if (isOpenApiError(data)) {
+			throw new Error(data.message);
+		}
+
+		throw new Error(`${response.status}`);
+	}
+
+	return data;
+}
+
+export async function checkout(): Promise<CheckoutSession> {
+	const url = new URL('/v1/checkout', LICENSE_SERVER_URL);
+
+	const response = await fetch(url.toString(), {
+		method: 'POST',
+	});
 
 	const data = response.json();
 	if (!response.ok && data) {

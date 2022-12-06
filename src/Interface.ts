@@ -78,3 +78,10 @@ export type Product = {
 	productId: string;
 	tenantId: number;
 };
+
+export type CheckoutSession = {
+	id: string;
+	paddle: {
+		sandbox: boolean;
+	};
+};

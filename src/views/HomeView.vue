@@ -21,7 +21,9 @@ onMounted(async () => {
 
 const teamProduct = computed(() => {
 	return plans.value.find(
-		(plan) => plan.metadata.planName === TEAM_PLAN_NAME
+		(plan) =>
+			plan.metadata.planName === TEAM_PLAN_NAME &&
+			plan.metadata.terms.billingFrequency === 'monthly'
 	);
 });
 </script>
