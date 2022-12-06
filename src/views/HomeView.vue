@@ -29,19 +29,14 @@ const teamProduct = computed(() => {
 </script>
 
 <template>
-	<main>
-		<div :class="$style.plans">
-			<PlanCard :plan="COMMUNITY_PLAN" />
-			<PlanCard :plan="TEAM_PLAN" :product="teamProduct" />
-			<PlanCard :plan="ENTERPRISE_PLAN" />
-		</div>
-	</main>
+	<div :class="$style.plans">
+		<PlanCard :plan="COMMUNITY_PLAN" />
+		<PlanCard :plan="TEAM_PLAN" :product="teamProduct" />
+		<PlanCard :plan="ENTERPRISE_PLAN" />
+	</div>
 </template>
 
 <style lang="scss" module>
-main {
-	padding-top: var(--spacing-m);
-}
 
 .plans {
 	display: flex;

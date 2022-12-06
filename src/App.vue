@@ -13,8 +13,14 @@ import { RouterView } from 'vue-router';
 			/>
 		</header>
 
-		<RouterView />
+		<main>
+			<RouterView />
+		</main>
 	</el-config-provider>
 </template>
 
-<style module></style>
+<style module>
+main {
+	padding-top: var(--spacing-m);
+}
+</style>
