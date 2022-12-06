@@ -1,5 +1,3 @@
-deploy demo to github pages
-
 add tenant id var
 
 create management page
