@@ -8,11 +8,12 @@ import {
 } from '@/constants';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { usePlansStore } from '@/stores/plans';
-import type { Product } from '@/Interface';
+import type { Product, Subscription } from '@/Interface';
 
 const loading = ref(true);
 const plans: Ref<Product[]> = ref([]);
 const plansStore = usePlansStore();
+const subscription: Ref<Subscription | null> = ref(null);
 
 onMounted(async () => {
 	plans.value = await plansStore.getPlans();
@@ -27,13 +28,20 @@ const teamProduct = computed(() => {
 	);
 });
 
-function onCheckout(productId: string, activeWorkflows: number) {
-	const checkoutSession = plansStore.checkout(productId, activeWorkflows);
+async function onCheckout(productId: string, activeWorkflows: number) {
+	const checkoutSession = await plansStore.checkout(
+		productId,
+		activeWorkflows
+	);
+	subscription.value = await plansStore.createSubscription(
+		checkoutSession.id,
+		'paddle-id'
+	);
 }
 </script>
 
 <template>
-	<div :class="$style.plans" v-if="!loading">
+	<div :class="$style.plans" v-if="!loading && !subscription">
 		<PlanCard :plan="COMMUNITY_PLAN" />
 		<PlanCard
 			:plan="TEAM_PLAN"
@@ -41,6 +49,9 @@ function onCheckout(productId: string, activeWorkflows: number) {
 			@start-trial="onCheckout"
 		/>
 		<PlanCard :plan="ENTERPRISE_PLAN" />
+	</div>
+	<div v-if="subscription">
+		
 	</div>
 </template>
 

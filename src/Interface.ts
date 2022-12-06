@@ -85,3 +85,8 @@ export type CheckoutSession = {
 		sandbox: boolean;
 	};
 };
+
+export type Subscription = {
+	id: string;
+	reservationId: string;
+}

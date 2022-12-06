@@ -3,7 +3,7 @@ import {
 	TENANT_ID,
 	PLANS_ON_PREM_GROUP,
 } from '@/constants';
-import type { CheckoutSession, Product } from '@/Interface';
+import type { CheckoutSession, Product, Subscription } from '@/Interface';
 import { isOpenApiError } from '@/type-guards';
 
 export async function fetchPlans(): Promise<Product[]> {
@@ -32,6 +32,9 @@ export async function checkout(
 
 	const response = await fetch(url.toString(), {
 		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
 		body: JSON.stringify({
 			productId,
 			extras: [
@@ -40,6 +43,35 @@ export async function checkout(
 					values: [activeWorkflows],
 				},
 			],
+		}),
+	});
+
+	const data = response.json();
+	if (!response.ok && data) {
+		if (isOpenApiError(data)) {
+			throw new Error(data.message);
+		}
+
+		throw new Error(`${response.status}`);
+	}
+
+	return data;
+}
+
+export async function createSubscription(
+	internalCheckoutId: string,
+	paddleCheckoutId: string
+): Promise<Subscription> {
+	const url = new URL('/v1/subscription', LICENSE_SERVER_URL);
+
+	const response = await fetch(url.toString(), {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			internalCheckoutId,
+			paddleCheckoutId,
 		}),
 	});
 

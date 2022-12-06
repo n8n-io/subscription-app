@@ -1,7 +1,10 @@
 add tenant id var
 
-on start trial, checkout
 
+add erorr notifications for requests
+
+on start trial, checkout
+add paddle
 create confirmation page
 copy component
 
