@@ -1,3 +1,45 @@
+declare global {
+	interface Window {
+		Paddle?: Paddle;
+	}
+}
+
+interface PaddleCheckoutSuccess {
+	checkout: {
+		created_at: string;
+		completed: true;
+		id: string;
+		coupon: { coupon_code: null };
+		passthrough: null;
+		prices: {
+			customer: unknown;
+			vendor: unknown;
+		};
+		redirect_url: null;
+		test_variant: string;
+		recurring_prices: {
+			customer: unknown;
+			interval: { length: number; type: string };
+			vendor: unknown;
+		};
+	};
+	product: { quantity: number; id: number; name: string };
+	user: { id: string; email: string; country: string };
+}
+
+export interface Paddle {
+	Environment: {
+		set: (key: 'sandbox') => void;
+	};
+	Setup: (info: { vendor: number }) => void;
+	Checkout: {
+		open: (info: {
+			override: string;
+			successCallback: (data: PaddleCheckoutSuccess) => void;
+		}) => void;
+	};
+}
+
 export interface OpenApiError {
 	code: number;
 	message: string;
@@ -50,7 +92,7 @@ export interface ExtraPackage {
 	quota: string;
 	type: 'package';
 	units: number;
-};
+}
 
 export interface ActiveWorkflowsExtraPackage extends ExtraPackage {
 	id: 'activeWorkflows';
@@ -82,11 +124,17 @@ export type Product = {
 export type CheckoutSession = {
 	id: string;
 	paddle: {
-		sandbox: boolean;
+		setup: {
+			vendor: number;
+		};
+		checkout: {
+			override: string;
+		};
+		sandbox?: boolean;
 	};
 };
 
 export type Subscription = {
 	id: string;
 	reservationId: string;
-}
+};

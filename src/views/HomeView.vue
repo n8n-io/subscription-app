@@ -18,6 +18,11 @@ const subscription: Ref<Subscription | null> = ref(null);
 onMounted(async () => {
 	plans.value = await plansStore.getPlans();
 	loading.value = false;
+
+	if (window.Paddle) {
+		// todo only enable for test
+		window.Paddle.Environment.set('sandbox');
+	}
 });
 
 const teamProduct = computed(() => {
@@ -28,15 +33,28 @@ const teamProduct = computed(() => {
 	);
 });
 
-async function onCheckout(productId: string, activeWorkflows: number) {
+async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
+	subscription.value = await plansStore.createSubscription(
+		checkoutSessionId,
+		paddleCheckoutId
+	);
+}
+
+async function onStartTrial(productId: string, activeWorkflows: number) {
+	if (!window.Paddle) {
+		return;
+	}
+
 	const checkoutSession = await plansStore.checkout(
 		productId,
 		activeWorkflows
 	);
-	subscription.value = await plansStore.createSubscription(
-		checkoutSession.id,
-		'paddle-id'
-	);
+
+	window.Paddle.Checkout.open({
+		override: checkoutSession.paddle.checkout.override,
+		successCallback: (data) =>
+			onCheckout(checkoutSession.id, data.checkout.id),
+	});
 }
 </script>
 
@@ -46,13 +64,11 @@ async function onCheckout(productId: string, activeWorkflows: number) {
 		<PlanCard
 			:plan="TEAM_PLAN"
 			:product="teamProduct"
-			@start-trial="onCheckout"
+			@start-trial="onStartTrial"
 		/>
 		<PlanCard :plan="ENTERPRISE_PLAN" />
 	</div>
-	<div v-if="subscription">
-		
-	</div>
+	<div v-if="subscription"></div>
 </template>
 
 <style lang="scss" module>
