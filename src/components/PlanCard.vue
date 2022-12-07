@@ -11,11 +11,14 @@ import {
 export interface Props {
 	plan: Plan;
 	product?: Product;
+	defaultOption?: number;
 }
 
-const selected: Ref<string | number> = ref(DEFAULT_ACTIVE_WORKFLOWS_OPTION);
+const props = withDefaults(defineProps<Props>(), {
+	defaultOption: DEFAULT_ACTIVE_WORKFLOWS_OPTION,
+});
 
-const props = defineProps<Props>();
+const selected: Ref<string | number> = ref(props.defaultOption);
 
 const emit = defineEmits<{
 	(event: 'startTrial', productId: string, activeWorkflows: number): void;

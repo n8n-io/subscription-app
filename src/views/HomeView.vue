@@ -3,14 +3,16 @@ import PlanCard from '@/components/PlanCard.vue';
 import CopyInput from '@/components/CopyInput.vue';
 import {
 	COMMUNITY_PLAN,
+	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
 	ENTERPRISE_PLAN,
 	TEAM_PLAN,
 	TEAM_PLAN_NAME,
 } from '@/constants';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { usePlansStore } from '@/stores/plans';
-import type { Product, Subscription } from '@/Interface';
+import type { LimitedPlan, Product, Subscription } from '@/Interface';
 import { useSubscriptionsStore } from '@/stores/subscriptions';
+import { isNumber } from '@/utils';
 
 const loading = ref(true);
 const plans: Ref<Product[]> = ref([]);
@@ -27,17 +29,39 @@ if (params.get('demo')) {
 	};
 }
 
-onMounted(async () => {
-	plans.value = await plansStore.getPlans();
-	loading.value = false;
-});
-
 const teamProduct = computed(() => {
 	return plans.value.find(
 		(plan) =>
 			plan.metadata.planName === TEAM_PLAN_NAME &&
 			plan.metadata.terms.billingFrequency === 'monthly'
 	);
+});
+
+const defaultActiveWorkflows = ref(DEFAULT_ACTIVE_WORKFLOWS_OPTION);
+
+function isValidOption(plan: LimitedPlan, value: number): boolean {
+	return !!plan.options.find((option) => option.value === value);
+}
+
+onMounted(async () => {
+	plans.value = await plansStore.getPlans();
+
+	const teamProductId = teamProduct.value?.productId;
+	const activeWorkflowPackages = params.get('activewfs') || '';
+	if (
+		teamProductId &&
+		isNumber(activeWorkflowPackages) &&
+		isValidOption(TEAM_PLAN, parseInt(activeWorkflowPackages))
+	) {
+		defaultActiveWorkflows.value = parseInt(activeWorkflowPackages);
+	}
+
+	loading.value = false;
+
+	const checkout = params.get('checkout');
+	if (checkout === 'true' && teamProductId) {
+		await onStartTrial(teamProductId, defaultActiveWorkflows.value);
+	}
 });
 
 async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
@@ -78,6 +102,7 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 		<PlanCard
 			:plan="TEAM_PLAN"
 			:product="teamProduct"
+			:defaultOption="defaultActiveWorkflows"
 			@start-trial="onStartTrial"
 		/>
 		<PlanCard :plan="ENTERPRISE_PLAN" />
