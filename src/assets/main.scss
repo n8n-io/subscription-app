@@ -5,10 +5,18 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-
   font-weight: normal;
+
+	main {
+		max-width: 900px;
+		margin: auto;
+	}
 }
 
 .tritiary {
 	color: var(--color-tritiary);
+}
+
+h1 {
+	font-size: var(--font-size-2xl);
 }

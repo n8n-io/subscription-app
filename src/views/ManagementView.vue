@@ -66,17 +66,24 @@ async function onCancel() {
 
 <template>
 	<div :class="$style.container" v-if="managementToken">
-		<label>{{ $t('management.cancel.title') }}</label>
+		<h1>Manage Plan</h1>
 		<div>
-			<el-button size="default" @click="onCancel">{{
-				$t('management.cancel.cta')
-			}}</el-button>
+			<label>{{ $t('management.cancel.title') }}</label>
+			<div>
+				<el-button size="default" @click="onCancel">{{
+					$t('management.cancel.cta')
+				}}</el-button>
+			</div>
 		</div>
 	</div>
 </template>
 
 <style lang="scss" module>
 .container {
+	h1 {
+		margin-bottom: var(--spacing-l);
+	}
+
 	label {
 		font-weight: 600;
 	}

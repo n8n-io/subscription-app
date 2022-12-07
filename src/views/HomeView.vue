@@ -72,6 +72,7 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 </script>
 
 <template>
+	<h1 :class="$style.title">Pricing</h1>
 	<div :class="$style.plans" v-if="!loading && !subscription">
 		<PlanCard :plan="COMMUNITY_PLAN" />
 		<PlanCard
@@ -99,6 +100,10 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 </template>
 
 <style lang="scss" module>
+.title {
+	margin-bottom: var(--spacing-l);
+	text-align: center;
+}
 .plans {
 	display: flex;
 	justify-content: center;
