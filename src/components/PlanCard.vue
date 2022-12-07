@@ -165,8 +165,8 @@ function onStartTrial() {
 
 <style lang="scss" module>
 .container {
-	min-width: 223px;
-	max-width: 223px;
+	min-width: 240px;
+	max-width: 240px;
 	padding: 40px 24px 12px 24px;
 	border: var(--border-base);
 	border-radius: var(--border-radius-large);
@@ -175,19 +175,19 @@ function onStartTrial() {
 
 .section {
 	> * {
-		margin-bottom: var(--spacing-2xs);
+		margin-bottom: var(--spacing-s);
 	}
 }
 
 .title {
 	font-weight: 600;
-	font-size: var(--font-size-m);
+	font-size: var(--font-size-l);
 	text-align: center;
 }
 
 .description {
 	text-align: center;
-	font-size: var(--font-size-2xs);
+	font-size: var(--font-size-s);
 }
 
 .pricing {
@@ -215,11 +215,11 @@ function onStartTrial() {
 }
 
 .select input {
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-s);
 }
 
 .unlimited {
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-s);
 	border: var(--border-base);
 	border-radius: var(--border-radius-base);
 	height: 32px;
