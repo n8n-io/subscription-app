@@ -12,6 +12,7 @@ const i18n = createI18n({
 	locale: 'en',
 	fallbackLocale: 'en',
 	messages,
+	legacy: false,
 });
 
 const app = createApp(App);
