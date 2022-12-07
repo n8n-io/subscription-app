@@ -22,4 +22,9 @@ export default {
 	'subscription.copyactivation': 'Copy actviation code to activate license',
 	'generic.copy': 'Copy',
 	'generic.copied': 'Copied',
+	'management.cancel.title': 'Do you want to cancel your subscription?',
+	'management.cancel.cta': 'Cancel your subscription',
+	'management.cancel.confirm': 'Are you sure you want to cancel your subscription?',
+	'management.cancel.cancel': 'Cancel',
+	'management.cancel.cancelled': 'Cancelled',
 };
