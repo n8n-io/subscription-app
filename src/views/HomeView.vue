@@ -77,14 +77,17 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 	<div v-if="subscription" :class="$style.confirmation">
 		<div>
 			<el-alert
-				:title="$t('subscription.confirmation.title')"
+				:title="$t('generic.success')"
 				type="success"
 				show-icon
 				effect="dark"
 				:closable="false"
 			/>
 		</div>
-		<CopyInput :class="$style.copy" :value="subscription.reservationId" />
+		<div :class="$style.copy">
+			<label>{{ $t('subscription.confirmation.title') }}</label>
+			<CopyInput :value="subscription.reservationId" />
+		</div>
 	</div>
 </template>
 
@@ -106,5 +109,9 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 
 .copy {
 	max-width: 600px;
+
+	label {
+		font-weight: 600;
+	}
 }
 </style>
