@@ -19,7 +19,7 @@ export default {
 	'pricing.dollars': '$',
 	'pricing.permonth': '/mo',
 	'subscription.confirmation.title': 'Success! Confirmation sent to your email.',
-	'subscription.copyactivation': 'Copy actviation code to activate license',
+	'subscription.copyactivation': 'Copy activation code to activate license',
 	'generic.copy': 'Copy',
 	'generic.copied': 'Copied',
 	'management.cancel.title': 'Do you want to cancel your subscription?',
