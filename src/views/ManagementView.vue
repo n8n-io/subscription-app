@@ -1,11 +1,18 @@
 <script setup lang="ts">
+import { useSubscriptionsStore } from '@/stores/subscriptions';
 import { ElNotification, ElMessageBox } from 'element-plus';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const i18n = useI18n();
+const subscriptionsStore = useSubscriptionsStore();
+
+const managementToken = ref('');
 
 async function cancelSubscription() {
 	try {
+		await subscriptionsStore.cancelSubscription(managementToken.value);
+
 		ElNotification({
 			type: 'success',
 			message: i18n.t('management.cancel.cancelled'),
@@ -31,7 +38,7 @@ async function onCancel() {
 			type: 'warning',
 		});
 
-		cancelSubscription();
+		await cancelSubscription();
 	} catch (e) {
 		// nada
 	}

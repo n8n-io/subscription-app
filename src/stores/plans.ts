@@ -1,6 +1,6 @@
 import { ref, type Ref } from 'vue';
 import { defineStore } from 'pinia';
-import { checkout, fetchPlans, createSubscription } from '@/api/plans';
+import { checkout, fetchPlans } from '@/api/plans';
 import type { Product } from '@/Interface';
 
 export const usePlansStore = defineStore('plans', () => {
@@ -17,6 +17,5 @@ export const usePlansStore = defineStore('plans', () => {
 			return plans.value;
 		},
 		checkout,
-		createSubscription,
 	};
 });

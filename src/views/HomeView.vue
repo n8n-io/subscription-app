@@ -10,10 +10,13 @@ import {
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { usePlansStore } from '@/stores/plans';
 import type { Product, Subscription } from '@/Interface';
+import { useSubscriptionsStore } from '@/stores/subscriptions';
 
 const loading = ref(true);
 const plans: Ref<Product[]> = ref([]);
 const plansStore = usePlansStore();
+const subscriptionsStore = useSubscriptionsStore();
+
 // const subscription: Ref<Subscription | null> = ref(null);
 const subscription: Ref<Subscription | null> = ref({
 	id: '42b7602b-cdc9-4cbc-a888-ff67cf1bb65a',
@@ -34,7 +37,7 @@ const teamProduct = computed(() => {
 });
 
 async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
-	subscription.value = await plansStore.createSubscription(
+	subscription.value = await subscriptionsStore.createSubscription(
 		checkoutSessionId,
 		paddleCheckoutId
 	);
