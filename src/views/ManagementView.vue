@@ -54,6 +54,7 @@ async function onCancel() {
 		await ElMessageBox.confirm(i18n.t('management.cancel.confirm'), {
 			confirmButtonText: i18n.t('management.cancel.cancel'),
 			type: 'warning',
+			showCancelButton: false,
 		});
 
 		await cancelSubscription();
