@@ -18,8 +18,8 @@ export default {
 	'features.activeWorkflows.count': '{count} Active workflows',
 	'pricing.dollars': '$',
 	'pricing.permonth': '/mo',
-	'generic.success': 'Success',
-	'subscription.confirmation.title': 'Copy actviation code to activate license',
+	'subscription.confirmation.title': 'Success! Confirmation sent to your email.',
+	'subscription.copyactivation': 'Copy actviation code to activate license',
 	'generic.copy': 'Copy',
 	'generic.copied': 'Copied',
 };

@@ -77,7 +77,7 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 	<div v-if="subscription" :class="$style.confirmation">
 		<div>
 			<el-alert
-				:title="$t('generic.success')"
+				:title="$t('subscription.confirmation.title')"
 				type="success"
 				show-icon
 				effect="dark"
@@ -85,7 +85,7 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 			/>
 		</div>
 		<div :class="$style.copy">
-			<label>{{ $t('subscription.confirmation.title') }}</label>
+			<label>{{ $t('subscription.copyactivation') }}</label>
 			<CopyInput :value="subscription.reservationId" />
 		</div>
 	</div>
