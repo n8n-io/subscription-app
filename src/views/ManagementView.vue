@@ -1,13 +1,31 @@
 <script setup lang="ts">
 import { useSubscriptionsStore } from '@/stores/subscriptions';
 import { ElNotification, ElMessageBox } from 'element-plus';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const i18n = useI18n();
 const subscriptionsStore = useSubscriptionsStore();
 
 const managementToken = ref('');
+
+onMounted(() => {
+	const params = new URLSearchParams(window.location.search);
+
+	const token = params.get('token');
+	if (token) {
+		managementToken.value = token;
+	} else {
+		ElNotification({
+			type: 'error',
+			message: i18n.t('management.error.missingToken'),
+			position: 'bottom-right',
+			showClose: false,
+			duration: 0,
+		});
+	}
+});
+
 
 async function cancelSubscription() {
 	try {
@@ -46,7 +64,7 @@ async function onCancel() {
 </script>
 
 <template>
-	<div :class="$style.container">
+	<div :class="$style.container" v-if="managementToken">
 		<label>{{ $t('management.cancel.title') }}</label>
 		<div>
 			<el-button size="default" @click="onCancel">{{

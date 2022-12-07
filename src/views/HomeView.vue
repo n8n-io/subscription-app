@@ -18,10 +18,14 @@ const plansStore = usePlansStore();
 const subscriptionsStore = useSubscriptionsStore();
 
 const subscription: Ref<Subscription | null> = ref(null);
-// const subscription: Ref<Subscription | null> = ref({
-// 	id: '42b7602b-cdc9-4cbc-a888-ff67cf1bb65a',
-// 	reservationId: 'd18c737f-cd0a-4416-9750-c0211fd71292',
-// });
+
+const params = new URLSearchParams(window.location.search);
+if (params.get('demo')) {
+	subscription.value = {
+		id: '42b7602b-cdc9-4cbc-a888-ff67cf1bb65a',
+		reservationId: 'd18c737f-cd0a-4416-9750-c0211fd71292',
+	};
+}
 
 onMounted(async () => {
 	plans.value = await plansStore.getPlans();

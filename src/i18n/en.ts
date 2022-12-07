@@ -27,4 +27,5 @@ export default {
 	'management.cancel.confirm': 'Are you sure you want to cancel your subscription?',
 	'management.cancel.cancel': 'Cancel',
 	'management.cancel.cancelled': 'Cancelled',
+	'management.error.missingToken': 'Missing management token',
 };
