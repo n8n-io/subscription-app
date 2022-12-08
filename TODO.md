@@ -1,4 +1,3 @@
-add contact link
 faq
 
 cancel subscription confirmation
