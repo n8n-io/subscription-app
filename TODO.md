@@ -1,7 +1,6 @@
 faq
 
 cancel subscription confirmation
-add error notifications for requests
 404 redirect
 add tenant id var
 

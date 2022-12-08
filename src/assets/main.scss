@@ -14,6 +14,7 @@
 	main {
 		padding-top: var(--spacing-m);
 		max-width: 900px;
+		min-width: 900px;
 		margin: auto;
 		flex-grow: 1;
 	}
