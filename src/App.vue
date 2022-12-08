@@ -33,6 +33,7 @@ import { SUPPORT_EMAIL } from './constants';
 <style module>
 footer {
 	padding-bottom: var(--spacing-xl);
+	margin-top: var(--spacing-l);
 }
 
 .infoIcon {
