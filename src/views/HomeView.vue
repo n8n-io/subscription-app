@@ -13,6 +13,7 @@ import { usePlansStore } from '@/stores/plans';
 import type { LimitedPlan, Product, Subscription } from '@/Interface';
 import { useSubscriptionsStore } from '@/stores/subscriptions';
 import { isNumber } from '@/utils';
+import { ElNotification } from 'element-plus';
 
 const loading = ref(true);
 const plans: Ref<Product[]> = ref([]);
@@ -68,10 +69,21 @@ onMounted(async () => {
 });
 
 async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
-	subscription.value = await subscriptionsStore.createSubscription(
-		checkoutSessionId,
-		paddleCheckoutId
-	);
+	try {
+		subscription.value = await subscriptionsStore.createSubscription(
+			checkoutSessionId,
+			paddleCheckoutId
+		);
+	} catch (e) {
+		if (e instanceof Error) {
+			ElNotification({
+				message: e.message,
+				type: 'error',
+				position: 'bottom-right',
+				showClose: false,
+			});
+		}
+	}
 }
 
 async function onStartTrial(productId: string, activeWorkflows: number) {
@@ -79,22 +91,33 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 		return;
 	}
 
-	const checkoutSession = await plansStore.checkout(
-		productId,
-		activeWorkflows
-	);
+	try {
+		const checkoutSession = await plansStore.checkout(
+			productId,
+			activeWorkflows
+		);
 
-	window.Paddle.Setup({ vendor: checkoutSession.paddle.setup.vendor });
+		window.Paddle.Setup({ vendor: checkoutSession.paddle.setup.vendor });
 
-	if (checkoutSession.paddle.sandbox) {
-		window.Paddle.Environment.set('sandbox');
+		if (checkoutSession.paddle.sandbox) {
+			window.Paddle.Environment.set('sandbox');
+		}
+
+		window.Paddle.Checkout.open({
+			override: checkoutSession.paddle.checkout.override,
+			successCallback: (data) =>
+				onCheckout(checkoutSession.id, data.checkout.id),
+		});
+	} catch (e) {
+		if (e instanceof Error) {
+			ElNotification({
+				message: e.message,
+				type: 'error',
+				position: 'bottom-right',
+				showClose: false,
+			});
+		}
 	}
-
-	window.Paddle.Checkout.open({
-		override: checkoutSession.paddle.checkout.override,
-		successCallback: (data) =>
-			onCheckout(checkoutSession.id, data.checkout.id),
-	});
 }
 
 function redirectToActivate() {
