@@ -59,7 +59,7 @@ onMounted(async () => {
 	loading.value = false;
 
 	const checkout = params.get('checkout');
-	if (checkout === 'true' && teamProductId) {
+	if (checkout === 'team' && teamProductId) {
 		await onStartTrial(teamProductId, defaultActiveWorkflows.value);
 	}
 });
