@@ -15,17 +15,8 @@ onMounted(() => {
 	const token = params.get('token');
 	if (token) {
 		managementToken.value = token;
-	} else {
-		ElNotification({
-			type: 'error',
-			message: i18n.t('management.error.missingToken'),
-			position: 'bottom-right',
-			showClose: false,
-			duration: 0,
-		});
 	}
 });
-
 
 async function cancelSubscription() {
 	try {
@@ -65,7 +56,12 @@ async function onCancel() {
 </script>
 
 <template>
-	<div :class="$style.container" v-if="managementToken">
+	<div v-if="!managementToken">
+		<el-alert type="error" show-icon effect="dark" :closable="false">{{
+			$t('management.error.missingToken')
+		}}</el-alert>
+	</div>
+	<div :class="$style.container" v-else>
 		<h1>Manage Plan</h1>
 		<div>
 			<label>{{ $t('management.cancel.title') }}</label>
