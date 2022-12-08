@@ -20,7 +20,6 @@ jobs:
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       - name: setup and build
         run: |
-          export BASE_PATH=subscription-app
           npm install
           npm run build
           cp dist/index.html dist/404.html
