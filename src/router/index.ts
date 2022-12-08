@@ -1,4 +1,5 @@
 import ManagementView from '@/views/ManagementView.vue';
+import NotFoundView from '@/views/NotFoundView.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 
@@ -14,6 +15,11 @@ const router = createRouter({
 			path: '/manage',
 			name: 'management',
 			component: ManagementView,
+		},
+		{
+			path: '/:pathMatch(.*)*',
+			name: '404',
+			component: NotFoundView,
 		},
 	],
 });

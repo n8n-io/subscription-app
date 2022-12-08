@@ -1,7 +1,6 @@
 faq
 
 cancel subscription confirmation
-404 redirect
 missing token error
 telemetry
 
