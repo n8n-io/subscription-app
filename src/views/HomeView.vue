@@ -22,6 +22,15 @@ const subscriptionsStore = useSubscriptionsStore();
 const subscription: Ref<Subscription | null> = ref(null);
 
 const params = new URLSearchParams(window.location.search);
+if (params.get('demo')) {
+	subscription.value = {
+		id: '42b7602b-cdc9-4cbc-a888-ff67cf1bb65a',
+		reservationId: 'd18c737f-cd0a-4416-9750-c0211fd71292',
+	};
+}
+
+const callbackParam = params.get('callback');
+const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
 
 const teamProduct = computed(() => {
 	return plans.value.find(
@@ -87,6 +96,14 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 			onCheckout(checkoutSession.id, data.checkout.id),
 	});
 }
+
+function redirectToActivate() {
+	if (subscription.value && callbackUrl) {
+		const url = new URL(callbackUrl);
+		url.searchParams.set('key', subscription.value.reservationId);
+		window.location.href = url.toString();
+	}
+}
 </script>
 
 <template>
@@ -111,8 +128,19 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 				:closable="false"
 			/>
 		</div>
+		<div v-if="callbackUrl">
+			<el-button
+				type="primary"
+				size="large"
+				@click="redirectToActivate"
+				>{{ $t('subscription.activateRedirect.cta') }}</el-button
+			>
+		</div>
 		<div :class="$style.copy">
-			<label>{{ $t('subscription.copyactivation') }}</label>
+			<label v-if="callbackUrl">{{
+				$t('subscription.copyactivation.redirect')
+			}}</label>
+			<label v-else>{{ $t('subscription.copyactivation') }}</label>
 			<CopyInput :value="subscription.reservationId" />
 		</div>
 	</div>
