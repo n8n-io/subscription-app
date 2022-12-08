@@ -7,10 +7,15 @@
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
 
 	main {
+		padding-top: var(--spacing-m);
 		max-width: 900px;
 		margin: auto;
+		flex-grow: 1;
 	}
 }
 
@@ -20,4 +25,19 @@
 
 h1 {
 	font-size: var(--font-size-2xl);
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+  transition: 0.4s;
+
+	&:hover {
+		color: var(--el-color-primary-light-3);
+		cursor: pointer;
+	}
+
+	&:active {
+		color: var(--el-color-primary-dark-2);
+	}
 }

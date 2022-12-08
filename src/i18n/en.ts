@@ -28,6 +28,9 @@ export default {
 	'management.cancel.cancel': 'Cancel',
 	'management.cancel.cancelled': 'Cancelled',
 	'management.error.missingToken': 'Missing management token',
-	'subscription.activateRedirect.cta': 'Go back to your n8n instance and activate license',
-	'subscription.copyactivation.redirect': 'Or copy activation code to activate license',
+	'subscription.activateRedirect.cta': 'Go back to activate license',
+	'subscription.copyactivation.redirect': 'Or copy activation code to input directly',
+	'subscription.helpinfo': 'For help,',
+	'subscription.helpinfo.email': 'please reach out',
+	'subscription.title': 'Plans',
 };

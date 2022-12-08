@@ -107,7 +107,7 @@ function redirectToActivate() {
 </script>
 
 <template>
-	<h1 :class="$style.title">Pricing</h1>
+	<h1 :class="$style.title">{{ $t('subscription.title') }}</h1>
 	<div :class="$style.plans" v-if="!loading && !subscription">
 		<PlanCard :plan="COMMUNITY_PLAN" />
 		<PlanCard
@@ -162,7 +162,11 @@ function redirectToActivate() {
 
 .confirmation {
 	> * {
-		margin-bottom: var(--spacing-s);
+		margin-bottom: var(--spacing-xs);
+	}
+
+	> *:first-child {
+		margin-bottom: var(--spacing-xl);
 	}
 }
 

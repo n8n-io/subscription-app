@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import { SUPPORT_EMAIL } from './constants';
 </script>
 
 <template>
@@ -16,11 +17,25 @@ import { RouterView } from 'vue-router';
 		<main>
 			<RouterView />
 		</main>
+
+		<footer>
+			<span>
+				<i :class="['fas', 'fa-info-circle', $style.infoIcon]"></i>
+			</span>
+			{{ $t('subscription.helpinfo') }}
+			<a :href="`mailto:${SUPPORT_EMAIL}`">{{
+				$t('subscription.helpinfo.email')
+			}}</a>
+		</footer>
 	</el-config-provider>
 </template>
 
 <style module>
-main {
-	padding-top: var(--spacing-m);
+footer {
+	padding-bottom: var(--spacing-xl);
+}
+
+.infoIcon {
+	color: var(--color-text-light);
 }
 </style>
