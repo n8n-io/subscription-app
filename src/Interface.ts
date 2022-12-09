@@ -138,3 +138,8 @@ export type Subscription = {
 	id: string;
 	reservationId: string;
 };
+
+export interface FAQ {
+	questionKey: string;
+	answerKey: string;
+}

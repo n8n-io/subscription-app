@@ -1,4 +1,4 @@
-import type { CustomPlan, Feature, FreePlan, LimitedPlan } from './Interface';
+import type { CustomPlan, FAQ, Feature, FreePlan, LimitedPlan } from './Interface';
 
 export const LICENSE_SERVER_URL = 'https://license.n8n.io/';
 
@@ -79,3 +79,14 @@ export const TENANT_ID = '1001';
 export const PLANS_ON_PREM_GROUP = 'on-prem';
 export const TEAM_PLAN_NAME = 'Team';
 export const CURRENCY_USD = 'USD';
+
+export const PLANS_FAQ: FAQ[] = [
+	{
+		questionKey: 'faq.whatAreActiveWorkflows.question',
+		answerKey: 'faq.whatAreActiveWorkflows.answer'
+	},
+	{
+		questionKey: 'faq.whyUpgrade.question',
+		answerKey: 'faq.whyUpgrade.answer',
+	},
+];

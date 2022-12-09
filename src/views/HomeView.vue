@@ -7,6 +7,7 @@ import {
 	ENTERPRISE_PLAN,
 	TEAM_PLAN,
 	TEAM_PLAN_NAME,
+	PLANS_FAQ,
 } from '@/constants';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { usePlansStore } from '@/stores/plans';
@@ -14,6 +15,7 @@ import type { LimitedPlan, Product, Subscription } from '@/Interface';
 import { useSubscriptionsStore } from '@/stores/subscriptions';
 import { isNumber } from '@/utils';
 import { ElNotification } from 'element-plus';
+import FAQuestion from '@/components/FAQuestion.vue';
 
 const loading = ref(true);
 const plans: Ref<Product[]> = ref([]);
@@ -131,15 +133,23 @@ function redirectToActivate() {
 
 <template>
 	<h1 :class="$style.title">{{ $t('subscription.title') }}</h1>
-	<div :class="$style.plans" v-if="!loading && !subscription">
-		<PlanCard :plan="COMMUNITY_PLAN" />
-		<PlanCard
-			:plan="TEAM_PLAN"
-			:product="teamProduct"
-			:defaultOption="defaultActiveWorkflows"
-			@start-trial="onStartTrial"
-		/>
-		<PlanCard :plan="ENTERPRISE_PLAN" />
+	<div v-if="!loading && !subscription">
+		<div :class="$style.plans">
+			<PlanCard :plan="COMMUNITY_PLAN" />
+			<PlanCard
+				:plan="TEAM_PLAN"
+				:product="teamProduct"
+				:defaultOption="defaultActiveWorkflows"
+				@start-trial="onStartTrial"
+			/>
+			<PlanCard :plan="ENTERPRISE_PLAN" />
+		</div>
+		<div :class="$style.faq">
+			<h2>{{ $t('faq') }}</h2>
+			<div v-for="question in PLANS_FAQ" :key="question.questionKey">
+				<FAQuestion :question="question" />
+			</div>
+		</div>
 	</div>
 	<div v-if="subscription" :class="$style.confirmation">
 		<div>
@@ -177,6 +187,7 @@ function redirectToActivate() {
 .plans {
 	display: flex;
 	justify-content: center;
+	margin-bottom: var(--spacing-l);
 
 	> div + div {
 		margin-left: var(--spacing-m);
@@ -198,6 +209,14 @@ function redirectToActivate() {
 
 	label {
 		font-weight: 600;
+	}
+}
+
+.faq {
+	margin-bottom: var(--spacing-l);
+
+	> * {
+		margin-bottom: var(--spacing-s);
 	}
 }
 </style>
