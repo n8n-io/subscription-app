@@ -1,10 +1,31 @@
 declare global {
 	interface Window {
 		Paddle?: Paddle;
+		rudderanalytics?: RudderStack;
 	}
 }
 
-interface PaddleCheckoutSuccess {
+interface RudderStack {
+	ready: (callback: () => void) => void;
+	identify: (
+		id: string,
+		traits: { [key: string]: string },
+		context?: {},
+		callback?: () => void
+	) => void;
+	track: (
+		event: string,
+		traits: { [key: string]: string },
+		callback?: () => void
+	) => void;
+	page: (
+		category?: string,
+		name?: string,
+		properties?: { [key: string]: string }
+	) => void;
+}
+
+export interface PaddleCheckoutSuccess {
 	checkout: {
 		created_at: string;
 		completed: true;
@@ -23,8 +44,8 @@ interface PaddleCheckoutSuccess {
 			vendor: unknown;
 		};
 	};
-	product: { quantity: number; id: number; name: string };
-	user: { id: string; email: string; country: string };
+	product?: { quantity: number; id: number; name: string };
+	user?: { id: string; email: string; country: string };
 }
 
 export interface Paddle {

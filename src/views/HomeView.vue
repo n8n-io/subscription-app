@@ -11,11 +11,17 @@ import {
 } from '@/constants';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { usePlansStore } from '@/stores/plans';
-import type { LimitedPlan, Product, Subscription } from '@/Interface';
+import type {
+	LimitedPlan,
+	Product,
+	Subscription,
+	PaddleCheckoutSuccess,
+} from '@/Interface';
 import { useSubscriptionsStore } from '@/stores/subscriptions';
 import { isNumber } from '@/utils';
 import { ElNotification } from 'element-plus';
 import FAQuestion from '@/components/FAQuestion.vue';
+import telemetry from '../utils/telemetry';
 
 const loading = ref(true);
 const plans: Ref<Product[]> = ref([]);
@@ -35,6 +41,8 @@ if (params.get('demo')) {
 const callbackParam = params.get('callback');
 const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
 
+const instanceId = params.get('instanceid');
+
 const teamProduct = computed(() => {
 	return plans.value.find(
 		(plan) =>
@@ -50,6 +58,7 @@ function isValidOption(plan: LimitedPlan, value: number): boolean {
 }
 
 onMounted(async () => {
+	telemetry.page('plans', 'plans');
 	plans.value = await plansStore.getPlans();
 
 	const teamProductId = teamProduct.value?.productId;
@@ -88,7 +97,38 @@ async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
 	}
 }
 
+function trackButtonClicked(
+	action: 'team_get_started' | 'enterprise_contact_us' | 'team_contact_us '
+) {
+	telemetry.track('User clicked button on plans page', {
+		action,
+		...(instanceId ? { instance_id: instanceId } : {}),
+	});
+}
+
+function trackCheckout(data: {
+	successEvent: PaddleCheckoutSuccess;
+	quota: number;
+}) {
+	const params: { [key: string]: string } = {
+		quota: `${data.quota}`,
+	};
+	if (data.successEvent.product) {
+		params.plan_name_current = data.successEvent.product.name;
+	}
+
+	if (instanceId) {
+		params.instance_id = instanceId;
+	}
+	if (data.successEvent.user?.email) {
+		params.email = data.successEvent.user.email;
+	}
+	telemetry.track('User submitted payment details successfully', params);
+}
+
 async function onStartTrial(productId: string, activeWorkflows: number) {
+	trackButtonClicked('team_get_started');
+
 	if (!window.Paddle) {
 		return;
 	}
@@ -107,8 +147,13 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 
 		window.Paddle.Checkout.open({
 			override: checkoutSession.paddle.checkout.override,
-			successCallback: (data) =>
-				onCheckout(checkoutSession.id, data.checkout.id),
+			successCallback: (data) => {
+				onCheckout(checkoutSession.id, data.checkout.id);
+				trackCheckout({
+					successEvent: data,
+					quota: activeWorkflows,
+				});
+			},
 		});
 	} catch (e) {
 		if (e instanceof Error) {

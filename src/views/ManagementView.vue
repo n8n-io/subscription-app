@@ -3,6 +3,7 @@
 import { ElNotification, ElMessageBox } from 'element-plus';
 import { onMounted, ref, type Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import telemetry from '../utils/telemetry';
 
 const i18n = useI18n();
 // const subscriptionsStore = useSubscriptionsStore();
@@ -17,6 +18,8 @@ onMounted(() => {
 	if (token) {
 		managementToken.value = token;
 	}
+
+	telemetry.page('manage');
 });
 
 async function cancelSubscription() {

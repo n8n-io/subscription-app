@@ -7,6 +7,42 @@
     <title>n8n</title>
 		<script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
 		<script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+		<script>
+			const WRITE_KEY = "2Ig5MDCGPpMtVr4iFdrl5VFcNnx";
+			const DATA_PLANE_URL = "https://nnrry.dataplane.rudderstack.com";
+			rudderanalytics = window.rudderanalytics = [];
+			var methods = [
+				"load",
+				"page",
+				"track",
+				"identify",
+				"alias",
+				"group",
+				"ready",
+				"reset",
+				"getAnonymousId",
+				"setAnonymousId",
+				"getUserId",
+				"getUserTraits",
+				"getGroupId",
+				"getGroupTraits",
+				"startSession",
+				"endSession"
+			];
+			for (var i = 0; i < methods.length; i++) {
+				var method = methods[i];
+				rudderanalytics[method] = (function (methodName) {
+					return function () {
+						rudderanalytics.push(
+							[methodName].concat(Array.prototype.slice.call(arguments))
+						);
+					};
+				})(method);
+			}
+
+			rudderanalytics.load(WRITE_KEY,DATA_PLANE_URL);
+		</script>
+		<script src="https://cdn.rudderlabs.com/v1.1/rudder-analytics.min.js"></script>
   </head>
   <body>
     <div id="app"></div>
