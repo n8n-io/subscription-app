@@ -1,4 +1,3 @@
-test card failure
 telemetry
 
 add tenant id var
