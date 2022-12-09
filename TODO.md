@@ -1,4 +1,3 @@
-faq
 cancel subscription confirmation
 test card failure
 telemetry
