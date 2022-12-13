@@ -21,7 +21,6 @@ jobs:
       - name: setup and build
         run: |
           npm install
-          export BASE_PATH=subscription-app
           npm run build:test
           cp dist/index.html dist/404.html
           cd dist
