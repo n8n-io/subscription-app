@@ -264,6 +264,7 @@ function onStartTrial() {
 
 .unlimited {
 	font-size: var(--font-size-s);
+	text-align: center;
 	border: var(--border-base);
 	border-radius: var(--border-radius-base);
 	height: 60px;
@@ -308,8 +309,11 @@ function onStartTrial() {
 	color: var(--color-text-xlight);
 	width: 100%;
 	height: 64px;
-	font-weight: 700;
-	font-size: 18px;
+
+	span {
+		font-weight: 700;
+		font-size: 18px;
+	}
 
 	&:hover {
 		color: var(--color-text-xlight);
