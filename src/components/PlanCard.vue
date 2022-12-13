@@ -117,6 +117,7 @@ function onStartTrial() {
 											: item.value,
 								})
 							"
+							:class="$style.option"
 						/>
 					</el-select>
 				</div>
@@ -256,9 +257,15 @@ function onStartTrial() {
 		font-weight: 700;
 		font-size: 18px;
 	}
+}
 
-	:global(.el-select-dropdown__item) {
-		font-size: var(--font-size-l);
+.option {
+	min-height: 46px;
+	display: flex;
+	align-items: center;
+
+	span {
+		font-size: var(--font-size-xl);
 	}
 }
 
@@ -306,7 +313,7 @@ function onStartTrial() {
 }
 
 .primaryButton button {
-	color: var(--color-text-xlight);
+	color: var(--color-text-xlight) !important;
 	width: 100%;
 	height: 64px;
 
