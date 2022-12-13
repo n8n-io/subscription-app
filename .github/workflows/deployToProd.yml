@@ -3,7 +3,7 @@ name: Deploy subscription app to Prod
 on:
   push:
     tags:
-      - release@*
+      - prod
 
 jobs:
   build:
