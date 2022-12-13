@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PlanCard from '@/components/PlanCard.vue';
 import CopyInput from '@/components/CopyInput.vue';
 import {
@@ -177,58 +178,55 @@ function redirectToActivate() {
 </script>
 
 <template>
-	<h1 :class="$style.title">{{ $t('subscription.title') }}</h1>
-	<div v-if="!loading && !subscription">
-		<div :class="$style.plans">
-			<PlanCard :plan="COMMUNITY_PLAN" />
-			<PlanCard
-				:plan="TEAM_PLAN"
-				:product="teamProduct"
-				:defaultOption="defaultActiveWorkflows"
-				@start-trial="onStartTrial"
-			/>
-			<PlanCard :plan="ENTERPRISE_PLAN" />
-		</div>
-		<div :class="$style.faq">
-			<h2>{{ $t('faq') }}</h2>
-			<div v-for="question in PLANS_FAQ" :key="question.questionKey">
-				<FAQuestion :question="question" />
+	<DefaultLayout :title="subscription? $t('subscription.confirmation.title'): $t('subscription.plans.title')">
+		<div v-if="!loading && !subscription">
+			<div :class="$style.plans">
+				<PlanCard :plan="COMMUNITY_PLAN" />
+				<PlanCard
+					:plan="TEAM_PLAN"
+					:product="teamProduct"
+					:defaultOption="defaultActiveWorkflows"
+					@start-trial="onStartTrial"
+				/>
+				<PlanCard :plan="ENTERPRISE_PLAN" />
+			</div>
+			<div :class="$style.faq">
+				<h2>{{ $t('faq') }}</h2>
+				<div v-for="question in PLANS_FAQ" :key="question.questionKey">
+					<FAQuestion :question="question" />
+				</div>
 			</div>
 		</div>
-	</div>
-	<div v-if="subscription" :class="$style.confirmation">
-		<div>
-			<el-alert
-				:title="$t('subscription.confirmation.title')"
-				type="success"
-				show-icon
-				effect="dark"
-				:closable="false"
-			/>
+		<div v-if="subscription" :class="$style.confirmation">
+			<div>
+				<el-alert
+					:title="$t('subscription.confirmation.title')"
+					type="success"
+					show-icon
+					effect="dark"
+					:closable="false"
+				/>
+			</div>
+			<div v-if="callbackUrl">
+				<el-button
+					type="primary"
+					size="large"
+					@click="redirectToActivate"
+					>{{ $t('subscription.activateRedirect.cta') }}</el-button
+				>
+			</div>
+			<div :class="$style.copy">
+				<label v-if="callbackUrl">{{
+					$t('subscription.copyactivation.redirect')
+				}}</label>
+				<label v-else>{{ $t('subscription.copyactivation') }}</label>
+				<CopyInput :value="subscription.reservationId" />
+			</div>
 		</div>
-		<div v-if="callbackUrl">
-			<el-button
-				type="primary"
-				size="large"
-				@click="redirectToActivate"
-				>{{ $t('subscription.activateRedirect.cta') }}</el-button
-			>
-		</div>
-		<div :class="$style.copy">
-			<label v-if="callbackUrl">{{
-				$t('subscription.copyactivation.redirect')
-			}}</label>
-			<label v-else>{{ $t('subscription.copyactivation') }}</label>
-			<CopyInput :value="subscription.reservationId" />
-		</div>
-	</div>
+	</DefaultLayout>
 </template>
 
 <style lang="scss" module>
-.title {
-	margin-bottom: var(--spacing-l);
-	text-align: center;
-}
 .plans {
 	display: flex;
 	justify-content: center;

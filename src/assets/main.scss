@@ -3,21 +3,10 @@
 @import './base.scss';
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   font-weight: normal;
 	height: 100vh;
-	display: flex;
-	flex-direction: column;
-
-	main {
-		padding-top: var(--spacing-m);
-		max-width: 900px;
-		min-width: 900px;
-		margin: auto;
-		flex-grow: 1;
-	}
+	position: relative;
 }
 
 .tritiary {
