@@ -36,6 +36,7 @@
 	--font-line-height-loose: 1.35;
 	--font-line-height-xloose: 1.5;
 
+	--font-family-title: 'Sunset Gothic Pro', sans-serif;
 	--font-family: 'moderat', sans-serif;
 
 	--spacing-5xs: 0.125rem;
@@ -60,6 +61,10 @@
   margin: 0;
   position: relative;
   font-weight: normal;
+}
+
+h1, h2, h3 {
+	font-family: var(--font-family-title);
 }
 
 body {

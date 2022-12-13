@@ -33,10 +33,9 @@ header img {
 }
 
 main {
-	padding-top: var(--spacing-m);
-	max-width: 900px;
+	margin: 100px var(--spacing-2xl);
+	padding-bottom: var(--spacing-2xl);
 	min-width: 900px;
-	margin: auto;
 }
 
 h1 {

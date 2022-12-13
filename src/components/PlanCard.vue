@@ -165,8 +165,7 @@ function onStartTrial() {
 
 <style lang="scss" module>
 .container {
-	min-width: 240px;
-	max-width: 240px;
+	max-width: 392px;
 	padding: 40px 24px 12px 24px;
 	border: var(--border-base);
 	border-radius: var(--border-radius-large);
