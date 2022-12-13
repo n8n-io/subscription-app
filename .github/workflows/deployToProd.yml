@@ -2,8 +2,8 @@ name: Deploy subscription app to Prod
 
 on:
   push:
-    branches:
-      - prod
+    tags:
+      - release@*
 
 jobs:
   build:
