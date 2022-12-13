@@ -307,6 +307,7 @@ function onStartTrial() {
 }
 
 .secondaryCTA {
+	font-size: 18px;
 	min-height: 24px;
 }
 </style>
