@@ -181,14 +181,14 @@ function redirectToActivate() {
 	<DefaultLayout :title="subscription? $t('subscription.confirmation.title'): $t('subscription.plans.title')">
 		<div v-if="!loading && !subscription">
 			<div :class="$style.plans">
-				<PlanCard :plan="COMMUNITY_PLAN" />
+				<PlanCard :plan="COMMUNITY_PLAN" theme="secondary" />
 				<PlanCard
 					:plan="TEAM_PLAN"
 					:product="teamProduct"
 					:defaultOption="defaultActiveWorkflows"
 					@start-trial="onStartTrial"
 				/>
-				<PlanCard :plan="ENTERPRISE_PLAN" />
+				<PlanCard :plan="ENTERPRISE_PLAN" theme="tritiary" />
 			</div>
 			<div :class="$style.faq">
 				<h2>{{ $t('faq') }}</h2>

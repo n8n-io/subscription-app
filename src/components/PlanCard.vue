@@ -7,15 +7,18 @@ import {
 	SUPPORT_EMAIL,
 	CURRENCY_USD,
 } from '@/constants';
+import { getColor } from '@/utils';
 
 export interface Props {
 	plan: Plan;
 	product?: Product;
 	defaultOption?: number;
+	theme?: 'primary' | 'secondary' | 'tritiary';
 }
 
 const props = withDefaults(defineProps<Props>(), {
 	defaultOption: DEFAULT_ACTIVE_WORKFLOWS_OPTION,
+	theme: 'primary',
 });
 
 const selected: Ref<string | number> = ref(props.defaultOption);
@@ -59,7 +62,9 @@ function onStartTrial() {
 	<div :class="$style.container">
 		<div :class="$style.section">
 			<div :class="$style.title">
-				{{ $t(props.plan.nameKey) }}
+				<h3 :class="theme">
+					{{ $t(props.plan.nameKey) }}
+				</h3>
 			</div>
 			<div :class="$style.description">
 				{{ $t(props.plan.descriptionKey) }}
@@ -133,6 +138,7 @@ function onStartTrial() {
 							plan.primaryCTA === 'email' ||
 							selected === MORE_THAN_MAX_OPTION
 						"
+						:color="getColor(theme)"
 						@click="openMainSupport"
 					>
 						{{ $t('cta.contactUs') }}
@@ -141,6 +147,7 @@ function onStartTrial() {
 						type="primary"
 						size="default"
 						v-else-if="plan.primaryCTA === 'start-trial'"
+						:color="getColor(theme)"
 						@click="onStartTrial"
 					>
 						{{ $t('cta.startFreeTrial') }}
@@ -154,6 +161,7 @@ function onStartTrial() {
 						"
 						size="default"
 						link
+						:color="getColor(theme)"
 						@click="openMainSupport"
 						>{{ $t('cta.contactUs') }}</el-button
 					>
@@ -166,10 +174,10 @@ function onStartTrial() {
 <style lang="scss" module>
 .container {
 	max-width: 392px;
-	padding: 40px 24px 12px 24px;
-	border: var(--border-base);
+	padding: 40px 50px 30px 50px;
 	border-radius: var(--border-radius-large);
 	background-color: var(--color-background-xlight);
+	box-shadow: 0px 24px 72px rgba(0, 0, 0, 0.1);
 }
 
 .section {
@@ -253,6 +261,11 @@ function onStartTrial() {
 }
 
 .primaryButton button {
+	color: var(--color-text-xlight);
 	width: 100%;
+
+	&:hover {
+		color: var(--color-text-xlight);
+	}
 }
 </style>

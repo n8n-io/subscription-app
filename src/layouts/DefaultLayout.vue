@@ -40,7 +40,7 @@ main {
 
 h1 {
 	color: var(--color-text-xlight);
-	margin-bottom: var(--spacing-l);
+	margin-bottom: 80px;
 	text-align: center;
 }
 </style>

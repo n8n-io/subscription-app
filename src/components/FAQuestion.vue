@@ -17,7 +17,7 @@ function toggle() {
 
 <template>
 	<div :class="$style.question" :key="question.questionKey">
-		<h3 @click="toggle">
+		<div @click="toggle">
 			<i
 				:class="[
 					'fas',
@@ -25,7 +25,7 @@ function toggle() {
 				]"
 			></i>
 			{{ $t(question.questionKey) }}
-		</h3>
+		</div>
 		<div v-if="!collapsed">{{ $t(question.answerKey) }}</div>
 	</div>
 </template>

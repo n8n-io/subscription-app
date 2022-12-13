@@ -91,10 +91,6 @@ async function onCancel() {
 
 <style lang="scss" module>
 .container {
-	h1 {
-		margin-bottom: var(--spacing-l);
-	}
-
 	label {
 		font-weight: 600;
 	}

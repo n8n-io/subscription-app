@@ -1,4 +1,10 @@
-import type { CustomPlan, FAQ, Feature, FreePlan, LimitedPlan } from './Interface';
+import type {
+	CustomPlan,
+	FAQ,
+	Feature,
+	FreePlan,
+	LimitedPlan,
+} from './Interface';
 
 export const LICENSE_SERVER_URL = 'https://license.n8n.io/';
 
@@ -83,7 +89,7 @@ export const CURRENCY_USD = 'USD';
 export const PLANS_FAQ: FAQ[] = [
 	{
 		questionKey: 'faq.whatAreActiveWorkflows.question',
-		answerKey: 'faq.whatAreActiveWorkflows.answer'
+		answerKey: 'faq.whatAreActiveWorkflows.answer',
 	},
 	{
 		questionKey: 'faq.whyUpgrade.question',
