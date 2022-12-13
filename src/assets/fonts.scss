@@ -55,3 +55,16 @@
   font-display: auto;
   font-style: italic;
 }
+
+@font-face {
+  font-family: 'sunset-gothic';
+  src: url('./fonts/sunset-gothic-bold-pro.eot');
+  src: url('./fonts/sunset-gothic-bold-pro.eot?#iefix')
+      format('embedded-opentype'),
+    url('./fonts/sunset-gothic-bold-pro.woff2') format('woff2'),
+    url('./fonts/sunset-gothic-bold-pro.woff') format('woff'),
+    url('./fonts/sunset-gothic-bold-pro.ttf') format('truetype');
+  font-weight: 700;
+  font-display: auto;
+  font-style: normal;
+}
