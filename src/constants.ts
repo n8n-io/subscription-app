@@ -95,4 +95,12 @@ export const PLANS_FAQ: FAQ[] = [
 		questionKey: 'faq.whyUpgrade.question',
 		answerKey: 'faq.whyUpgrade.answer',
 	},
+	{
+		questionKey: 'faq.whatIsAnExecution.question',
+		answerKey: 'faq.whatIsAnExecution.answer',
+	},
+	{
+		questionKey: 'faq.communityVsPrioritySupport.question',
+		answerKey: 'faq.communityVsPrioritySupport.answer',
+	},
 ];
