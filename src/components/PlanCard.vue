@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Plan, Product } from '@/Interface';
-import { computed, defineProps, ref, type Ref } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 import {
 	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
 	MORE_THAN_MAX_OPTION,

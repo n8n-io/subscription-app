@@ -1,4 +1,4 @@
-name: Deploy subscription app 
+name: Deploy subscription app to test
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
       - name: setup and build
         run: |
           npm install
-          npm run build
+          npm run build:test
           cp CNAME dist/CNAME
           cp dist/index.html dist/404.html
           cd dist
@@ -34,6 +34,6 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
+          branch: test-build
           force: true
           directory: 'dist'

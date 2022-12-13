@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FAQ } from '@/Interface';
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 
 export interface Props {
 	question: FAQ;
