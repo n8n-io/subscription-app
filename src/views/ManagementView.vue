@@ -19,7 +19,7 @@ onMounted(() => {
 		managementToken.value = token;
 	}
 
-	telemetry.page('manage');
+	telemetry.page('manage', 'management page');
 });
 
 async function cancelSubscription() {
