@@ -34,7 +34,7 @@ export default {
 	'subscription.plans.title': 'Plans and pricing',
 	'subscription.confirmation.title': 'Thank you',
 	'faq': 'FAQ',
-	'faq.whatAreActiveWorkflows.question': 'What are active workflows?',
+	'faq.whatAreActiveWorkflows.question': '* What are active workflows?',
 	'faq.whatAreActiveWorkflows.answer': 'If an active workflow contains multiple triggers, each will count as an active workflow. For example, 1 active workflow with 3 triggers will count as 3 active workflows.',
 	'faq.whyUpgrade.question': 'Why should I upgrade?',
 	'faq.whyUpgrade.answer': 'By default, you are using our open-source Community edition. While the Community edition has no limits on active workflows, you won’t have access to any of the premium n8n features. This includes workflows & credentials sharing, LDAP, advanced logging (coming soon), multi-environments (coming soon), and much more.',

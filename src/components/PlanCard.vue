@@ -167,7 +167,9 @@ function onStartTrial() {
 						"
 					>
 						{{ $t('cta.orContactUs.1') }}
-						<a :href="`mailto:${SUPPORT_EMAIL}`">{{ $t('cta.orContactUs.2') }}</a>
+						<a :href="`mailto:${SUPPORT_EMAIL}`">{{
+							$t('cta.orContactUs.2')
+						}}</a>
 					</span>
 				</div>
 			</div>
@@ -213,6 +215,7 @@ function onStartTrial() {
 	font-weight: 400;
 	font-size: 18px;
 	text-align: center;
+	color: var(--color-text-dark);
 }
 
 .pricing {
@@ -221,6 +224,7 @@ function onStartTrial() {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	color: var(--color-text-dark);
 
 	.quote {
 		line-height: 42px;
@@ -246,10 +250,15 @@ function onStartTrial() {
 	}
 
 	input {
+		color: var(--color-text-dark);
 		font-size: var(--font-size-s);
 		height: 60px;
 		font-weight: 700;
 		font-size: 18px;
+	}
+
+	:global(.el-select-dropdown__item) {
+		font-size: var(--font-size-l);
 	}
 }
 
@@ -283,6 +292,7 @@ function onStartTrial() {
 	span {
 		font-weight: 700;
 		font-size: 18px;
+		color: var(--color-text-dark);
 	}
 }
 

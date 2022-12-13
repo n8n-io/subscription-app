@@ -179,7 +179,7 @@ function redirectToActivate() {
 
 <template>
 	<DefaultLayout :title="subscription? $t('subscription.confirmation.title'): $t('subscription.plans.title')">
-		<div v-if="!loading && !subscription">
+		<div v-if="!loading && !subscription" :class="$style.container">
 			<div :class="$style.plans">
 				<PlanCard :plan="COMMUNITY_PLAN" theme="secondary" />
 				<PlanCard
@@ -191,7 +191,7 @@ function redirectToActivate() {
 				<PlanCard :plan="ENTERPRISE_PLAN" theme="tritiary" />
 			</div>
 			<div :class="$style.faq">
-				<h2>{{ $t('faq') }}</h2>
+				<h1>{{ $t('faq') }}</h1>
 				<div v-for="question in PLANS_FAQ" :key="question.questionKey">
 					<FAQuestion :question="question" />
 				</div>
@@ -227,10 +227,16 @@ function redirectToActivate() {
 </template>
 
 <style lang="scss" module>
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .plans {
 	display: flex;
 	justify-content: center;
-	margin-bottom: var(--spacing-l);
+	margin-bottom: 130px;
 
 	> div + div {
 		margin-left: var(--spacing-m);
@@ -257,6 +263,12 @@ function redirectToActivate() {
 
 .faq {
 	margin-bottom: var(--spacing-l);
+	width: 808px;
+
+	h1 {
+		text-align: center;
+		margin-bottom: 48px;
+	}
 
 	> * {
 		margin-bottom: var(--spacing-s);

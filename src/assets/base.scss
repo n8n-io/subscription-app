@@ -1,6 +1,7 @@
 :root {
 	--color-primary: #20B69E;
-	--color-text-dark: #555555;
+	--color-text-dark: #101330;
+	--color-text-base: #40425E;
 	--color-text-light: #909399;
 	--color-text-xlight: #fff;
 	--color-secondary: #8287EB;
@@ -66,11 +67,12 @@
 
 h1, h2, h3 {
 	font-family: var(--font-family-title);
+  color: var(--color-text-dark);
 }
 
 body {
   min-height: 100vh;
-  color: var(--color-text-dark);
+  color: var(--color-text-base);
   background: var(--color-background-light);
   transition: color 0.5s, background-color 0.5s;
   line-height: var(--font-line-height-xloose);

@@ -34,11 +34,11 @@ header img {
 
 main {
 	margin: 100px var(--spacing-2xl);
-	padding-bottom: var(--spacing-2xl);
+	padding-bottom: 100px;
 	min-width: 900px;
 }
 
-h1 {
+.title {
 	color: var(--color-text-xlight);
 	margin-bottom: 80px;
 	text-align: center;
