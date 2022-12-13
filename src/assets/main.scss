@@ -30,6 +30,8 @@ h3 {
 }
 
 a {
+	text-decoration: underline;
+	color: var(--color-text-dark);
   transition: 0.4s;
 
 	&:hover {
