@@ -45,6 +45,8 @@ async function onCopy() {
 .card {
 	cursor: pointer;
 	flex-direction: row;
+	background-color: var(--color-foreground-light) !important;
+	border: 1px solid var(--color-foreground-base);
 
 	> *:first-child {
 		display: flex;

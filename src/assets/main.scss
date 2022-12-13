@@ -35,11 +35,20 @@ a {
   transition: 0.4s;
 
 	&:hover {
-		color: var(--el-color-primary-light-3);
+		color: var(--color-tritiary);
 		cursor: pointer;
 	}
 
 	&:active {
-		color: var(--el-color-primary-dark-2);
+		color: var(--color-tritiary);
+	}
+}
+
+.el-button--large {
+	color: var(--color-text-xlight) !important;
+	height: 64px;
+	span {
+		font-weight: 700;
+		font-size: 18px;
 	}
 }

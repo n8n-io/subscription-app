@@ -313,18 +313,7 @@ function onStartTrial() {
 }
 
 .primaryButton button {
-	color: var(--color-text-xlight) !important;
 	width: 100%;
-	height: 64px;
-
-	span {
-		font-weight: 700;
-		font-size: 18px;
-	}
-
-	&:hover {
-		color: var(--color-text-xlight);
-	}
 }
 
 .secondaryCTA {

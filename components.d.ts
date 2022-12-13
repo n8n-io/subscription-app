@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Alert: typeof import('./src/components/Alert.vue')['default']
+    Banner: typeof import('./src/components/Banner.vue')['default']
     CopyInput: typeof import('./src/components/CopyInput.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -24,5 +26,6 @@ declare module '@vue/runtime-core' {
     PlanCard: typeof import('./src/components/PlanCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SuccessBanner: typeof import('./src/components/SuccessBanner.vue')['default']
   }
 }

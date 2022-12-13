@@ -9,6 +9,7 @@ import {
 	TEAM_PLAN,
 	TEAM_PLAN_NAME,
 	PLANS_FAQ,
+	SUPPORT_EMAIL,
 } from '@/constants';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { usePlansStore } from '@/stores/plans';
@@ -178,7 +179,13 @@ function redirectToActivate() {
 </script>
 
 <template>
-	<DefaultLayout :title="subscription? $t('subscription.confirmation.title'): $t('subscription.plans.title')">
+	<DefaultLayout
+		:title="
+			subscription
+				? $t('subscription.confirmation.title')
+				: $t('subscription.plans.title')
+		"
+	>
 		<div v-if="!loading && !subscription" :class="$style.container">
 			<div :class="$style.plans">
 				<PlanCard :plan="COMMUNITY_PLAN" theme="secondary" />
@@ -199,14 +206,23 @@ function redirectToActivate() {
 		</div>
 		<div v-if="subscription" :class="$style.confirmation">
 			<div>
-				<el-alert
-					:title="$t('subscription.confirmation.title')"
-					type="success"
-					show-icon
-					effect="dark"
-					:closable="false"
-				/>
+				<SuccessBanner>
+					{{ $t('subscription.confirmation.message.1') }}
+					<a :href="`mailto:${SUPPORT_EMAIL}`">
+						{{ $t('subscription.confirmation.message.2') }}
+					</a>
+					{{ $t('subscription.confirmation.message.3') }}
+				</SuccessBanner>
 			</div>
+
+			<div :class="$style.copy">
+				<label v-if="callbackUrl">{{
+					$t('subscription.copyactivation.title')
+				}}</label>
+				<label v-else>{{ $t('subscription.copyactivation') }}</label>
+				<CopyInput :value="subscription.reservationId" />
+			</div>
+
 			<div v-if="callbackUrl">
 				<el-button
 					type="primary"
@@ -214,13 +230,6 @@ function redirectToActivate() {
 					@click="redirectToActivate"
 					>{{ $t('subscription.activateRedirect.cta') }}</el-button
 				>
-			</div>
-			<div :class="$style.copy">
-				<label v-if="callbackUrl">{{
-					$t('subscription.copyactivation.redirect')
-				}}</label>
-				<label v-else>{{ $t('subscription.copyactivation') }}</label>
-				<CopyInput :value="subscription.reservationId" />
 			</div>
 		</div>
 	</DefaultLayout>
@@ -244,6 +253,9 @@ function redirectToActivate() {
 }
 
 .confirmation {
+	max-width: 810px;
+	margin: auto;
+
 	> * {
 		margin-bottom: var(--spacing-xs);
 	}
@@ -254,7 +266,12 @@ function redirectToActivate() {
 }
 
 .copy {
-	max-width: 600px;
+	width: 100%;
+	padding: 27px 30px;
+	background-color: var(--color-background-xlight);
+	border-radius: 8px;
+	margin-bottom: 18px;
+	border: 1px solid var(--color-foreground-base);
 
 	label {
 		font-weight: 600;
