@@ -180,20 +180,20 @@ function onStartTrial() {
 
 <style lang="scss" module>
 .container {
-	max-width: 392px;
+	max-width: 340px;
 	border-radius: var(--border-radius-large);
 	background-color: var(--color-background-xlight);
 	box-shadow: 0px 24px 72px rgba(0, 0, 0, 0.1);
-	padding-top: 50px;
+	padding-top: 30px;
 	padding-bottom: 30px;
 
 	:global(.el-divider--horizontal) {
-		margin: 50px 0;
+		margin: 30px 0;
 	}
 }
 
 .section {
-	padding: 0px 50px 0px 50px;
+	padding: 0px 30px 0px 30px;
 }
 
 .pricingSection > * {

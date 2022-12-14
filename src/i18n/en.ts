@@ -3,7 +3,7 @@ export default {
 	'plan.community.description': 'Ideal for single users who are getting started with automation',
 	'features.includes': 'Includes',
 	'features.activeWorkflows.unlimited': 'Unlimited active workflows *',
-	'features.activeWorkflows.extras': 'Includes unlimited executions and unlimited test workflows',
+	'features.activeWorkflows.extras': 'For unlimited executions and unlimited test workflows',
 	'feature.forumSupport': 'Forum support',
 	'feature.sharing': 'Sharing',
 	'cta.startFreeTrial': 'Start free trial',
