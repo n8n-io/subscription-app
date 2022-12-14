@@ -24,6 +24,7 @@ import { isNumber } from '@/utils';
 import { ElNotification } from 'element-plus';
 import FAQuestion from '@/components/FAQuestion.vue';
 import telemetry from '../utils/telemetry';
+import InfoCard from '@/components/InfoCard.vue';
 
 const loading = ref(true);
 const plans: Ref<Product[]> = ref([]);
@@ -216,7 +217,7 @@ function redirectToActivate() {
 				</SuccessBanner>
 			</div>
 
-			<div :class="$style.copy">
+			<InfoCard :class="$style.copy">
 				<div>
 					<label v-if="callbackUrl">{{
 						$t('subscription.copyactivation.title')
@@ -226,7 +227,7 @@ function redirectToActivate() {
 					}}</label>
 				</div>
 				<CopyInput :value="subscription.reservationId" />
-			</div>
+			</InfoCard>
 
 			<div v-if="callbackUrl">
 				<el-button

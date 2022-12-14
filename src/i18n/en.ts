@@ -23,6 +23,7 @@ export default {
 	'subscription.copyactivation': 'Copy activation code to activate license',
 	'generic.copy': 'Copy',
 	'generic.copied': 'Copied',
+	'management.title': 'Manage plan',
 	'management.cancel.title': 'Do you want to cancel your subscription?',
 	'management.cancel.cta': 'Cancel your subscription',
 	'management.cancel.confirm': 'Are you sure you want to cancel your subscription?',
@@ -48,4 +49,7 @@ export default {
 	'cta.orContactUs.1': 'or',
 	'cta.orContactUs.2': 'contact us',
 	'plan.recommended': 'Recommended plan',
+	'management.cta.1': 'To upgrade your plan or your active workflow quota, <a href="mailto:sales@n8n.io">contact us</a>. You can view all plans <a href="/">here</a>. To cancel your plan and lose access to paid features, ',
+	'management.cta.2': 'click here',
+	'management.cta.3': '.',
 };

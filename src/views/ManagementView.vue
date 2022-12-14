@@ -1,5 +1,7 @@
 <script setup lang="ts">
 // import { useSubscriptionsStore } from '@/stores/subscriptions';
+import InfoCard from '@/components/InfoCard.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { ElNotification, ElMessageBox } from 'element-plus';
 import { onMounted, ref, type Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -58,39 +60,40 @@ async function onCancel() {
 </script>
 
 <template>
-	<div v-if="!managementToken">
-		<el-alert type="error" show-icon effect="dark" :closable="false">{{
-			$t('management.error.missingToken')
-		}}</el-alert>
-	</div>
-	<div :class="$style.container" v-else>
-		<h1>Manage Plan</h1>
-		<div v-if="cancelled">
-			<el-alert
-				type="success"
-				show-icon
-				effect="dark"
-				:closable="false"
-				>{{
-					$t('management.cancel.success', {
-						days: cancelled.daysLeft,
-					})
-				}}</el-alert
-			>
+	<DefaultLayout :title="$t('management.title')">
+		<div v-if="!managementToken">
+			<el-alert type="error" show-icon effect="dark" :closable="false">{{
+				$t('management.error.missingToken')
+			}}</el-alert>
 		</div>
-		<div v-else>
-			<label>{{ $t('management.cancel.title') }}</label>
-			<div>
-				<el-button size="default" @click="onCancel">{{
-					$t('management.cancel.cta')
-				}}</el-button>
+		<div :class="$style.container" v-else>
+			<div v-if="cancelled">
+				<el-alert
+					type="success"
+					show-icon
+					effect="dark"
+					:closable="false"
+					>{{
+						$t('management.cancel.success', {
+							days: cancelled.daysLeft,
+						})
+					}}</el-alert
+				>
 			</div>
+			<InfoCard v-else>
+				<span v-html="$t('management.cta.1')"></span>
+				<a @click="onCancel"> {{ $t('management.cta.2') }}</a
+				>{{ $t('management.cta.3') }}
+			</InfoCard>
 		</div>
-	</div>
+	</DefaultLayout>
 </template>
 
 <style lang="scss" module>
 .container {
+	margin: auto;
+	max-width: 809px;
+
 	label {
 		font-weight: 600;
 	}
