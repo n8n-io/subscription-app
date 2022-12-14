@@ -207,11 +207,11 @@ function redirectToActivate() {
 		</div>
 		<div v-if="subscription" :class="$style.confirmation">
 			<div>
-				<SuccessBanner>
+				<InfoBanner>
 					<span
 						v-html="$t('subscription.confirmation.message')"
 					></span>
-				</SuccessBanner>
+				</InfoBanner>
 			</div>
 
 			<InfoCard :class="$style.copy">

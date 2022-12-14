@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSubscriptionsStore } from '@/stores/subscriptions';
 import InfoCard from '@/components/InfoCard.vue';
-import SuccessBanner from '@/components/SuccessBanner.vue';
+import InfoBanner from '@/components/InfoBanner.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { ElNotification, ElMessageBox } from 'element-plus';
 import { onMounted, ref, type Ref } from 'vue';
@@ -68,18 +68,18 @@ async function onCancel() {
 				: $t('management.title')
 		"
 	>
-		<div v-if="!managementToken">
-			<el-alert type="error" show-icon effect="dark" :closable="false">{{
+		<div v-if="!managementToken" :class="$style.container">
+			<InfoBanner theme="danger">{{
 				$t('management.error.missingToken')
-			}}</el-alert>
+			}}</InfoBanner>
 		</div>
 		<div :class="$style.container" v-else>
 			<div v-if="cancelled" :class="$style.cancelled">
-				<SuccessBanner>{{
+				<InfoBanner>{{
 					$t('management.cancel.success', {
 						days: cancelled.daysLeft,
 					})
-				}}</SuccessBanner>
+				}}</InfoBanner>
 
 				<InfoCard>
 					<span v-html="$t('management.cancel.info')"></span>

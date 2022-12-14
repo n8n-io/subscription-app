@@ -23,10 +23,10 @@ declare module '@vue/runtime-core' {
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
+    InfoBanner: typeof import('./src/components/InfoBanner.vue')['default']
     InfoCard: typeof import('./src/components/InfoCard.vue')['default']
     PlanCard: typeof import('./src/components/PlanCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SuccessBanner: typeof import('./src/components/SuccessBanner.vue')['default']
   }
 }
