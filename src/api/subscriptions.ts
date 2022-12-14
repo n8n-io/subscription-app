@@ -1,6 +1,6 @@
-import { LICENSE_SERVER_URL } from "@/constants";
-import type { Subscription } from "@/Interface";
-import { hasErrorMessage } from "@/type-guards";
+import { LICENSE_SERVER_URL } from '@/constants';
+import type { Subscription } from '@/Interface';
+import { hasErrorMessage } from '@/type-guards';
 
 export async function createSubscription(
 	internalCheckoutId: string,
@@ -32,7 +32,7 @@ export async function createSubscription(
 }
 
 export async function cancelSubscription(
-	managementToken: string,
+	managementToken: string
 ): Promise<Subscription> {
 	const url = new URL('/v1/subscription/cancel', LICENSE_SERVER_URL);
 
@@ -40,10 +40,8 @@ export async function cancelSubscription(
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			authorization: `Bearer ${managementToken}`,
 		},
-		body: JSON.stringify({
-			managementToken,
-		}),
 	});
 
 	const data = await response.json();

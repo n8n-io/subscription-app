@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { useSubscriptionsStore } from '@/stores/subscriptions';
+import { useSubscriptionsStore } from '@/stores/subscriptions';
 import InfoCard from '@/components/InfoCard.vue';
 import SuccessBanner from '@/components/SuccessBanner.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
@@ -9,7 +9,7 @@ import { useI18n } from 'vue-i18n';
 import telemetry from '../utils/telemetry';
 
 const i18n = useI18n();
-// const subscriptionsStore = useSubscriptionsStore();
+const subscriptionsStore = useSubscriptionsStore();
 
 const managementToken = ref('');
 const cancelled: Ref<null | { daysLeft: number }> = ref(null);
@@ -27,8 +27,8 @@ onMounted(() => {
 
 async function cancelSubscription() {
 	try {
-		// todo enable once endpoint is ready
-		// await subscriptionsStore.cancelSubscription(managementToken.value);
+		const resp = await subscriptionsStore.cancelSubscription(managementToken.value);
+		console.log('yo', resp);
 
 		cancelled.value = {
 			daysLeft: 2,
