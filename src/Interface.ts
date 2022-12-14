@@ -15,7 +15,7 @@ interface RudderStack {
 	) => void;
 	track: (
 		event: string,
-		traits: { [key: string]: string },
+		traits: { [key: string]: string | number | {} },
 		callback?: () => void
 	) => void;
 	page: (
