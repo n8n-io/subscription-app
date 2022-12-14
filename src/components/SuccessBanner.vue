@@ -15,8 +15,10 @@
 	border-radius: 4px;
 	font-weight: 400;
 	font-size: 18px;
+	display: flex;
 
 	svg {
+		margin-top: 5px;
 		margin-right: 17px;
 	}
 

@@ -209,11 +209,9 @@ function redirectToActivate() {
 		<div v-if="subscription" :class="$style.confirmation">
 			<div>
 				<SuccessBanner>
-					{{ $t('subscription.confirmation.message.1') }}
-					<a :href="`mailto:${SUPPORT_EMAIL}`">
-						{{ $t('subscription.confirmation.message.2') }}
-					</a>
-					{{ $t('subscription.confirmation.message.3') }}
+					<span
+						v-html="$t('subscription.confirmation.message')"
+					></span>
 				</SuccessBanner>
 			</div>
 
