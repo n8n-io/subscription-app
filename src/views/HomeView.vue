@@ -112,7 +112,7 @@ function trackCheckout(data: {
 	successEvent: PaddleCheckoutSuccess;
 	quota: number;
 }) {
-	const params: { [key: string]: string } = {
+	const params: { [key: string]: string | number | {} } = {
 		quota: `${data.quota}`,
 	};
 	if (data.successEvent.product) {
@@ -125,6 +125,22 @@ function trackCheckout(data: {
 	if (data.successEvent.user?.email) {
 		params.email = data.successEvent.user.email;
 	}
+
+	const item = data.successEvent?.checkout?.prices?.customer?.items?.[0];
+	if (item) {
+		params.initial_line_price = item.line_price;
+		params.initial_discounts = item.discounts;
+		if (item.recurring) {
+			params.recurring_period = item.recurring.period;
+			params.recurring_interval = item.recurring.interval;
+			params.recurring_trial_days = item.recurring.trial_days;
+			params.recurring_currency = item.recurring.currency;
+			params.recurring_line_price = item.recurring.line_price;
+			params.recurring_discounts = item.recurring.discounts;
+			params.recurring_tax_rate = item.recurring.tax_rate;
+		}
+	}
+
 	telemetry.track('User submitted payment details successfully', params);
 }
 

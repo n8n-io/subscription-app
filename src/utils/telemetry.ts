@@ -28,7 +28,7 @@ export default {
 			// nada
 		}
 	},
-	track(eventName: string, params: { [key: string]: string }) {
+	track(eventName: string, params: { [key: string]: string | number | {} }) {
 		try {
 			const rudderanalytics = window.rudderanalytics;
 			if (!rudderanalytics) {

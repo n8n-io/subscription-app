@@ -32,13 +32,27 @@ export interface PaddleCheckoutSuccess {
 		id: string;
 		coupon: { coupon_code: null };
 		passthrough: null;
-		prices: {
-			customer: unknown;
+		prices?: {
+			customer?: {
+				items?: Array<{
+					line_price: number;
+					discounts: unknown[];
+					recurring?: {
+						period: string;
+						interval: number;
+						trial_days: number;
+						currency: string;
+						line_price: {};
+						discounts: unknown[];
+						tax_rate: number;
+					};
+				}>;
+			};
 			vendor: unknown;
 		};
 		redirect_url: null;
 		test_variant: string;
-		recurring_prices: {
+		recurring_prices?: {
 			customer: unknown;
 			interval: { length: number; type: string };
 			vendor: unknown;
