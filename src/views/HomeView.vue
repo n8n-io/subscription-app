@@ -100,7 +100,7 @@ async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
 }
 
 function trackButtonClicked(
-	action: 'team_get_started' | 'enterprise_contact_us' | 'team_contact_us '
+	action: 'team_get_started' | 'enterprise_contact_us' | 'team_contact_us'
 ) {
 	telemetry.track('User clicked button on plans page', {
 		action,
@@ -169,6 +169,14 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 	}
 }
 
+function onTeamContactUs() {
+	trackButtonClicked('team_contact_us');
+}
+
+function onEnterpriseContactUs() {
+	trackButtonClicked('enterprise_contact_us');
+}
+
 function redirectToActivate() {
 	if (subscription.value && callbackUrl) {
 		const url = new URL(callbackUrl);
@@ -195,8 +203,13 @@ function redirectToActivate() {
 					:defaultOption="defaultActiveWorkflows"
 					:recommended="true"
 					@start-trial="onStartTrial"
+					@contact-us="onTeamContactUs"
 				/>
-				<PlanCard :plan="ENTERPRISE_PLAN" theme="tritiary" />
+				<PlanCard
+					:plan="ENTERPRISE_PLAN"
+					theme="tritiary"
+					@contact-us="onEnterpriseContactUs"
+				/>
 			</div>
 			<div :class="$style.faq">
 				<h1>{{ $t('faq') }}</h1>

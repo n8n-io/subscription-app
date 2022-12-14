@@ -14,6 +14,15 @@ export default {
 				params.instance_id = instanceId;
 			}
 
+			if (urlParams.get('callback')) {
+				params.source = 'instance';
+			} else if (document.referrer) {
+				const url = new URL(document.referrer);
+				if (url.host.includes('n8n.io')) {
+					params.source = 'n8n.io';
+				}
+			}
+
 			rudderanalytics.page(category, pageName, params);
 		} catch (e: unknown) {
 			// nada

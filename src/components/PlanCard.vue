@@ -26,10 +26,16 @@ const selected: Ref<string | number> = ref(props.defaultOption);
 
 const emit = defineEmits<{
 	(event: 'startTrial', productId: string, activeWorkflows: number): void;
+	(event: 'contactUs'): void;
 }>();
+
+function trackContactUs() {
+	emit('contactUs');
+}
 
 const openMainSupport = () => {
 	window.location.href = `mailto:${SUPPORT_EMAIL}`;
+	trackContactUs();
 };
 
 const price = computed(() => {
@@ -176,6 +182,7 @@ function onStartTrial() {
 							selected !== MORE_THAN_MAX_OPTION
 						"
 						v-html="$t('cta.orContactUs')"
+						@click="trackContactUs"
 					>
 					</span>
 				</div>
