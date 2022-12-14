@@ -164,3 +164,7 @@ export interface FAQ {
 	questionKey: string;
 	answerKey: string;
 }
+
+export interface SubscriptionCancellation {
+	expiry: string;
+}

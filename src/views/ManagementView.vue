@@ -27,11 +27,16 @@ onMounted(() => {
 
 async function cancelSubscription() {
 	try {
-		const resp = await subscriptionsStore.cancelSubscription(managementToken.value);
-		console.log('yo', resp);
+		const resp = await subscriptionsStore.cancelSubscription(
+			managementToken.value
+		);
+
+		const diffInMs = new Date(resp.expiry).getTime() - new Date().getTime();
+		const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+		const daysLeft = Math.max(diffInDays, 0);
 
 		cancelled.value = {
-			daysLeft: 2,
+			daysLeft,
 		};
 	} catch (e) {
 		if (e instanceof Error) {
@@ -76,9 +81,14 @@ async function onCancel() {
 		<div :class="$style.container" v-else>
 			<div v-if="cancelled" :class="$style.cancelled">
 				<InfoBanner>{{
-					$t('management.cancel.success', {
-						days: cancelled.daysLeft,
-					})
+					$t(
+						cancelled.daysLeft === 0
+							? 'management.cancel.success.soon'
+							: 'management.cancel.success',
+						{
+							days: cancelled.daysLeft,
+						}
+					)
 				}}</InfoBanner>
 
 				<InfoCard>
