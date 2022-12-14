@@ -317,6 +317,7 @@ function onStartTrial() {
 	font-weight: 700;
 	font-size: 18px;
 	white-space: nowrap;
+	color: var(--color-text-dark);
 }
 
 .features {
