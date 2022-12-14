@@ -17,13 +17,11 @@ function toggle() {
 
 <template>
 	<div :class="$style.question" :key="question.questionKey">
-		<div :class="$style.toggle" @click="toggle">
-			<i
-				:class="[
-					'fas',
-					collapsed ? 'fa-chevron-right' : 'fa-chevron-down',
-				]"
-			></i>
+		<div v-if="collapsed" :class="$style.toggle" @click="toggle">
+			<i v-show="collapsed" :class="['fas', 'fa-chevron-right']"></i>
+		</div>
+		<div v-else :class="$style.toggle" @click="toggle">
+			<i v-show="!collapsed" :class="['fas', 'fa-chevron-down']"></i>
 		</div>
 		<div>
 			<h3 @click="toggle">
@@ -57,6 +55,7 @@ function toggle() {
 }
 
 .toggle {
+	width: 16px;
 	margin-right: 32px;
 	font-size: var(--font-size-l);
 	cursor: pointer;
