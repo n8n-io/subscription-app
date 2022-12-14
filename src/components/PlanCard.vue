@@ -14,6 +14,7 @@ export interface Props {
 	product?: Product;
 	defaultOption?: number;
 	theme?: 'primary' | 'secondary' | 'tritiary';
+	recommended?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -59,7 +60,15 @@ function onStartTrial() {
 </script>
 
 <template>
-	<div :class="$style.container">
+	<div
+		:class="[
+			$style.container,
+			recommended ? $style.halfbordered : $style.fullbordered,
+		]"
+	>
+		<div v-if="recommended" :class="$style.recommended">
+			{{ $t('plan.recommended') }}
+		</div>
 		<div :class="$style.section">
 			<div :class="$style.title">
 				<h3 :class="theme">
@@ -180,8 +189,8 @@ function onStartTrial() {
 
 <style lang="scss" module>
 .container {
+	position: relative;
 	max-width: 340px;
-	border-radius: var(--border-radius-large);
 	background-color: var(--color-background-xlight);
 	box-shadow: 0px 24px 72px rgba(0, 0, 0, 0.1);
 	padding-top: 30px;
@@ -190,6 +199,29 @@ function onStartTrial() {
 	:global(.el-divider--horizontal) {
 		margin: 30px 0;
 	}
+}
+
+.fullbordered {
+	border-radius: var(--border-radius-large);
+}
+
+.halfbordered {
+	border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+}
+
+.recommended {
+	background-color: var(--color-primary);
+	color: var(--color-text-xlight);
+	position: absolute;
+	width: 100%;
+	height: 44px;
+	top: -44px;
+	border-radius: 8px 8px 0 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	font-size: 18px;
 }
 
 .section {

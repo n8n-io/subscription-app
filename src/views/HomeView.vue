@@ -193,6 +193,7 @@ function redirectToActivate() {
 					:plan="TEAM_PLAN"
 					:product="teamProduct"
 					:defaultOption="defaultActiveWorkflows"
+					:recommended="true"
 					@start-trial="onStartTrial"
 				/>
 				<PlanCard :plan="ENTERPRISE_PLAN" theme="tritiary" />
@@ -246,6 +247,7 @@ function redirectToActivate() {
 	display: flex;
 	justify-content: center;
 	margin-bottom: 130px;
+	padding-top: 44px;
 
 	> div + div {
 		margin-left: var(--spacing-m);

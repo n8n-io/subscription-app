@@ -47,4 +47,5 @@ export default {
 	'management.cancel.success': 'Cancelled! You have {days} left in your license',
 	'cta.orContactUs.1': 'or',
 	'cta.orContactUs.2': 'contact us',
+	'plan.recommended': 'Recommended plan',
 };
