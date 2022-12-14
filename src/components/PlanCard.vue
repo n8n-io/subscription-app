@@ -175,11 +175,8 @@ function onStartTrial() {
 							plan.secondaryCTA === 'email' &&
 							selected !== MORE_THAN_MAX_OPTION
 						"
+						v-html="$t('cta.orContactUs')"
 					>
-						{{ $t('cta.orContactUs.1') }}
-						<a :href="`mailto:${SUPPORT_EMAIL}`">{{
-							$t('cta.orContactUs.2')
-						}}</a>
 					</span>
 				</div>
 			</div>

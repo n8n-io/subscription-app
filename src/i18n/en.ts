@@ -1,4 +1,4 @@
-import { SUPPORT_EMAIL } from '@/constants';
+const MAILTO = `href="mailto:sales{'@'}n8n.io"`;
 
 export default {
 	'backToN8n': 'Back to n8n',
@@ -20,7 +20,7 @@ export default {
 	'features.activeWorkflows.count': '{count} Active workflows',
 	'pricing.dollars': '$',
 	'pricing.permonth': '/mo',
-	'subscription.confirmation.message': `Your plan was successfully upgraded. <a href="mailto:${SUPPORT_EMAIL}">Contact us</a> if you need help.`,
+	'subscription.confirmation.message': `Your plan was successfully upgraded. <a ${MAILTO}>Contact us</a> if you need help.`,
 	'subscription.copyactivation': 'Copy activation code to activate license',
 	'generic.copy': 'Copy',
 	'generic.copied': 'Copied',
@@ -48,11 +48,10 @@ export default {
 	'faq.communityVsPrioritySupport.answer': 'Priority support gives you direct access to our support team whereas community support is offered by the n8n community, which consists of over 4,000 tech enthusiasts & professionals, along with our support and community engineers, who are passionate about improving n8n and addressing any user questions or issues. Once you post your question, you can expect to receive an answer within 8 business hours.',
 	'management.cancel.success': 'Your plan was cancelled, but it will still be available for another {days} days. Please disregard the cancellation email from Paddle, our payments provider.',
 	'management.cancel.success.soon': 'Your plan was cancelled, and soon will no longer be availble.',
-	'management.cancel.info': `It’s sad that things didn’t work out this time. Please <a href="mailto:${SUPPORT_EMAIL}">contact us</a> to let us know how we can improve and make things better for you next time around.`,
-	'cta.orContactUs.1': 'or',
-	'cta.orContactUs.2': 'contact us',
+	'management.cancel.info': `It’s sad that things didn’t work out this time. Please <a ${MAILTO}>contact us</a> to let us know how we can improve and make things better for you next time around.`,
+	'cta.orContactUs': `or <a ${MAILTO}>contact us</a>`,
 	'plan.recommended': 'Recommended plan',
-	'management.cta.1': `To upgrade your plan or your active workflow quota, <a href="mailto:${SUPPORT_EMAIL}">contact us</a>. You can view all plans <a href="/">here</a>. To cancel your plan and lose access to paid features, `,
+	'management.cta.1': `To upgrade your plan or your active workflow quota, <a ${MAILTO}>contact us</a>. You can view all plans <a href="/">here</a>. To cancel your plan and lose access to paid features, `,
 	'management.cta.2': 'click here',
 	'management.cta.3': '.',
 };
