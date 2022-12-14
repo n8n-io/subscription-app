@@ -13,12 +13,14 @@ defineProps<Props>();
 <template>
 	<header>
 		<div :class="$style.background"></div>
-		<img
-			alt="n8n logo"
-			:class="$style.logo"
-			src="@/assets/logo.png"
-			height="25"
-		/>
+		<a href="https://n8n.io">
+			<img
+				alt="n8n logo"
+				:class="$style.logo"
+				src="@/assets/logo.png"
+				height="25"
+			/>
+		</a>
 		<div v-if="callbackUrl" :class="$style.backButton">
 			<a :href="callbackUrl">
 				{{ $t('backToN8n') }}
