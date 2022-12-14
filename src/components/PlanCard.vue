@@ -309,6 +309,7 @@ function onStartTrial() {
 	justify-content: center;
 	font-weight: 700;
 	font-size: 18px;
+	white-space: nowrap;
 }
 
 .features {
