@@ -24,6 +24,10 @@ export const FEATURE_LDAP: Feature = {
 	labelKey: 'feature.ldap',
 };
 
+export const FEATURE_LOG_STREAMING: Feature = {
+	labelKey: 'feature.logStreaming',
+};
+
 export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 2;
 export const MORE_THAN_MAX_OPTION = '100+';
 
@@ -74,7 +78,12 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 	id: 'enterprise',
 	nameKey: 'plan.enterprise',
 	descriptionKey: 'plan.enterprise.description',
-	features: [FEATURE_DEDICATED_SUPPORT, FEATURE_SHARING, FEATURE_LDAP],
+	features: [
+		FEATURE_DEDICATED_SUPPORT,
+		FEATURE_SHARING,
+		FEATURE_LDAP,
+		FEATURE_LOG_STREAMING,
+	],
 	unlimited: true,
 	pricing: 'quote',
 	primaryCTA: 'email',
