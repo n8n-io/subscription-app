@@ -9,7 +9,6 @@ import {
 	TEAM_PLAN,
 	TEAM_PLAN_NAME,
 	PLANS_FAQ,
-	SUPPORT_EMAIL,
 } from '@/constants';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { usePlansStore } from '@/stores/plans';

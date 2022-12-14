@@ -1,6 +1,7 @@
 import { SUPPORT_EMAIL } from '@/constants';
 
 export default {
+	'backToN8n': 'Back to n8n',
 	'plan.community': 'Community',
 	'plan.community.description': 'Ideal for single users who are getting started with automation',
 	'features.includes': 'Includes',

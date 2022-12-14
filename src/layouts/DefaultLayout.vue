@@ -3,14 +3,27 @@ export interface Props {
 	title: string;
 }
 
-defineProps<Props>();
+const params = new URLSearchParams(window.location.search);
+const callbackParam = params.get('callback');
+const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
 
+defineProps<Props>();
 </script>
 
 <template>
 	<header>
 		<div :class="$style.background"></div>
-		<img alt="n8n logo" class="logo" src="@/assets/logo.png" height="25" />
+		<img
+			alt="n8n logo"
+			:class="$style.logo"
+			src="@/assets/logo.png"
+			height="25"
+		/>
+		<div v-if="callbackUrl" :class="$style.backButton">
+			<a :href="callbackUrl">
+				{{ $t('backToN8n') }}
+			</a>
+		</div>
 	</header>
 
 	<main>
@@ -19,7 +32,7 @@ defineProps<Props>();
 	</main>
 </template>
 
-<style module>
+<style module lang="scss">
 .background {
 	background-color: var(--color-background-dark);
 	min-height: 489px;
@@ -27,13 +40,19 @@ defineProps<Props>();
 	min-width: 100vw;
 }
 
-header img {
-	margin-left: 108px;
-	margin-top: 26px;
+header {
+	position: relative;
+	min-height: 100px;
+}
+
+.logo {
+	position: absolute;
+	left: 108px;
+	top: 26px;
 }
 
 main {
-	margin: 100px var(--spacing-2xl);
+	margin: 0 var(--spacing-2xl);
 	padding-bottom: 100px;
 	min-width: 900px;
 }
@@ -42,5 +61,17 @@ main {
 	color: var(--color-text-xlight);
 	margin-bottom: 80px;
 	text-align: center;
+}
+
+.backButton {
+	position: absolute;
+	top: 26px;
+	right: 113px;
+
+	a {
+		color: var(--color-text-xlight);
+		text-decoration: none;
+		font-weight: 700;
+	}
 }
 </style>
