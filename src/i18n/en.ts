@@ -1,3 +1,5 @@
+import { SUPPORT_EMAIL } from '@/constants';
+
 export default {
 	'plan.community': 'Community',
 	'plan.community.description': 'Ideal for single users who are getting started with automation',
@@ -24,6 +26,7 @@ export default {
 	'generic.copy': 'Copy',
 	'generic.copied': 'Copied',
 	'management.title': 'Manage plan',
+	'management.cancelled.title': 'Plan cancelled',
 	'management.cancel.title': 'Do you want to cancel your subscription?',
 	'management.cancel.cta': 'Cancel your subscription',
 	'management.cancel.confirm': 'Are you sure you want to cancel your subscription?',
@@ -45,11 +48,12 @@ export default {
 	'faq.whatIsAnExecution.answer': 'An execution is when n8n completes one cycle of the workflow that you’ve built. Regardless of the amount of data that is processed and how many nodes are used.',
 	'faq.communityVsPrioritySupport.question': 'What is the difference between community and priority support?',
 	'faq.communityVsPrioritySupport.answer': 'Priority support gives you direct access to our support team whereas community support is offered by the n8n community, which consists of over 4,000 tech enthusiasts & professionals, along with our support and community engineers, who are passionate about improving n8n and addressing any user questions or issues. Once you post your question, you can expect to receive an answer within 8 business hours.',
-	'management.cancel.success': 'Cancelled! You have {days} left in your license',
+	'management.cancel.success': 'Your plan was cancelled, but it will still be available for another {days} days. Please disregard the cancellation email from Paddle, our payments provider.',
+	'management.cancel.info': `It’s sad that things didn’t work out this time. Please <a href="mailto:${SUPPORT_EMAIL}">contact us</a> to let us know how we can improve and make things better for you next time around.`,
 	'cta.orContactUs.1': 'or',
 	'cta.orContactUs.2': 'contact us',
 	'plan.recommended': 'Recommended plan',
-	'management.cta.1': 'To upgrade your plan or your active workflow quota, <a href="mailto:sales@n8n.io">contact us</a>. You can view all plans <a href="/">here</a>. To cancel your plan and lose access to paid features, ',
+	'management.cta.1': `To upgrade your plan or your active workflow quota, <a href="mailto:${SUPPORT_EMAIL}">contact us</a>. You can view all plans <a href="/">here</a>. To cancel your plan and lose access to paid features, `,
 	'management.cta.2': 'click here',
 	'management.cta.3': '.',
 };
