@@ -217,10 +217,14 @@ function redirectToActivate() {
 			</div>
 
 			<div :class="$style.copy">
-				<label v-if="callbackUrl">{{
-					$t('subscription.copyactivation.title')
-				}}</label>
-				<label v-else>{{ $t('subscription.copyactivation') }}</label>
+				<div>
+					<label v-if="callbackUrl">{{
+						$t('subscription.copyactivation.title')
+					}}</label>
+					<label v-else>{{
+						$t('subscription.copyactivation')
+					}}</label>
+				</div>
 				<CopyInput :value="subscription.reservationId" />
 			</div>
 
@@ -274,6 +278,10 @@ function redirectToActivate() {
 	border-radius: 8px;
 	margin-bottom: 18px;
 	border: 1px solid var(--color-foreground-base);
+
+	> div:first-child {
+		margin-bottom: 20px;
+	}
 
 	label {
 		font-weight: 600;
