@@ -86,6 +86,7 @@ export const TEAM_PLAN: LimitedPlan = {
 		{ value: 17 },
 		{ value: 18 },
 		{ value: 19 },
+		{ value: 20 },
 		{
 			value: MORE_THAN_MAX_OPTION,
 			labelKey: 'features.activeWorkflows.moreThanMax',
