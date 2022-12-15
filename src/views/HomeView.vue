@@ -10,7 +10,7 @@ import {
 	TEAM_PLAN_NAME,
 	PLANS_FAQ,
 } from '@/constants';
-import { computed, onMounted, ref, type Ref } from 'vue';
+import { computed, onMounted, ref, type Ref, watch } from 'vue';
 import { usePlansStore } from '@/stores/plans';
 import type {
 	LimitedPlan,
@@ -25,11 +25,12 @@ import FAQuestion from '@/components/FAQuestion.vue';
 import telemetry from '../utils/telemetry';
 import InfoCard from '@/components/InfoCard.vue';
 
-const loading = ref(true);
+const loadingPlans = ref(true);
 const plans: Ref<Product[]> = ref([]);
 const plansStore = usePlansStore();
 const subscriptionsStore = useSubscriptionsStore();
 
+const waitingForSubscription: Ref<boolean> = ref(false);
 const subscription: Ref<Subscription | null> = ref(null);
 
 const params = new URLSearchParams(window.location.search);
@@ -73,7 +74,7 @@ onMounted(async () => {
 		defaultActiveWorkflows.value = parseInt(activeWorkflowPackages);
 	}
 
-	loading.value = false;
+	loadingPlans.value = false;
 
 	const checkout = params.get('checkout');
 	if (checkout === 'team' && teamProductId) {
@@ -81,13 +82,26 @@ onMounted(async () => {
 	}
 });
 
+watch(waitingForSubscription, (waiting) => {
+	if (waiting) {
+		scrollToTop();
+	}
+});
+
+function scrollToTop() {
+	document.body.scrollTop = document.documentElement.scrollTop = 0;
+}
+
 async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
 	try {
+		waitingForSubscription.value = true;
 		subscription.value = await subscriptionsStore.createSubscription(
 			checkoutSessionId,
 			paddleCheckoutId
 		);
+		waitingForSubscription.value = false;
 	} catch (e) {
+		waitingForSubscription.value = false;
 		if (e instanceof Error) {
 			ElNotification({
 				message: e.message,
@@ -210,7 +224,42 @@ function redirectToActivate() {
 				: $t('subscription.plans.title')
 		"
 	>
-		<div v-if="!loading && !subscription" :class="$style.container">
+		<div
+			v-if="subscription || waitingForSubscription"
+			:class="$style.confirmation"
+		>
+			<div>
+				<InfoBanner>
+					<span
+						v-html="$t('subscription.confirmation.message')"
+					></span>
+				</InfoBanner>
+			</div>
+
+			<InfoCard :class="$style.copy" :loading="waitingForSubscription">
+				<div>
+					<label v-if="callbackUrl">{{
+						$t('subscription.copyactivation.title')
+					}}</label>
+					<label v-else>{{
+						$t('subscription.copyactivation')
+					}}</label>
+				</div>
+				<CopyInput
+					:value="subscription ? subscription.reservationId : ''"
+				/>
+			</InfoCard>
+
+			<div v-if="callbackUrl && subscription">
+				<el-button
+					type="primary"
+					size="large"
+					@click="redirectToActivate"
+					>{{ $t('subscription.activateRedirect.cta') }}</el-button
+				>
+			</div>
+		</div>
+		<div v-else-if="!loadingPlans" :class="$style.container">
 			<div :class="$style.plans">
 				<PlanCard :plan="COMMUNITY_PLAN" theme="secondary" />
 				<PlanCard
@@ -232,36 +281,6 @@ function redirectToActivate() {
 				<div v-for="question in PLANS_FAQ" :key="question.questionKey">
 					<FAQuestion :question="question" />
 				</div>
-			</div>
-		</div>
-		<div v-if="subscription" :class="$style.confirmation">
-			<div>
-				<InfoBanner>
-					<span
-						v-html="$t('subscription.confirmation.message')"
-					></span>
-				</InfoBanner>
-			</div>
-
-			<InfoCard :class="$style.copy">
-				<div>
-					<label v-if="callbackUrl">{{
-						$t('subscription.copyactivation.title')
-					}}</label>
-					<label v-else>{{
-						$t('subscription.copyactivation')
-					}}</label>
-				</div>
-				<CopyInput :value="subscription.reservationId" />
-			</InfoCard>
-
-			<div v-if="callbackUrl">
-				<el-button
-					type="primary"
-					size="large"
-					@click="redirectToActivate"
-					>{{ $t('subscription.activateRedirect.cta') }}</el-button
-				>
 			</div>
 		</div>
 	</DefaultLayout>

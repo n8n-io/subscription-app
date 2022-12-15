@@ -7,7 +7,6 @@ export async function createSubscription(
 	paddleCheckoutId: string
 ): Promise<Subscription> {
 	const url = new URL('/v1/subscription', LICENSE_SERVER_URL);
-
 	const response = await fetch(url.toString(), {
 		method: 'POST',
 		headers: {

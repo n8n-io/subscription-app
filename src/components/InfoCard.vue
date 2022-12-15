@@ -1,5 +1,12 @@
+<script lang="ts" setup>
+export interface Props {
+	loading?: boolean;
+}
+
+defineProps<Props>();
+</script>
 <template>
-	<div :class="$style.card">
+	<div :class="$style.card" v-loading="loading">
 		<slot></slot>
 	</div>
 </template>
@@ -14,6 +21,10 @@
 
 	label {
 		font-weight: 600;
+	}
+
+	:global(.el-loading-mask) {
+		border-radius: 8px;
 	}
 }
 </style>
