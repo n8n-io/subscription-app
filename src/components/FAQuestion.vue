@@ -27,9 +27,11 @@ function toggle() {
 			<h3 @click="toggle">
 				{{ $t(question.questionKey) }}
 			</h3>
-			<div v-if="!collapsed" :class="$style.answer">
-				{{ $t(question.answerKey) }}
-			</div>
+			<div
+				v-if="!collapsed"
+				:class="$style.answer"
+				v-html="$t(question.answerKey)"
+			></div>
 		</div>
 	</div>
 	<el-divider />

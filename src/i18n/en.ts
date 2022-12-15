@@ -4,25 +4,25 @@ export default {
 	backToN8n: 'Back to n8n',
 	'plan.community': 'Community',
 	'plan.community.description':
-		'Ideal for single users who are getting started with automation',
+		'Everything a single user needs to get automating',
 	'features.includes': 'Includes',
 	'features.activeWorkflows.unlimited': 'Unlimited active workflows *',
-	'features.activeWorkflows.extras':
-		'For unlimited executions and unlimited test workflows',
 	'feature.forumSupport': 'Forum support',
 	'feature.sharing': 'Sharing',
 	'cta.startFreeTrial': 'Start free trial',
 	'cta.contactUs': 'Contact us',
 	'plan.enterprise': 'Enterprise',
 	'plan.enterprise.description':
-		'Perfect for enterprise level features and support',
+		'For larger companies with compliance requirements',
 	'plan.team': 'Team',
-	'plan.team.description':
-		'Great for teams who need to collaborate with a bit more power',
+	'plan.team.description': 'When you want to collaborate on workflows',
 	'feature.ldap': 'LDAP',
 	'feature.logStreaming': 'Log streaming',
-	'feature.dedicatedSupport': 'Dedicated support',
-	'features.activeWorkflows.count': '{count} Active workflows',
+	'feature.dedicatedSupport': 'Dedicated support with SLA',
+	'feature.unlimitedTestWorkflows': 'Unlimited test workflows',
+	'feature.unlimitedExecutions': 'Unlimited executions',
+	'features.activeWorkflows.count': '{count} active workflows',
+	'features.activeWorkflows.moreThanMax': 'Over 100 active workflows',
 	'pricing.dollars': '$',
 	'pricing.permonth': '/mo',
 	'subscription.confirmation.message': `Your plan was successfully upgraded. <a ${MAILTO}>Contact us</a> if you need help.`,
@@ -40,22 +40,21 @@ export default {
 	'subscription.copyactivation.title': 'Your activation key',
 	'subscription.helpinfo': 'For help,',
 	'subscription.helpinfo.email': 'please reach out',
-	'subscription.plans.title': 'Plans and pricing',
+	'subscription.plans.title': 'Self-hosted plans',
 	'subscription.confirmation.title': 'Plan upgraded',
 	faq: 'FAQ',
 	'faq.whatAreActiveWorkflows.question': '* What are active workflows?',
-	'faq.whatAreActiveWorkflows.answer':
-		'If an active workflow contains multiple triggers, each will count as an active workflow. For example, 1 active workflow with 3 triggers will count as 3 active workflows.',
-	'faq.whyUpgrade.question': 'Why should I upgrade?',
-	'faq.whyUpgrade.answer':
-		'By default, you are using our open-source Community edition. While the Community edition has no limits on active workflows, you won’t have access to any of the premium n8n features. This includes workflows & credentials sharing, LDAP, advanced logging, multi-environments (coming soon), and much more.',
+	'faq.whatAreActiveWorkflows.answer': `Workflows are either 'test' or 'active'. An 'active' workflow can be triggered automatically (e.g. at regular intervals, or when an event happens in another system). <br/> <br/> Note that if an active workflow contains multiple triggers, each will count as an active workflow. For example, 1 active workflow with 3 triggers will count as 3 active workflows.`,
+	'faq.logStreaming.question': 'What is log streaming?',
+	'faq.logStreaming.answer': `Log streaming allows you to automatically pipe n8n activity to an external log aggregator of your choice (e.g. Datadog, Splunk, syslog), allowing you to deal with them using a similar process to the one you use for other tools.`,
 	'faq.whatIsAnExecution.question': 'What is an execution?',
 	'faq.whatIsAnExecution.answer':
-		'An execution is when n8n completes one cycle of the workflow that you’ve built. Regardless of the amount of data that is processed and how many nodes are used.',
-	'faq.communityVsPrioritySupport.question':
-		'What is the difference between community and priority support?',
-	'faq.communityVsPrioritySupport.answer':
-		'Priority support gives you direct access to our support team whereas community support is offered by the n8n community, which consists of over 4,000 tech enthusiasts & professionals, along with our support and community engineers, who are passionate about improving n8n and addressing any user questions or issues. Once you post your question, you can expect to receive an answer within 8 business hours.',
+		'An execution is when n8n completes one cycle of the workflow that you’ve built. You can make as many executions as you like in any of our self-hosted plans — regardless of how complex the workflow is or how much data it uses.',
+	'faq.support.question':
+		'What is the difference between forum and dedicated support?',
+	'faq.support.answer': `Dedicated support gives you direct access to our in-house support team, with an SLA for response times. <br/> <br/> Forum support is offered on the <a href="https://community.n8n.io/" target="_blank">n8n community forum</a>, which consists of over 4,000 tech enthusiasts and professionals plus our community engineers.`,
+	'faq.whatAreTestWorkflows.question': `What are test workflows?`,
+	'faq.whatAreTestWorkflows.answer': `Workflows are either 'test' or 'active'. A 'test' workflow is triggered by clicking a button in n8n. This is handy when building workflows as it gives you immediate feedback on whether things are working. <br/> <br/> Test workflows can be activated when they’re ready, which allows them to be triggered automatically.`,
 	'management.cancel.success':
 		'Your plan was cancelled, but it will still be available for another {days} days. Please disregard the cancellation email from Paddle, our payments provider.',
 	'management.cancel.success.soon':

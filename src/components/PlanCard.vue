@@ -125,23 +125,22 @@ function onStartTrial() {
 							:key="item.value"
 							:value="item.value"
 							:label="
-								$t('features.activeWorkflows.count', {
-									count:
-										typeof item.value === 'number'
-											? item.value * props.plan.unitSize
-											: item.value,
-								})
+								item.labelKey
+									? $t(item.labelKey)
+									: $t('features.activeWorkflows.count', {
+											count:
+												typeof item.value === 'number'
+													? item.value *
+													  props.plan.unitSize
+													: item.value,
+									  })
 							"
 							:class="$style.option"
 						/>
 					</el-select>
 				</div>
 			</div>
-			<div :class="$style.extrasDescription">
-				{{ $t('features.activeWorkflows.extras') }}
-			</div>
 		</div>
-		<el-divider />
 		<div :class="$style.section">
 			<div v-if="plan.features" :class="$style.features">
 				<div v-for="feature in plan.features" :key="feature.labelKey">
@@ -232,8 +231,12 @@ function onStartTrial() {
 	padding: 0px 30px 0px 30px;
 }
 
-.pricingSection > * {
-	margin-bottom: 20px;
+.pricingSection {
+	margin-bottom: 40px;
+
+	> * {
+		margin-bottom: 20px;
+	}
 }
 
 .title {
@@ -321,7 +324,7 @@ function onStartTrial() {
 }
 
 .features {
-	min-height: 233px;
+	min-height: 380px;
 
 	> div {
 		margin-bottom: 26px;

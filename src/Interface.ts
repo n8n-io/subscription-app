@@ -83,6 +83,7 @@ export interface OpenApiError {
 
 export interface Option {
 	value: string | number;
+	labelKey?: string;
 }
 
 export interface Feature {

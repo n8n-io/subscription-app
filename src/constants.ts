@@ -28,14 +28,26 @@ export const FEATURE_LOG_STREAMING: Feature = {
 	labelKey: 'feature.logStreaming',
 };
 
-export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 2;
+export const FEATURE_UNLIMITED_WORKFLOWS: Feature = {
+	labelKey: 'feature.unlimitedTestWorkflows',
+};
+
+export const FEATURE_UNLIMITED_EXECUTIONS: Feature = {
+	labelKey: 'feature.unlimitedExecutions',
+};
+
+export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 1;
 export const MORE_THAN_MAX_OPTION = '100+';
 
 export const COMMUNITY_PLAN: FreePlan = {
 	id: 'community',
 	nameKey: 'plan.community',
 	descriptionKey: 'plan.community.description',
-	features: [FEATURE_FORUM_SUPPORT],
+	features: [
+		FEATURE_UNLIMITED_WORKFLOWS,
+		FEATURE_UNLIMITED_EXECUTIONS,
+		FEATURE_FORUM_SUPPORT,
+	],
 	unlimited: true,
 	pricing: 'free',
 };
@@ -44,7 +56,12 @@ export const TEAM_PLAN: LimitedPlan = {
 	id: 'team',
 	nameKey: 'plan.team',
 	descriptionKey: 'plan.team.description',
-	features: [FEATURE_FORUM_SUPPORT, FEATURE_SHARING],
+	features: [
+		FEATURE_UNLIMITED_WORKFLOWS,
+		FEATURE_UNLIMITED_EXECUTIONS,
+		FEATURE_FORUM_SUPPORT,
+		FEATURE_SHARING,
+	],
 	primaryCTA: 'start-trial',
 	secondaryCTA: 'email',
 	unlimited: false,
@@ -69,7 +86,10 @@ export const TEAM_PLAN: LimitedPlan = {
 		{ value: 17 },
 		{ value: 18 },
 		{ value: 19 },
-		{ value: MORE_THAN_MAX_OPTION },
+		{
+			value: MORE_THAN_MAX_OPTION,
+			labelKey: 'features.activeWorkflows.moreThanMax',
+		},
 	],
 	pricing: 'custom',
 };
@@ -79,6 +99,8 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 	nameKey: 'plan.enterprise',
 	descriptionKey: 'plan.enterprise.description',
 	features: [
+		FEATURE_UNLIMITED_WORKFLOWS,
+		FEATURE_UNLIMITED_EXECUTIONS,
 		FEATURE_DEDICATED_SUPPORT,
 		FEATURE_SHARING,
 		FEATURE_LDAP,
@@ -101,15 +123,19 @@ export const PLANS_FAQ: FAQ[] = [
 		answerKey: 'faq.whatAreActiveWorkflows.answer',
 	},
 	{
-		questionKey: 'faq.whyUpgrade.question',
-		answerKey: 'faq.whyUpgrade.answer',
+		questionKey: 'faq.whatAreTestWorkflows.question',
+		answerKey: 'faq.whatAreTestWorkflows.answer',
 	},
 	{
 		questionKey: 'faq.whatIsAnExecution.question',
 		answerKey: 'faq.whatIsAnExecution.answer',
 	},
 	{
-		questionKey: 'faq.communityVsPrioritySupport.question',
-		answerKey: 'faq.communityVsPrioritySupport.answer',
+		questionKey: 'faq.support.question',
+		answerKey: 'faq.support.answer',
+	},
+	{
+		questionKey: 'faq.logStreaming.question',
+		answerKey: 'faq.logStreaming.answer',
 	},
 ];
