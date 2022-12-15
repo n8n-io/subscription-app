@@ -24,12 +24,14 @@ import { ElNotification } from 'element-plus';
 import FAQuestion from '@/components/FAQuestion.vue';
 import telemetry from '../utils/telemetry';
 import InfoCard from '@/components/InfoCard.vue';
+import InfoBanner from '@/components/InfoBanner.vue';
 
 const loadingPlans = ref(true);
 const plans: Ref<Product[]> = ref([]);
 const plansStore = usePlansStore();
 const subscriptionsStore = useSubscriptionsStore();
 
+const error: Ref<boolean> = ref(false);
 const waitingForSubscription: Ref<boolean> = ref(false);
 const subscription: Ref<Subscription | null> = ref(null);
 
@@ -62,7 +64,13 @@ function isValidOption(plan: LimitedPlan, value: number): boolean {
 
 onMounted(async () => {
 	telemetry.page('plans', 'plans');
-	plans.value = await plansStore.getPlans();
+	try {
+		plans.value = await plansStore.getPlans();
+	} catch (e) {
+		error.value = true;
+
+		return;
+	}
 
 	const teamProductId = teamProduct.value?.productId;
 	const activeWorkflowPackages = params.get('activewfs') || '';
@@ -224,6 +232,9 @@ function redirectToActivate() {
 				: $t('subscription.plans.title')
 		"
 	>
+		<InfoBanner v-if="error" theme="danger">
+			{{ $t('error.somethingWentWrong') }}
+		</InfoBanner>
 		<div
 			v-if="subscription || waitingForSubscription"
 			:class="$style.confirmation"

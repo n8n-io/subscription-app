@@ -65,4 +65,5 @@ export default {
 	'management.cta.1': `To upgrade your plan or your active workflow quota, <a ${MAILTO}>contact us</a>. <br/> <br /> You can view all plans <a href="/">here</a>. To cancel your plan and lose access to paid features, `,
 	'management.cta.2': 'click here',
 	'management.cta.3': '.',
+	'error.somethingWentWrong': 'Something went wrong',
 };
