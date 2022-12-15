@@ -56,13 +56,13 @@ export default {
 	'faq.whatAreTestWorkflows.question': `What are test workflows?`,
 	'faq.whatAreTestWorkflows.answer': `Workflows are either 'test' or 'active'. A 'test' workflow is triggered by clicking a button in n8n. This is handy when building workflows as it gives you immediate feedback on whether things are working. <br/> <br/> Test workflows can be activated when they’re ready, which allows them to be triggered automatically.`,
 	'management.cancel.success':
-		'Your plan was cancelled, but it will still be available for another {days} days. Please disregard the cancellation email from Paddle, our payments provider.',
+		'Your plan was cancelled, but will be available for another {days} days. (You may get an email saying it ends immediately, but please disregard this.)',
 	'management.cancel.success.soon':
 		'Your plan was cancelled, and soon will no longer be availble.',
-	'management.cancel.info': `It’s sad that things didn’t work out this time. Please <a ${MAILTO}>contact us</a> to let us know how we can improve and make things better for you next time around.`,
+	'management.cancel.info': `We’re sorry things didn’t work out this time. Please <a ${MAILTO}>let us know</a> how we can improve and make things better for you next time around.`,
 	'cta.orContactUs': `or <a ${MAILTO}>contact us</a>`,
 	'plan.recommended': 'Recommended plan',
-	'management.cta.1': `To upgrade your plan or your active workflow quota, <a ${MAILTO}>contact us</a>. You can view all plans <a href="/">here</a>. To cancel your plan and lose access to paid features, `,
+	'management.cta.1': `To upgrade your plan or your active workflow quota, <a ${MAILTO}>contact us</a>. <br/> <br /> You can view all plans <a href="/">here</a>. To cancel your plan and lose access to paid features, `,
 	'management.cta.2': 'click here',
 	'management.cta.3': '.',
 };
