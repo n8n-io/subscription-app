@@ -1,18 +1,25 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 export interface Props {
 	title: string;
+	backgroundHeight?: number;
 }
 
 const params = new URLSearchParams(window.location.search);
 const callbackParam = params.get('callback');
 const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const backgroundStyle = computed(() => ({
+	minHeight: props.backgroundHeight ? `${props.backgroundHeight}px` : '489px',
+}));
 </script>
 
 <template>
 	<header>
-		<div :class="$style.background"></div>
+		<div :class="$style.background" :style="backgroundStyle"></div>
 		<a href="https://n8n.io">
 			<img
 				alt="n8n logo"
@@ -37,7 +44,6 @@ defineProps<Props>();
 <style module lang="scss">
 .background {
 	background-color: var(--color-background-dark);
-	min-height: 489px;
 	position: absolute;
 	min-width: 100vw;
 }

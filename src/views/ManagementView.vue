@@ -72,6 +72,7 @@ async function onCancel() {
 				? $t('management.cancelled.title')
 				: $t('management.title')
 		"
+		:background-height="cancelled? 400: 300"
 	>
 		<div v-if="!managementToken" :class="$style.container">
 			<InfoBanner theme="danger">{{
