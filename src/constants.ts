@@ -12,6 +12,10 @@ export const FEATURE_FORUM_SUPPORT: Feature = {
 	labelKey: 'feature.forumSupport',
 };
 
+export const FEATURE_UNLIMITED_USERS: Feature = {
+	labelKey: 'feature.unlimitedUsers',
+};
+
 export const FEATURE_DEDICATED_SUPPORT: Feature = {
 	labelKey: 'feature.dedicatedSupport',
 };
@@ -46,6 +50,7 @@ export const COMMUNITY_PLAN: FreePlan = {
 	features: [
 		FEATURE_UNLIMITED_WORKFLOWS,
 		FEATURE_UNLIMITED_EXECUTIONS,
+		FEATURE_UNLIMITED_USERS,
 		FEATURE_FORUM_SUPPORT,
 	],
 	unlimited: true,
@@ -59,8 +64,9 @@ export const TEAM_PLAN: LimitedPlan = {
 	features: [
 		FEATURE_UNLIMITED_WORKFLOWS,
 		FEATURE_UNLIMITED_EXECUTIONS,
-		FEATURE_FORUM_SUPPORT,
+		FEATURE_UNLIMITED_USERS,
 		FEATURE_SHARING,
+		FEATURE_FORUM_SUPPORT,
 	],
 	primaryCTA: 'start-trial',
 	secondaryCTA: 'email',
@@ -102,10 +108,11 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 	features: [
 		FEATURE_UNLIMITED_WORKFLOWS,
 		FEATURE_UNLIMITED_EXECUTIONS,
-		FEATURE_DEDICATED_SUPPORT,
+		FEATURE_UNLIMITED_USERS,
 		FEATURE_SHARING,
 		FEATURE_LDAP,
 		FEATURE_LOG_STREAMING,
+		FEATURE_DEDICATED_SUPPORT,
 	],
 	unlimited: true,
 	pricing: 'quote',
