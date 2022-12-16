@@ -287,6 +287,8 @@ function onStartTrial() {
 .select {
 	:global(.el-select) {
 		width: 100%;
+		--el-select-border-color-hover: var(--color-background-dark) !important;
+		--el-border-color: var(--color-foreground-xdark);
 	}
 
 	input {
