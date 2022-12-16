@@ -139,4 +139,8 @@ export const PLANS_FAQ: FAQ[] = [
 		questionKey: 'faq.logStreaming.question',
 		answerKey: 'faq.logStreaming.answer',
 	},
+	{
+		questionKey: 'faq.sharing.question',
+		answerKey: 'faq.sharing.answer',
+	},
 ];
