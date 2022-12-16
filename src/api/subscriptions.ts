@@ -43,14 +43,6 @@ export async function cancelSubscription(
 		},
 	});
 
-	// todo just for testing
-	const params = new URLSearchParams(window.location.search);
-	if (params.get('demo')) {
-		return Promise.resolve({
-			expiry: '2022-12-30T12:14:04.275Z',
-		});
-	}
-
 	const data = await response.json();
 	if (!response.ok && data) {
 		if (hasErrorMessage(data)) {
