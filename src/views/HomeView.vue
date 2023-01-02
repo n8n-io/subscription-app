@@ -57,6 +57,10 @@ function isValidOption(plan: LimitedPlan, value: number): boolean {
 
 onMounted(async () => {
 	telemetry.page('plans', 'plans');
+	telemetry.track('User Landed On Plans Page', {
+		...(instanceId ? { instance_id: instanceId } : {}),
+	});
+
 	try {
 		plans.value = await plansStore.getPlans();
 	} catch (e) {
