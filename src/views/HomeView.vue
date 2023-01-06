@@ -40,6 +40,7 @@ const callbackParam = params.get('callback');
 const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
 
 const instanceId = params.get('instanceid');
+const source = params.get('source');
 
 const teamProduct = computed(() => {
 	return plans.value.find(
@@ -59,6 +60,7 @@ onMounted(async () => {
 	telemetry.page('plans', 'plans');
 	telemetry.track('User Landed On Plans Page', {
 		...(instanceId ? { instance_id: instanceId } : {}),
+		...(source ? { source } : {}),
 	});
 
 	try {
@@ -124,6 +126,7 @@ function trackButtonClicked(
 	telemetry.track('User clicked button on plans page', {
 		action,
 		...(instanceId ? { instance_id: instanceId } : {}),
+		...(source ? { source } : {}),
 	});
 }
 
