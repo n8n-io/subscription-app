@@ -5,44 +5,53 @@
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>n8n</title>
-		<script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
-		<script src="https://cdn.paddle.com/paddle/paddle.js"></script>
-		<script>
-			const WRITE_KEY = "2Ig5MDCGPpMtVr4iFdrl5VFcNnx";
-			const DATA_PLANE_URL = "https://nnrry.dataplane.rudderstack.com";
-			rudderanalytics = window.rudderanalytics = [];
-			var methods = [
-				"load",
-				"page",
-				"track",
-				"identify",
-				"alias",
-				"group",
-				"ready",
-				"reset",
-				"getAnonymousId",
-				"setAnonymousId",
-				"getUserId",
-				"getUserTraits",
-				"getGroupId",
-				"getGroupTraits",
-				"startSession",
-				"endSession"
-			];
-			for (var i = 0; i < methods.length; i++) {
-				var method = methods[i];
-				rudderanalytics[method] = (function (methodName) {
-					return function () {
-						rudderanalytics.push(
-							[methodName].concat(Array.prototype.slice.call(arguments))
-						);
-					};
-				})(method);
-			}
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TJ4XGM2');
+    </script>
+    <!-- End Google Tag Manager -->
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script>
+        const WRITE_KEY = "2Ig5MDCGPpMtVr4iFdrl5VFcNnx";
+        const DATA_PLANE_URL = "https://nnrry.dataplane.rudderstack.com";
+        rudderanalytics = window.rudderanalytics = [];
+        var methods = [
+            "load",
+            "page",
+            "track",
+            "identify",
+            "alias",
+            "group",
+            "ready",
+            "reset",
+            "getAnonymousId",
+            "setAnonymousId",
+            "getUserId",
+            "getUserTraits",
+            "getGroupId",
+            "getGroupTraits",
+            "startSession",
+            "endSession"
+        ];
+        for (var i = 0; i < methods.length; i++) {
+            var method = methods[i];
+            rudderanalytics[method] = (function (methodName) {
+                return function () {
+                    rudderanalytics.push(
+                        [methodName].concat(Array.prototype.slice.call(arguments))
+                    );
+                };
+            })(method);
+        }
 
-			rudderanalytics.load(WRITE_KEY,DATA_PLANE_URL);
-		</script>
-		<script src="https://cdn.rudderlabs.com/v1.1/rudder-analytics.min.js"></script>
+        rudderanalytics.load(WRITE_KEY,DATA_PLANE_URL);
+    </script>
+    <script src="https://cdn.rudderlabs.com/v1.1/rudder-analytics.min.js"></script>
   </head>
   <body>
     <div id="app"></div>
