@@ -273,14 +273,14 @@ function redirectToActivate() {
 		<div v-else-if="!loadingPlans" :class="$style.container">
 			<div :class="$style.plans">
 				<PlanCard :plan="COMMUNITY_PLAN" theme="secondary" />
-				<PlanCard
+				<!-- <PlanCard
 					:plan="TEAM_PLAN"
 					:product="teamProduct"
 					:defaultOption="defaultActiveWorkflows"
 					:recommended="true"
 					@start-trial="onStartTrial"
 					@contact-us="onTeamContactUs"
-				/>
+				/> -->
 				<PlanCard
 					:plan="ENTERPRISE_PLAN"
 					theme="tritiary"
