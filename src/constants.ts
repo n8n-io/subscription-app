@@ -56,10 +56,10 @@ export const COMMUNITY_PLAN: FreePlan = {
 	pricing: 'free',
 };
 
-export const TEAM_PLAN: LimitedPlan = {
-	id: 'team',
-	nameKey: 'plan.team',
-	descriptionKey: 'plan.team.description',
+export const STARTUP_PLAN: LimitedPlan = {
+	id: 'startup',
+	nameKey: 'plan.startup',
+	descriptionKey: 'plan.startup.description',
 	features: [
 		FEATURE_UNLIMITED_WORKFLOWS,
 		FEATURE_UNLIMITED_EXECUTIONS,
@@ -70,32 +70,32 @@ export const TEAM_PLAN: LimitedPlan = {
 	primaryCTA: 'start-trial',
 	secondaryCTA: 'email',
 	unlimited: false,
-	unitSize: 5,
+	unitSize: 100,
 	options: [
 		{ value: 1 },
-		{ value: 2 },
-		{ value: 3 },
-		{ value: 4 },
-		{ value: 5 },
-		{ value: 6 },
-		{ value: 7 },
-		{ value: 8 },
-		{ value: 9 },
-		{ value: 10 },
-		{ value: 11 },
-		{ value: 12 },
-		{ value: 13 },
-		{ value: 14 },
-		{ value: 15 },
-		{ value: 16 },
-		{ value: 17 },
-		{ value: 18 },
-		{ value: 19 },
-		{ value: 20 },
-		{
-			value: MORE_THAN_MAX_OPTION,
-			labelKey: 'features.activeWorkflows.moreThanMax',
-		},
+		// { value: 2 },
+		// { value: 3 },
+		// { value: 4 },
+		// { value: 5 },
+		// { value: 6 },
+		// { value: 7 },
+		// { value: 8 },
+		// { value: 9 },
+		// { value: 10 },
+		// { value: 11 },
+		// { value: 12 },
+		// { value: 13 },
+		// { value: 14 },
+		// { value: 15 },
+		// { value: 16 },
+		// { value: 17 },
+		// { value: 18 },
+		// { value: 19 },
+		// { value: 20 },
+		// {
+		// 	value: MORE_THAN_MAX_OPTION,
+		// 	labelKey: 'features.activeWorkflows.moreThanMax',
+		// },
 	],
 	pricing: 'custom',
 };
@@ -121,7 +121,7 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 export const SUPPORT_EMAIL = 'sales@n8n.io';
 export const TENANT_ID: string = import.meta.env.VITE_LICENSE_TENANT_ID || '1';
 export const PLANS_ON_PREM_GROUP = 'on-prem';
-export const TEAM_PLAN_NAME = 'Team';
+export const STARTUP_PLAN_NAME = 'Startup';
 export const CURRENCY_USD = 'USD';
 
 export const PLANS_FAQ: FAQ[] = [
