@@ -4,7 +4,7 @@ import { computed, ref, type Ref } from 'vue';
 import {
 	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
 	MORE_THAN_MAX_OPTION,
-	SUPPORT_EMAIL,
+	ENTERPRISE_CONTACT_FORM_URL,
 	CURRENCY_USD,
 } from '@/constants';
 import { getColor } from '@/utils';
@@ -34,7 +34,7 @@ function trackContactUs() {
 }
 
 const openMainSupport = () => {
-	window.location.href = `mailto:${SUPPORT_EMAIL}`;
+	window.location.href = ENTERPRISE_CONTACT_FORM_URL;
 	trackContactUs();
 };
 
