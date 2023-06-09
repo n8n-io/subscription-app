@@ -24,8 +24,12 @@ export const FEATURE_SHARING: Feature = {
 	labelKey: 'feature.sharing',
 };
 
-export const FEATURE_LDAP: Feature = {
-	labelKey: 'feature.ldap',
+export const FEATURE_SSO: Feature = {
+	labelKey: 'feature.saml',
+};
+
+export const FEATURE_VARIABLES: Feature = {
+	labelKey: 'feature.variables',
 };
 
 export const FEATURE_LOG_STREAMING: Feature = {
@@ -40,8 +44,8 @@ export const FEATURE_UNLIMITED_EXECUTIONS: Feature = {
 	labelKey: 'feature.unlimitedExecutions',
 };
 
-export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 1;
-export const MORE_THAN_MAX_OPTION = '100+';
+export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 4;
+export const MORE_THAN_MAX_OPTION = '200+';
 
 export const COMMUNITY_PLAN: FreePlan = {
 	id: 'community',
@@ -65,37 +69,25 @@ export const STARTUP_PLAN: LimitedPlan = {
 		FEATURE_UNLIMITED_EXECUTIONS,
 		FEATURE_UNLIMITED_USERS,
 		FEATURE_SHARING,
+		FEATURE_SSO,
+		FEATURE_VARIABLES,
+		FEATURE_LOG_STREAMING,
 		FEATURE_FORUM_SUPPORT,
 	],
 	primaryCTA: 'start-trial',
 	secondaryCTA: 'email',
 	unlimited: false,
-	unitSize: 100,
+	unitSize: 25,
 	options: [
-		{ value: 1 },
-		// { value: 2 },
-		// { value: 3 },
-		// { value: 4 },
-		// { value: 5 },
-		// { value: 6 },
-		// { value: 7 },
-		// { value: 8 },
-		// { value: 9 },
-		// { value: 10 },
-		// { value: 11 },
-		// { value: 12 },
-		// { value: 13 },
-		// { value: 14 },
-		// { value: 15 },
-		// { value: 16 },
-		// { value: 17 },
-		// { value: 18 },
-		// { value: 19 },
-		// { value: 20 },
-		// {
-		// 	value: MORE_THAN_MAX_OPTION,
-		// 	labelKey: 'features.activeWorkflows.moreThanMax',
-		// },
+		{ value: 4 },
+		{ value: 5 },
+		{ value: 6 },
+		{ value: 7 },
+		{ value: 8 },
+		{
+			value: MORE_THAN_MAX_OPTION,
+			labelKey: 'features.activeWorkflows.moreThanMax',
+		},
 	],
 	pricing: 'custom',
 };
@@ -109,7 +101,8 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 		FEATURE_UNLIMITED_EXECUTIONS,
 		FEATURE_UNLIMITED_USERS,
 		FEATURE_SHARING,
-		FEATURE_LDAP,
+		FEATURE_SSO,
+		FEATURE_VARIABLES,
 		FEATURE_LOG_STREAMING,
 		FEATURE_DEDICATED_SUPPORT,
 	],
@@ -119,6 +112,8 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 };
 
 export const SUPPORT_EMAIL = 'sales@n8n.io';
+export const ENTERPRISE_CONTACT_FORM_URL =
+	'https://n8n-community.typeform.com/to/y9X2YuGa';
 export const TENANT_ID: string = import.meta.env.VITE_LICENSE_TENANT_ID || '1';
 export const PLANS_ON_PREM_GROUP = 'on-prem';
 export const STARTUP_PLAN_NAME = 'Startup';
