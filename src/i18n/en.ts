@@ -1,4 +1,5 @@
 const MAILTO = `href="mailto:sales{'@'}n8n.io"`;
+const ENTERPRISE_CONTACT = `href="https://n8n-community.typeform.com/to/y9X2YuGa"`;
 
 export default {
 	backToN8n: 'Back to n8n',
@@ -15,17 +16,20 @@ export default {
 	'plan.enterprise': 'Enterprise',
 	'plan.enterprise.description':
 		'For larger companies with compliance requirements',
-	'plan.team': 'Team',
-	'plan.team.description': 'When you want to collaborate on workflows',
+	'plan.startup': 'Startup',
+	'plan.startup.description':
+		'For startups with up to 50 employees that raised up to $5M',
 	'feature.ldap': 'LDAP',
+	'feature.saml': 'SSO SAML and LDAP',
+	'feature.variables': 'Global variables',
 	'feature.logStreaming': 'Log streaming',
 	'feature.dedicatedSupport': 'Dedicated support with SLA',
 	'feature.unlimitedTestWorkflows': 'Unlimited test workflows',
 	'feature.unlimitedExecutions': 'Unlimited executions',
 	'features.activeWorkflows.count': '{count} active workflows *',
-	'features.activeWorkflows.moreThanMax': 'Over 100 active workflows *',
+	'features.activeWorkflows.moreThanMax': 'Over 200 active workflows *',
 	'pricing.dollars': '$',
-	'pricing.permonth': '/mo',
+	'pricing.permonth': '/ month',
 	'subscription.confirmation.message': `Your plan was successfully upgraded. <a ${MAILTO}>Contact us</a> if you need help.`,
 	'subscription.copyactivation': 'Copy activation code to activate license',
 	'generic.copy': 'Copy',
@@ -55,15 +59,15 @@ export default {
 		'An execution is when n8n completes one cycle of the workflow that you’ve built. You can make as many executions as you like in any of our self-hosted plans — regardless of how complex the workflow is or how much data it uses.',
 	'faq.support.question':
 		'What is the difference between forum and dedicated support?',
-	'faq.support.answer': `Dedicated support gives you direct access to our in-house support team, with an SLA for response times. <br/> <br/> Forum support is offered on the <a href="https://community.n8n.io/" target="_blank">n8n community forum</a>, which consists of over 4,000 tech enthusiasts and professionals plus our community engineers.`,
+	'faq.support.answer': `Dedicated support gives you direct access to our in-house support startup, with an SLA for response times. <br/> <br/> Forum support is offered on the <a href="https://community.n8n.io/" target="_blank">n8n community forum</a>, which consists of over 4,000 tech enthusiasts and professionals plus our community engineers.`,
 	'faq.whatAreTestWorkflows.question': `What are test workflows?`,
 	'faq.whatAreTestWorkflows.answer': `Workflows are either 'test' or 'active'. A 'test' workflow is triggered by clicking a button in n8n. This is handy when building workflows as it gives you immediate feedback on whether things are working. <br/> <br/> Test workflows can be activated when they’re ready, which allows them to be triggered automatically.`,
 	'management.cancel.success':
 		'Your plan was cancelled, but will be available for another {days} days.',
 	'management.cancel.success.soon':
-		'Your plan was cancelled, and soon will no longer be availble.',
+		'Your plan was cancelled, and soon will no longer be available.',
 	'management.cancel.info': `We’re sorry things didn’t work out this time. Please <a ${MAILTO}>let us know</a> how we can improve and make things better for you next time around.`,
-	'cta.orContactUs': `or <a ${MAILTO}>contact us</a>`,
+	'cta.orContactUs': `or <a ${ENTERPRISE_CONTACT}>contact us</a>`,
 	'plan.recommended': 'Recommended plan',
 	'management.cta.1': `To upgrade your plan or your active workflow quota, <a ${MAILTO}>contact us</a>. You can view all plans <a href="/">here</a>. <br/> <br /> To cancel your plan and lose access to paid features, `,
 	'management.cta.2': 'click here',

@@ -6,8 +6,8 @@ import {
 	COMMUNITY_PLAN,
 	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
 	ENTERPRISE_PLAN,
-	TEAM_PLAN,
-	TEAM_PLAN_NAME,
+	STARTUP_PLAN,
+	STARTUP_PLAN_NAME,
 	PLANS_FAQ,
 } from '@/constants';
 import { computed, onMounted, ref, type Ref, watch } from 'vue';
@@ -42,10 +42,10 @@ const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
 const instanceId = params.get('instanceid');
 const source = params.get('source');
 
-const teamProduct = computed(() => {
+const startupProduct = computed(() => {
 	return plans.value.find(
 		(plan) =>
-			plan.metadata.planName === TEAM_PLAN_NAME &&
+			plan.metadata.planName === STARTUP_PLAN_NAME &&
 			plan.metadata.terms.billingFrequency === 'monthly'
 	);
 });
@@ -71,12 +71,12 @@ onMounted(async () => {
 		return;
 	}
 
-	const teamProductId = teamProduct.value?.productId;
+	const startupProductId = startupProduct.value?.productId;
 	const activeWorkflowPackages = params.get('activewfs') || '';
 	if (
-		teamProductId &&
+		startupProductId &&
 		isNumber(activeWorkflowPackages) &&
-		isValidOption(TEAM_PLAN, parseInt(activeWorkflowPackages))
+		isValidOption(STARTUP_PLAN, parseInt(activeWorkflowPackages))
 	) {
 		defaultActiveWorkflows.value = parseInt(activeWorkflowPackages);
 	}
@@ -84,8 +84,8 @@ onMounted(async () => {
 	loadingPlans.value = false;
 
 	const checkout = params.get('checkout');
-	if (checkout === 'team' && teamProductId) {
-		await onStartTrial(teamProductId, defaultActiveWorkflows.value);
+	if (checkout === 'startup' && startupProductId) {
+		await onStartTrial(startupProductId, defaultActiveWorkflows.value);
 	}
 });
 
@@ -121,7 +121,10 @@ async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
 }
 
 function trackButtonClicked(
-	action: 'team_get_started' | 'enterprise_contact_us' | 'team_contact_us'
+	action:
+		| 'startup_get_started'
+		| 'enterprise_contact_us'
+		| 'startup_contact_us'
 ) {
 	telemetry.track('User clicked button on plans page', {
 		action,
@@ -167,7 +170,7 @@ function trackCheckout(data: {
 }
 
 async function onStartTrial(productId: string, activeWorkflows: number) {
-	trackButtonClicked('team_get_started');
+	trackButtonClicked('startup_get_started');
 
 	if (!window.Paddle) {
 		return;
@@ -207,8 +210,8 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 	}
 }
 
-function onTeamContactUs() {
-	trackButtonClicked('team_contact_us');
+function onStartupContactUs() {
+	trackButtonClicked('startup_contact_us');
 }
 
 function onEnterpriseContactUs() {
@@ -273,14 +276,14 @@ function redirectToActivate() {
 		<div v-else-if="!loadingPlans" :class="$style.container">
 			<div :class="$style.plans">
 				<PlanCard :plan="COMMUNITY_PLAN" theme="secondary" />
-				<!-- <PlanCard
-					:plan="TEAM_PLAN"
-					:product="teamProduct"
+				<PlanCard
+					:plan="STARTUP_PLAN"
+					:product="startupProduct"
 					:defaultOption="defaultActiveWorkflows"
-					:recommended="true"
+					:recommended="false"
 					@start-trial="onStartTrial"
-					@contact-us="onTeamContactUs"
-				/> -->
+					@contact-us="onStartupContactUs"
+				/>
 				<PlanCard
 					:plan="ENTERPRISE_PLAN"
 					theme="tritiary"
