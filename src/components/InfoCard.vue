@@ -18,6 +18,7 @@ defineProps<Props>();
 	background-color: var(--color-background-xlight);
 	border-radius: 8px;
 	border: 1px solid var(--color-foreground-base);
+	color: var(--color-white);
 
 	label {
 		font-weight: 600;

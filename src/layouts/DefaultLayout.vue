@@ -1,85 +1,87 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import ContentHeading from '@/components/ContentHeading.vue';
 
 export interface Props {
 	title: string;
-	backgroundHeight?: number;
 }
 
-const params = new URLSearchParams(window.location.search);
-const callbackParam = params.get('callback');
-const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
-
-const props = defineProps<Props>();
-
-const backgroundStyle = computed(() => ({
-	minHeight: props.backgroundHeight ? `${props.backgroundHeight}px` : '489px',
-}));
+defineProps<Props>();
 </script>
 
 <template>
-	<header>
-		<div :class="$style.background" :style="backgroundStyle"></div>
-		<a href="https://n8n.io">
-			<img
-				alt="n8n logo"
-				:class="$style.logo"
-				src="@/assets/logo.png"
-				height="25"
-			/>
+	<header :class="[$style.container, $style.header]">
+		<a href="https://n8n.io" :class="[$style.logo]">
+			<img alt="n8n logo" src="@/assets/logo.png" height="25" />
 		</a>
-		<div v-if="callbackUrl" :class="$style.backButton">
-			<a :href="callbackUrl">
-				{{ $t('backToN8n') }}
-			</a>
-		</div>
 	</header>
 
-	<main>
-		<h1 :class="$style.title">{{ title }}</h1>
-		<slot></slot>
+	<main :class="[$style.main]">
+		<div :class="[$style.container]">
+			<ContentHeading tag="h1" :class="$style.title">
+				{{ title }}
+			</ContentHeading>
+			<slot></slot>
+		</div>
+		<slot name="faq"></slot>
 	</main>
 </template>
 
 <style module lang="scss">
-.background {
-	background-color: var(--color-background-dark);
-	position: absolute;
-	min-width: 100vw;
+.wrapper {
+	background: linear-gradient(180deg, #000 0%, #0e0918 100%);
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	max-width: 1440px;
+	margin: 0 auto;
+	flex: 1;
+}
+
+.main {
+	overflow-x: hidden;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	height: 100%;
 }
 
 header {
-	position: relative;
-	min-height: 100px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 48px 160px;
+
+	@media (max-width: 992px) {
+		padding: 32px 16px;
+	}
 }
 
 .logo {
-	position: absolute;
-	left: 108px;
-	top: 26px;
-}
+	display: flex;
 
-main {
-	margin: 0 var(--spacing-2xl);
-	padding-bottom: 100px;
-	min-width: 900px;
+	@media (max-width: 992px) {
+		justify-content: center;
+	}
 }
 
 .title {
-	color: var(--color-text-xlight);
-	margin-bottom: 80px;
+	padding-top: var(--spacing-5xl);
+	padding-bottom: var(--spacing-5xl);
 	text-align: center;
+	margin: 0 auto;
+
+	@media (max-width: 992px) {
+		padding: 0 16px;
+		font-size: 38px;
+		line-height: 110%;
+	}
 }
 
 .backButton {
-	position: absolute;
-	top: 26px;
-	right: 113px;
-
 	a {
-		color: var(--color-text-xlight);
 		text-decoration: none;
-		font-weight: 700;
 	}
 }
 </style>

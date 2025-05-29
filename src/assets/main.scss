@@ -1,10 +1,10 @@
-@import './element.scss';
-@import './fonts.scss';
-@import './base.scss';
+@use './element.scss' as *;
+@use './fonts.scss' as *;
+@use './base.scss' as *;
 
 #app {
-  margin: 0 auto;
-  font-weight: normal;
+	margin: 0 auto;
+	font-weight: normal;
 	height: 100vh;
 	position: relative;
 }
@@ -21,18 +21,10 @@
 	color: var(--color-tritiary);
 }
 
-h1 {
-	font-size: 56px;
-}
-
-h3 {
-	font-size: 28px;
-}
-
 a {
 	text-decoration: underline;
 	color: var(--color-text-dark);
-  transition: 0.4s;
+	transition: 0.4s;
 
 	&:hover {
 		color: var(--color-tritiary);

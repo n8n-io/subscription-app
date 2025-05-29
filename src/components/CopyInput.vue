@@ -47,6 +47,7 @@ async function onCopy() {
 	flex-direction: row;
 	background-color: var(--color-foreground-light) !important;
 	border: 1px solid var(--color-foreground-base);
+	color: var(--color-white) !important;
 
 	> *:first-child {
 		display: flex;
@@ -58,7 +59,7 @@ async function onCopy() {
 
 	.copy {
 		font-size: var(--font-size-m);
-		color: var(--color-text-light);
+		color: var(--color-white) !important;
 		visibility: hidden;
 	}
 

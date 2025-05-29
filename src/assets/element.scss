@@ -1,15 +1,15 @@
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
-  $colors: (
-    'primary': (
-      'base': #20B69E,
-    ),
+	$colors: (
+		'primary': (
+			'base': #20b69e,
+		),
 		'secondary': (
-			'base': #8287EB,
+			'base': #8287eb,
 		),
 		'tritiary': (
-			'base': #EA4B71,
+			'base': #ea4b71,
 		),
-  )
+	)
 );
 
-@use "element-plus/theme-chalk/src/index.scss" as *;
+@use 'element-plus/theme-chalk/src/index.scss' as *;

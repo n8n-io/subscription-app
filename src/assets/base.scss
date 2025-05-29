@@ -1,20 +1,20 @@
 :root {
-	--color-primary: #20B69E;
+	/* --color-primary: #20b69e;
 	--color-text-dark: #101330;
-	--color-text-base: #40425E;
+	--color-text-base: #40425e;
 	--color-text-light: #909399;
 	--color-text-xlight: #fff;
-	--color-secondary: #8287EB;
-	--color-tritiary: #EA4B71;
-	--color-success: #29A568;
-	--color-success-light: #7EC050;
+	--color-secondary: #8287eb;
+	--color-tritiary: #ea4b71;
+	--color-success: #29a568;
+	--color-success-light: #7ec050;
 	--color-danger: #f56c6c;
 
-	--color-foreground-light: #F8F9FB;
+	--color-foreground-light: #f8f9fb;
 	--color-foreground-base: #dbdfe7;
 	--color-foreground-xdark: #7d838f;
 
-	--color-background-light: #F5F5F5;
+	--color-background-light: #f5f5f5;
 	--color-background-xlight: #fff;
 	--color-background-dark: #101330;
 
@@ -27,7 +27,8 @@
 
 	--border-style-base: solid;
 	--border-width-base: 1px;
-	--border-base: var(--border-width-base) var(--border-style-base) var(--color-foreground-base);
+	--border-base: var(--border-width-base) var(--border-style-base)
+		var(--color-foreground-base);
 
 	--font-size-3xs: 0.625rem;
 	--font-size-2xs: 0.75rem;
@@ -43,8 +44,8 @@
 	--font-line-height-loose: 1.35;
 	--font-line-height-xloose: 1.5;
 
-	--font-family-title: 'sunset-gothic', sans-serif;
-	--font-family: 'moderat', sans-serif;
+	--font-family-title: 'geomanist', sans-serif;
+	--font-family: 'geomanist', sans-serif;
 
 	--spacing-5xs: 0.125rem;
 	--spacing-4xs: 0.25rem;
@@ -58,32 +59,127 @@
 	--spacing-2xl: 3rem;
 	--spacing-3xl: 4rem;
 	--spacing-4xl: 8rem;
-	--spacing-5xl: 16rem;
+	--spacing-5xl: 16rem; */
+
+	/* 8px */
+	--border-radius-sm: 0.5rem;
+
+	/* 16px */
+	--border-radius-base: 1rem;
+
+	/* 24px */
+	--border-radius-lg: 2rem;
+
+	/* 44px */
+	--border-radius-3xl: 2.75rem;
+
+	/* 8px */
+	--spacing-2xs: 0.5rem;
+
+	/* 12px */
+	--spacing-xs: 0.75rem;
+
+	/* 16px */
+	--spacing-s: 1rem;
+
+	/* 20px */
+	--spacing-m: 1.25rem;
+
+	/* 24px */
+	--spacing-l: 1.5rem;
+
+	/* 28px */
+	--spacing-xl: 1.75rem;
+
+	/* 32px */
+	--spacing-2xl: 2rem;
+
+	/* 36px */
+	--spacing-3xl: 2.25rem;
+
+	/* 40px */
+	--spacing-4xl: 2.5rem;
+
+	/* 48px */
+	--spacing-5xl: 3rem;
+
+	/* 56px */
+	--spacing-6xl: 3.5rem;
+
+	/* 64px */
+	--spacing-7xl: 4rem;
+
+	/* 96px */
+	--spacing-9xl: 6rem;
+
+	--color-dark: #000000;
+	--color-white: #ffffff;
+	--color-paragraphs: #c4bbd3;
+	--color-dark-lavender: #4a4554;
+
+	/* 14px */
+	--font-size-sm: 0.875rem;
+
+	/* 16px */
+	--font-size-base: 1rem;
+
+	/* 18px */
+	--font-size-md: 1.125rem;
+
+	/* 20px */
+	--font-size-lg: 1.25rem;
+
+	/* 48px */
+	--font-size-xxl: 3rem;
+
+	/* 54px */
+	--font-size-3xl: 3.375rem;
+
+	--font-family-geomanist: 'geomanist', sans-serif;
+
+	--gradient-silver-purple: linear-gradient(
+		96deg,
+		#fff -10.58%,
+		#7c65a1 123.65%
+	);
+	--gradient-dark: linear-gradient(180deg, #000 0%, #0e0918 100%);
+	--gradient-blue: linear-gradient(
+		98deg,
+		#077ac7 2.97%,
+		#5237e5 78.57%,
+		#6f33ed 100%
+	);
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  position: relative;
-  font-weight: normal;
+	box-sizing: border-box;
+	margin: 0;
+	position: relative;
+	font-weight: normal;
 }
 
-h1, h2, h3 {
-	font-family: var(--font-family-title);
-  color: var(--color-text-dark);
+h1,
+h2,
+h3 {
+	font-size: var(--font-size-xxl);
+	font-weight: 400;
 }
+
+/* * {
+	outline: 1px solid red;
+} */
 
 body {
-  min-height: 100vh;
-  color: var(--color-text-base);
-  background: var(--color-background-light);
-  transition: color 0.5s, background-color 0.5s;
-  line-height: var(--font-line-height-xloose);
-  font-family: var(--font-family);
-	font-size: 18px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-family: var(--font-family-geomanist);
+	min-height: 100vh;
+	color: var(--color-paragraphs);
+	background: var(--color-dark);
+	transition: color 0.5s, background-color 0.5s;
+	line-height: var(--font-line-height-xloose);
+	font-size: 16px;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
