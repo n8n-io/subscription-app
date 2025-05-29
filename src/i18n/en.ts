@@ -13,6 +13,7 @@ export default {
 	'feature.sharing': 'Collaborate on workflows',
 	'feature.unlimitedUsers': 'Unlimited users',
 	'cta.startFreeTrial': 'Start free trial',
+	'cta.getStarted': 'Get started',
 	'cta.contactUs': 'Contact us',
 	'plan.community.includes': 'This plan includes:',
 	'plan.startup.includes': 'Everything in Starter plan, plus:',

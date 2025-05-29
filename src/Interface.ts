@@ -95,7 +95,7 @@ export interface PlanBase {
 	nameKey: string;
 	descriptionKey: string;
 	features: Feature[];
-	primaryCTA?: 'email' | 'start-trial';
+	primaryCTA?: 'email' | 'start-trial' | 'get-started';
 	secondaryCTA?: 'email';
 }
 

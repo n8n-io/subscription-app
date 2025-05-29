@@ -30,6 +30,7 @@ const dropdownElement = ref<HTMLElement | null>(null);
 const emit = defineEmits<{
 	(event: 'startTrial', productId: string, activeWorkflows: number): void;
 	(event: 'contactUs'): void;
+	(event: 'getStarted'): void;
 }>();
 
 function trackContactUs() {
@@ -71,6 +72,10 @@ function toggleDropdown() {
 	showDropdown.value = !showDropdown.value;
 }
 
+function onGetStarted() {
+	emit('getStarted');
+}
+
 function closeDropdown(e: MouseEvent) {
 	if (
 		dropdownElement.value &&
@@ -85,7 +90,6 @@ function selectOption(value: string | number) {
 	showDropdown.value = false;
 }
 
-// Close dropdown when clicking outside
 onMounted(() => {
 	document.addEventListener('click', closeDropdown);
 });
@@ -115,8 +119,6 @@ function calculatePriceForOption(optionValue: string | number): number {
 
 	return basePrice;
 }
-
-console.log(props.plan);
 </script>
 
 <template>
@@ -317,6 +319,13 @@ console.log(props.plan);
 						@click="onStartTrial"
 					>
 						{{ $t('cta.startFreeTrial') }}
+					</VButton>
+					<VButton
+						v-else-if="plan.primaryCTA === 'get-started'"
+						variant="primary"
+						@click="onGetStarted"
+					>
+						{{ $t('cta.getStarted') }}
 					</VButton>
 					<!-- <el-button
 						type="primary"

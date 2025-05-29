@@ -58,7 +58,7 @@ export const COMMUNITY_PLAN: FreePlan = {
 	],
 	unlimited: true,
 	pricing: 'free',
-	primaryCTA: 'start-trial',
+	primaryCTA: 'get-started',
 };
 
 export const STARTUP_PLAN: LimitedPlan = {

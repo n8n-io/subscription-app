@@ -220,6 +220,11 @@ function onEnterpriseContactUs() {
 	trackButtonClicked('enterprise_contact_us');
 }
 
+function onCommunityGetStarted() {
+	const url = new URL('https://github.com/n8n-io/n8n');
+	window.location.href = url.toString();
+}
+
 function redirectToActivate() {
 	if (subscription.value && callbackUrl) {
 		const url = new URL(callbackUrl);
@@ -275,7 +280,11 @@ function redirectToActivate() {
 		<div v-else-if="!loadingPlans" class="">
 			<div :class="[$style.plans, $style.inner_container]">
 				<div :class="[$style.layer]" />
-				<PlanCard :plan="COMMUNITY_PLAN" badgeVariant="dark" />
+				<PlanCard
+					:plan="COMMUNITY_PLAN"
+					badgeVariant="dark"
+					@get-started="onCommunityGetStarted"
+				/>
 				<PlanCard
 					:plan="STARTUP_PLAN"
 					:product="startupProduct"
