@@ -8,6 +8,7 @@ import BadgePill from '@/components/BadgePill.vue';
 import IconQuestion from '@/components/icons/IconQuestion.vue';
 import ContentHeading from '@/components/ContentHeading.vue';
 import FAQuestion from '@/components/FAQuestion.vue';
+import VButton from '@/components/VButton.vue';
 import {
 	COMMUNITY_PLAN,
 	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
@@ -242,7 +243,7 @@ function redirectToActivate() {
 	"
 >
 	<DefaultLayout :title="$t('subscription.plans.title')">
-		<InfoBanner v-if="error" theme="danger">
+		<InfoBanner v-if="error" theme="danger" :class="[$style.errorBanner]">
 			{{ $t('error.somethingWentWrong') }}
 		</InfoBanner>
 		<div
@@ -333,10 +334,10 @@ function redirectToActivate() {
 
 <style lang="scss" module>
 .inner_container {
-	padding: 48px 160px;
+	padding: var(--spacing-5xl) var(--spacing-9xl);
 
 	@media (max-width: 1321px) {
-		padding: 48px 16px;
+		padding: var(--spacing-5xl) var(--spacing-s);
 	}
 }
 
@@ -344,7 +345,7 @@ function redirectToActivate() {
 	display: flex;
 	justify-content: space-between;
 	position: relative;
-	gap: 16px;
+	gap: var(--spacing-s);
 
 	@media (max-width: 992px) {
 		flex-direction: column;
@@ -378,12 +379,18 @@ function redirectToActivate() {
 	}
 }
 
+.errorBanner {
+	margin: 0 16px;
+}
+
 .confirmation {
 	max-width: 810px;
 	margin: auto;
+	padding: 16px;
 
 	> * {
 		margin-bottom: var(--spacing-xs);
+		background-color: transparent !important;
 	}
 
 	> *:first-child {
@@ -394,19 +401,19 @@ function redirectToActivate() {
 .activateCTA {
 	max-width: 300px;
 	margin: 0 auto;
-	padding: 0 16px;
+	padding: 0 var(--spacing-s);
 }
 
 .copy {
 	width: 100%;
-	padding: 27px 30px;
+	padding: var(--spacing-l) var(--spacing-xl);
 	background-color: var(--color-background-xlight);
-	border-radius: 8px;
-	margin-bottom: 18px;
+	border-radius: var(--border-radius-sm);
+	margin-bottom: var(--spacing-m);
 	border: 1px solid var(--color-foreground-base);
 
 	> div:first-child {
-		margin-bottom: 20px;
+		margin-bottom: var(--spacing-m);
 	}
 
 	label {
@@ -415,24 +422,24 @@ function redirectToActivate() {
 }
 
 .faq {
-	background: linear-gradient(180deg, #000 0%, #0e0918 100%);
+	background: var(--gradient-dark);
 
 	@media (max-width: 992px) {
 		background: transparent;
 	}
 
 	&__inner {
-		padding: 64px;
+		padding: var(--spacing-7xl);
 		display: flex;
 		max-width: 1440px;
 		margin: 0 auto;
 		justify-content: space-between;
-		gap: 32px;
+		gap: var(--spacing-2xl);
 
 		@media (max-width: 992px) {
 			flex-direction: column;
-			padding: 48px 16px;
-			gap: 48px;
+			padding: var(--spacing-5xl) var(--spacing-s);
+			gap: var(--spacing-5xl);
 		}
 	}
 
@@ -440,7 +447,7 @@ function redirectToActivate() {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 10px;
+		gap: var(--spacing-xs);
 		max-width: 448px;
 	}
 

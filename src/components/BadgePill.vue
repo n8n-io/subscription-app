@@ -54,12 +54,12 @@ withDefaults(defineProps<BadgeProps>(), {
 	align-items: center;
 	gap: 5px;
 	border: 0.5px solid rgba(255, 255, 255, 0.1);
-	border-radius: 44px;
+	border-radius: var(--border-radius-3xl);
 	background-color: rgb(31, 25, 42);
 	opacity: 1;
 	backdrop-filter: blur(22px);
-	color: white;
-	font-size: 12px;
+	color: var(--color-white);
+	font-size: var(--font-size-xs);
 	cursor: text;
 	width: fit-content;
 	transition-property: all, color, opacity;
@@ -145,7 +145,7 @@ withDefaults(defineProps<BadgeProps>(), {
 	&__text {
 		color: rgba(255, 255, 255, 0.93);
 		font-weight: normal;
-		font-size: 14px;
+		font-size: var(--font-size-sm);
 		line-height: 1;
 	}
 }

@@ -1,0 +1,80 @@
+// Main styles index file
+// This file serves as the entry point for all styles
+
+// Import variables and mixins
+@forward './variables';
+
+// Import reset styles
+@forward './reset';
+
+// Import base styles
+@forward './base';
+
+// Import color definitions
+@forward './colors';
+
+// Import typography
+@forward './typography';
+
+// Import spacing utilities
+@forward './spacing';
+
+// Import border utilities
+@forward './borders';
+
+// Utility classes
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}

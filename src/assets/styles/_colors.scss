@@ -1,0 +1,70 @@
+// Color variables
+// Basic colors
+$color-dark: #000000;
+$color-white: #ffffff;
+$color-paragraphs: #c4bbd3;
+$color-dark-lavender: #4a4554;
+
+// Brand colors
+$color-primary: #20b69e;
+$color-secondary: #8287eb;
+$color-tritiary: #ea4b71;
+
+// Text colors
+$color-text-dark: #101330;
+$color-text-base: #40425e;
+$color-text-light: #909399;
+$color-text-xlight: $color-white;
+
+// Status colors
+$color-success: #29a568;
+$color-success-light: #7ec050;
+$color-danger: #f56c6c;
+
+// Background colors
+$color-background-light: #f5f5f5;
+$color-background-xlight: $color-white;
+$color-background-dark: #101330;
+
+// Foreground colors
+$color-foreground-light: #f8f9fb;
+$color-foreground-base: #dbdfe7;
+$color-foreground-xdark: #7d838f;
+
+// Gradient definitions
+$gradient-silver-purple: linear-gradient(96deg, $color-white -10.58%, #7c65a1 123.65%);
+$gradient-dark: linear-gradient(180deg, $color-dark 0%, #0e0918 100%);
+$gradient-blue: linear-gradient(98deg, #077ac7 2.97%, #5237e5 78.57%, #6f33ed 100%);
+
+// CSS Custom Properties (Variables)
+:root {
+  --color-dark: #{$color-dark};
+  --color-white: #{$color-white};
+  --color-paragraphs: #{$color-paragraphs};
+  --color-dark-lavender: #{$color-dark-lavender};
+  
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+  --color-tritiary: #{$color-tritiary};
+  
+  --color-text-dark: #{$color-text-dark};
+  --color-text-base: #{$color-text-base};
+  --color-text-light: #{$color-text-light};
+  --color-text-xlight: #{$color-text-xlight};
+  
+  --color-success: #{$color-success};
+  --color-success-light: #{$color-success-light};
+  --color-danger: #{$color-danger};
+  
+  --color-background-light: #{$color-background-light};
+  --color-background-xlight: #{$color-background-xlight};
+  --color-background-dark: #{$color-background-dark};
+  
+  --color-foreground-light: #{$color-foreground-light};
+  --color-foreground-base: #{$color-foreground-base};
+  --color-foreground-xdark: #{$color-foreground-xdark};
+  
+  --gradient-silver-purple: #{$gradient-silver-purple};
+  --gradient-dark: #{$gradient-dark};
+  --gradient-blue: #{$gradient-blue};
+}

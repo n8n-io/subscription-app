@@ -28,7 +28,7 @@ defineProps<Props>();
 
 <style module lang="scss">
 .wrapper {
-	background: linear-gradient(180deg, #000 0%, #0e0918 100%);
+	background: var(--gradient-dark);
 }
 
 .container {
@@ -44,17 +44,16 @@ defineProps<Props>();
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	height: 100%;
 }
 
 header {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	padding: 48px 160px;
+	padding: var(--spacing-5xl) var(--spacing-9xl);
 
 	@media (max-width: 992px) {
-		padding: 32px 16px;
+		padding: var(--spacing-2xl) var(--spacing-s);
 	}
 }
 
@@ -73,7 +72,7 @@ header {
 	margin: 0 auto;
 
 	@media (max-width: 992px) {
-		padding: 0 16px;
+		padding: 0 var(--spacing-s);
 		font-size: 38px;
 		line-height: 110%;
 	}

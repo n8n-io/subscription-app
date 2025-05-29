@@ -1,0 +1,73 @@
+// Spacing variables
+$spacing-2xs: 0.5rem;    // 8px
+$spacing-xs: 0.75rem;    // 12px
+$spacing-s: 1rem;        // 16px
+$spacing-m: 1.25rem;     // 20px
+$spacing-l: 1.5rem;      // 24px
+$spacing-xl: 1.75rem;    // 28px
+$spacing-2xl: 2rem;      // 32px
+$spacing-3xl: 2.25rem;   // 36px
+$spacing-4xl: 2.5rem;    // 40px
+$spacing-5xl: 3rem;      // 48px
+$spacing-6xl: 3.5rem;    // 56px
+$spacing-7xl: 4rem;      // 64px
+$spacing-9xl: 6rem;      // 96px
+
+// Legacy spacing variables
+$spacing-5xs: 0.125rem;  // 2px
+$spacing-4xs: 0.25rem;   // 4px
+$spacing-3xs: 0.375rem;  // 6px
+
+// CSS Custom Properties (Variables)
+:root {
+  // Modern spacing variables
+  --spacing-2xs: #{$spacing-2xs};
+  --spacing-xs: #{$spacing-xs};
+  --spacing-s: #{$spacing-s};
+  --spacing-m: #{$spacing-m};
+  --spacing-l: #{$spacing-l};
+  --spacing-xl: #{$spacing-xl};
+  --spacing-2xl: #{$spacing-2xl};
+  --spacing-3xl: #{$spacing-3xl};
+  --spacing-4xl: #{$spacing-4xl};
+  --spacing-5xl: #{$spacing-5xl};
+  --spacing-6xl: #{$spacing-6xl};
+  --spacing-7xl: #{$spacing-7xl};
+  --spacing-9xl: #{$spacing-9xl};
+
+  // Legacy spacing variables
+  --spacing-5xs: #{$spacing-5xs};
+  --spacing-4xs: #{$spacing-4xs};
+  --spacing-3xs: #{$spacing-3xs};
+}
+
+// Spacing mixins
+@mixin padding-x($value) {
+  padding-left: $value;
+  padding-right: $value;
+}
+
+@mixin padding-y($value) {
+  padding-top: $value;
+  padding-bottom: $value;
+}
+
+@mixin margin-x($value) {
+  margin-left: $value;
+  margin-right: $value;
+}
+
+@mixin margin-y($value) {
+  margin-top: $value;
+  margin-bottom: $value;
+}
+
+@mixin inset-x($value) {
+  left: $value;
+  right: $value;
+}
+
+@mixin inset-y($value) {
+  top: $value;
+  bottom: $value;
+}

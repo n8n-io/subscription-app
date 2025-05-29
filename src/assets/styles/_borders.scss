@@ -1,0 +1,64 @@
+// Border variables
+$border-radius-sm: 0.5rem;     // 8px
+$border-radius-base: 1rem;     // 16px
+$border-radius-lg: 2rem;       // 24px
+$border-radius-3xl: 2.75rem;   // 44px
+
+// Legacy border radius variables
+$border-radius-small: 0.125rem;   // 2px
+$border-radius-medium: 0.25rem;   // 4px
+$border-radius-large: 0.5rem;     // 8px
+$border-radius-xlarge: 0.75rem;   // 12px
+
+// Border styles
+$border-style-base: solid;
+$border-width-base: 1px;
+
+// CSS Custom Properties (Variables)
+:root {
+  // Border radius
+  --border-radius-sm: #{$border-radius-sm};
+  --border-radius-base: #{$border-radius-base};
+  --border-radius-lg: #{$border-radius-lg};
+  --border-radius-3xl: #{$border-radius-3xl};
+
+  // Legacy border radius
+  --border-radius-small: #{$border-radius-small};
+  --border-radius-base-legacy: #{$border-radius-medium};
+  --border-radius-large: #{$border-radius-large};
+  --border-radius-xlarge: #{$border-radius-xlarge};
+
+  // Border styles
+  --border-style-base: #{$border-style-base};
+  --border-width-base: #{$border-width-base};
+
+  // Computed border values
+  --border-color-base: var(--color-foreground-base);
+  --border-color-light: var(--color-foreground-light);
+  --border-base: var(--border-width-base) var(--border-style-base) var(--border-color-base);
+}
+
+// Border mixins
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
+@mixin border-top-radius($radius) {
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin border-right-radius($radius) {
+  border-top-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius) {
+  border-bottom-right-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+@mixin border-left-radius($radius) {
+  border-top-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}

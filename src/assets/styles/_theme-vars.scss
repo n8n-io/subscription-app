@@ -1,0 +1,46 @@
+// Theme variables 
+// This file defines all theme colors and is meant to be imported by other files
+
+// Brand colors
+$primary-color: #20b69e;
+$secondary-color: #8287eb;
+$tritiary-color: #ea4b71;
+
+// Text colors
+$text-dark-color: #101330;
+$text-base-color: #40425e;
+$text-light-color: #909399;
+$text-xlight-color: #ffffff;
+
+// Status colors
+$success-color: #29a568;
+$success-light-color: #7ec050;
+$danger-color: #f56c6c;
+
+// UI colors
+$dark-color: #000000;
+$white-color: #ffffff;
+$paragraphs-color: #c4bbd3;
+$dark-lavender-color: #4a4554;
+
+// Background & foreground
+$foreground-light-color: #f8f9fb;
+$foreground-base-color: #dbdfe7;
+$foreground-xdark-color: #7d838f;
+$background-light-color: #f5f5f5;
+$background-xlight-color: #ffffff;
+$background-dark-color: #101330;
+
+// Generate color variants
+@function get-color-light($color, $level) {
+  @return mix($color, white, 100% - ($level * 10%));
+}
+
+@function get-color-dark($color, $level) {
+  @return mix($color, black, 100% - ($level * 10%));
+}
+
+// Gradient definitions
+$gradient-silver-purple: linear-gradient(96deg, #fff -10.58%, #7c65a1 123.65%);
+$gradient-dark: linear-gradient(180deg, #000 0%, #0e0918 100%);
+$gradient-blue: linear-gradient(98deg, #077ac7 2.97%, #5237e5 78.57%, #6f33ed 100%);

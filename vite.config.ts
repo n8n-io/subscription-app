@@ -30,7 +30,12 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			scss: {
+				api: 'modern-compiler',
 				charset: false,
+				additionalData: `
+					@use "sass:color";
+					@use "sass:math";
+				`,
 			},
 		},
 	},

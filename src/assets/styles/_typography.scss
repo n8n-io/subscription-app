@@ -1,0 +1,104 @@
+// Typography variables
+$font-family-geomanist: 'geomanist', sans-serif;
+
+// Font sizes
+$font-size-sm: 0.875rem;    // 14px
+$font-size-base: 1rem;      // 16px
+$font-size-md: 1.125rem;    // 18px
+$font-size-lg: 1.25rem;     // 20px
+$font-size-xl: 1.5rem;      // 24px
+$font-size-2xl: 2rem;       // 32px
+$font-size-xxl: 3rem;       // 48px
+$font-size-3xl: 3.375rem;   // 54px
+
+// Legacy font sizes for backward compatibility
+$font-size-3xs: 0.625rem;   // 10px
+$font-size-2xs: 0.75rem;    // 12px
+$font-size-xs: 0.8125rem;   // 13px
+$font-size-s: 0.875rem;     // 14px
+$font-size-m: 1rem;         // 16px
+$font-size-l: 1.125rem;     // 18px
+
+// Line heights
+$font-line-height-compact: 1.25;
+$font-line-height-regular: 1.3;
+$font-line-height-loose: 1.35;
+$font-line-height-xloose: 1.5;
+
+// CSS Custom Properties (Variables)
+:root {
+  // Font families
+  --font-family-geomanist: #{$font-family-geomanist};
+  --font-family-title: #{$font-family-geomanist};
+  --font-family: #{$font-family-geomanist};
+
+  // Modern font sizes
+  --font-size-sm: #{$font-size-sm};      // 14px
+  --font-size-base: #{$font-size-base};  // 16px
+  --font-size-md: #{$font-size-md};      // 18px
+  --font-size-lg: #{$font-size-lg};      // 20px
+  --font-size-xl: #{$font-size-xl};      // 24px
+  --font-size-2xl: #{$font-size-2xl};    // 32px
+  --font-size-xxl: #{$font-size-xxl};    // 48px
+  --font-size-3xl: #{$font-size-3xl};    // 54px
+
+  // Legacy font sizes
+  --font-size-3xs: #{$font-size-3xs};
+  --font-size-2xs: #{$font-size-2xs};
+  --font-size-xs: #{$font-size-xs};
+  --font-size-s: #{$font-size-s};
+  --font-size-m: #{$font-size-m};
+  --font-size-l: #{$font-size-l};
+  --font-size-xl: #{$font-size-xl};
+  --font-size-2xl: #{$font-size-2xl};
+
+  // Line heights
+  --font-line-height-compact: #{$font-line-height-compact};
+  --font-line-height-regular: #{$font-line-height-regular};
+  --font-line-height-loose: #{$font-line-height-loose};
+  --font-line-height-xloose: #{$font-line-height-xloose};
+}
+
+// Typography mixins
+@mixin text-sm {
+  font-size: var(--font-size-sm);
+  line-height: var(--font-line-height-regular);
+}
+
+@mixin text-base {
+  font-size: var(--font-size-base);
+  line-height: var(--font-line-height-regular);
+}
+
+@mixin text-md {
+  font-size: var(--font-size-md);
+  line-height: var(--font-line-height-regular);
+}
+
+@mixin text-lg {
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-compact);
+}
+
+@mixin text-xl {
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-compact);
+}
+
+@mixin heading-1 {
+  font-size: var(--font-size-3xl);
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+@mixin heading-2 {
+  font-size: var(--font-size-xxl);
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+@mixin heading-3 {
+  font-size: var(--font-size-2xl);
+  line-height: 1.3;
+  font-weight: 400;
+}

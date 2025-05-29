@@ -1,0 +1,85 @@
+// Element Plus Variables Override
+// This file is meant to be used with @forward in combination with Element Plus
+
+// Primary Theme Colors
+$colors: (
+  'primary': (
+    'base': #20b69e,
+  ),
+  'secondary': (
+    'base': #8287eb,
+  ),
+  'tritiary': (
+    'base': #ea4b71,
+  ),
+  'success': (
+    'base': #29a568,
+  ),
+  'warning': (
+    'base': #e6a23c,
+  ),
+  'danger': (
+    'base': #f56c6c,
+  ),
+  'error': (
+    'base': #f56c6c,
+  ),
+  'info': (
+    'base': #909399,
+  ),
+);
+
+// Typography
+$font-family: (
+  'base': "'geomanist', sans-serif",
+);
+
+$font-size: (
+  'extra-large': 20px,
+  'large': 18px,
+  'medium': 16px,
+  'base': 16px,
+  'small': 14px,
+  'extra-small': 13px,
+);
+
+// Border Radius
+$border-radius: (
+  'base': 16px,
+  'small': 2px,
+  'round': 32px,
+  'circle': 100%,
+);
+
+// Z-index
+$z-index: (
+  'normal': 1,
+  'top': 1000,
+  'popper': 2000,
+);
+
+// Component sizes
+$common-component-size: (
+  'large': 40px,
+  'default': 32px,
+  'small': 24px,
+);
+
+// Paddings and spacings
+$button-padding-horizontal: (
+  'large': 20px,
+  'default': 16px,
+  'small': 12px,
+);
+
+// Define our additional variables not in Element Plus
+$app-specific-colors: (
+  'dark': #000000,
+  'white': #ffffff,
+  'paragraphs': #c4bbd3,
+  'dark-lavender': #4a4554,
+  'text-dark': #101330,
+  'text-base': #40425e,
+  'text-light': #909399,
+  'text-xlight': #ffffff,
+);

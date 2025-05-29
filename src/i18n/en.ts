@@ -74,7 +74,7 @@ export default {
 		'Your plan was cancelled, but will be available for another {days} days.',
 	'management.cancel.success.soon':
 		'Your plan was cancelled, and soon will no longer be available.',
-	'management.cancel.info': `We’re sorry things didn’t work out this time. Please <a ${MAILTO}>let us know</a> how we can improve and make things better for you next time around.`,
+	'management.cancel.info': `We’re sorry things didn’t work out this time. Please <a ${MAILTO}>let us know</a> how we can improve and make things better for you next time around.`,
 	'cta.orContactUs': `or <a ${ENTERPRISE_CONTACT}>contact us</a>`,
 	'plan.recommended': 'Recommended plan',
 	'management.cta.1': `To upgrade your plan or your active workflow quota, <a ${MAILTO}>contact us</a>. You can view all plans <a href="/">here</a>. <br/> <br /> To cancel your plan and lose access to paid features, `,

@@ -19,7 +19,7 @@
 		"floating-vue": "^5.2.2",
 		"pinia": "^2.0.26",
 		"vue": "^3.2.45",
-		"vue-i18n": "^9.2.2",
+		"vue-i18n": "^9.9.1",
 		"vue-router": "^4.1.6"
 	},
 	"devDependencies": {

@@ -1,0 +1,41 @@
+// Element Plus Theme Configuration
+// This file must be imported before any Element Plus styles
+
+// Forward Element Plus variables with our customizations
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #20b69e,
+    ),
+    'secondary': (
+      'base': #8287eb,
+    ),
+    'success': (
+      'base': #29a568,
+    ),
+    'warning': (
+      'base': #e6a23c,
+    ),
+    'danger': (
+      'base': #f56c6c,
+    ),
+    'error': (
+      'base': #f56c6c,
+    ),
+    'info': (
+      'base': #909399,
+    ),
+  ),
+  $button-padding-horizontal: (
+    'default': 16px,
+  ),
+  $border-radius: (
+    'base': 16px,
+    'small': 2px,
+    'round': 32px,
+    'circle': 100%,
+  ),
+  $font-family: (
+    'base': "'geomanist', sans-serif",
+  )
+);

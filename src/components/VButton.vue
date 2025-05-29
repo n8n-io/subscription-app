@@ -44,10 +44,10 @@ defineProps({
 
 .button {
 	display: flex;
-	padding: 16px 24px;
+	padding: var(--spacing-s) var(--spacing-l);
 	justify-content: center;
 	align-items: center;
-	border-radius: 8px;
+	border-radius: var(--border-radius-sm);
 	font-weight: normal;
 	white-space: nowrap;
 	text-align: center;
@@ -82,7 +82,7 @@ defineProps({
 			0 1px 2px 0 rgba(8, 8, 8, 0.2), 0 4px 4px 0 rgba(8, 8, 8, 0.08),
 			0 7px 0 -12px #077ac7, inset 0 6px 12px 0 rgba(255, 255, 255, 0.12);
 
-		color: white;
+		color: var(--color-white);
 		letter-spacing: 0.3px;
 
 		&:hover {
@@ -103,7 +103,7 @@ defineProps({
 	&--secondary {
 		border: 1px solid rgba(255, 255, 255, 0.15);
 		background: rgba(255, 255, 255, 0.1);
-		color: white;
+		color: var(--color-white);
 		transition: background-color 500ms, box-shadow 400ms;
 
 		&:hover {

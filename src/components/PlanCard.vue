@@ -8,8 +8,13 @@ import {
 	CURRENCY_USD,
 } from '@/constants';
 import BadgePill from './BadgePill.vue';
-import type { BadgeVariant } from './BadgePill.vue';
 import IconTick from './icons/IconTick.vue';
+import IconThunder from './icons/IconThunder.vue';
+import IconInfinity from './icons/IconInfinity.vue';
+import VButton from './VButton.vue';
+
+// Define the BadgeVariant type locally
+type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
 
 export interface Props {
 	plan: Plan;
@@ -99,10 +104,11 @@ onBeforeUnmount(() => {
 });
 
 function calculatePriceForOption(optionValue: string | number): number {
-	if (
-		typeof optionValue !== 'number' ||
-		optionValue === MORE_THAN_MAX_OPTION
-	) {
+	if (optionValue === MORE_THAN_MAX_OPTION) {
+		return 0;
+	}
+
+	if (typeof optionValue !== 'number') {
 		return 0;
 	}
 
@@ -119,6 +125,10 @@ function calculatePriceForOption(optionValue: string | number): number {
 
 	return basePrice;
 }
+
+const isMoreThanMaxOption = computed(() => {
+	return selected.value === MORE_THAN_MAX_OPTION;
+});
 </script>
 
 <template>
@@ -143,10 +153,7 @@ function calculatePriceForOption(optionValue: string | number): number {
 			<div :class="$style.pricing">
 				<span
 					:class="$style.quote"
-					v-if="
-						props.plan.pricing === 'quote' ||
-						MORE_THAN_MAX_OPTION === selected
-					"
+					v-if="props.plan.pricing === 'quote' || isMoreThanMaxOption"
 				>
 					{{ $t('cta.contactUs') }}
 				</span>
@@ -305,8 +312,7 @@ function calculatePriceForOption(optionValue: string | number): number {
 				<div v-if="plan.primaryCTA" :class="$style.primaryCTA">
 					<VButton
 						v-if="
-							plan.primaryCTA === 'email' ||
-							selected === MORE_THAN_MAX_OPTION
+							plan.primaryCTA === 'email' || isMoreThanMaxOption
 						"
 						variant="primary"
 						@click="openMainSupport"
@@ -327,55 +333,19 @@ function calculatePriceForOption(optionValue: string | number): number {
 					>
 						{{ $t('cta.getStarted') }}
 					</VButton>
-					<!-- <el-button
-						type="primary"
-						size="large"
-						v-if="
-							plan.primaryCTA === 'email' ||
-							selected === MORE_THAN_MAX_OPTION
-						"
-						:color="getColor(theme)"
-						@click="openMainSupport"
-					>
-						{{ $t('cta.contactUs') }}
-					</el-button>
-					<el-button
-						type="primary"
-						size="large"
-						v-else-if="plan.primaryCTA === 'start-trial'"
-						:color="getColor(theme)"
-						@click="onStartTrial"
-					>
-						{{ $t('cta.startFreeTrial') }}
-					</el-button> -->
 				</div>
 				<span
 					:class="$style.cta__seperator"
-					v-if="
-						plan.secondaryCTA === 'email' &&
-						selected !== MORE_THAN_MAX_OPTION
-					"
+					v-if="plan.secondaryCTA === 'email' && !isMoreThanMaxOption"
 					>or</span
 				>
 				<div
 					:class="$style.secondaryCTA"
-					v-if="
-						plan.secondaryCTA === 'email' &&
-						selected !== MORE_THAN_MAX_OPTION
-					"
+					v-if="plan.secondaryCTA === 'email' && !isMoreThanMaxOption"
 				>
 					<VButton variant="secondary" @click="openMainSupport">
 						{{ $t('cta.contactUs') }}
 					</VButton>
-					<!-- <span
-						v-if="
-							plan.secondaryCTA === 'email' &&
-							selected !== MORE_THAN_MAX_OPTION
-						"
-						v-html="$t('cta.orContactUs')"
-						@click="trackContactUs"
-					>
-					</span> -->
 				</div>
 			</div>
 		</div>
@@ -384,42 +354,42 @@ function calculatePriceForOption(optionValue: string | number): number {
 
 <style lang="scss" module>
 .container {
-	border-radius: 16px;
+	border-radius: var(--border-radius-base);
 	border: 1px solid rgba(255, 255, 255, 0.15);
 	background: rgba(255, 255, 255, 0.1);
-	padding: 16px;
+	padding: var(--spacing-s);
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 }
 
 .pricingSection {
-	margin-bottom: 16px;
+	margin-bottom: var(--spacing-s);
 }
 
 .badge {
-	margin-bottom: 16px;
+	margin-bottom: var(--spacing-s);
 }
 
 .description {
 	text-align: left;
-	font-size: var(--font-size-l);
+	font-size: var(--font-size-md);
 	color: var(--color-paragraphs);
 	line-height: 150%;
 }
 
 .extrasDescription {
 	font-weight: 400;
-	font-size: 18px;
+	font-size: var(--font-size-md);
 	text-align: center;
 	color: var(--color-text-dark);
 }
 
 .plan_includes {
-	font-size: 16px;
+	font-size: var(--font-size-base);
 	color: var(--color-white);
 	line-height: 150%;
-	margin-bottom: 16px;
+	margin-bottom: var(--spacing-s);
 }
 
 .pricing {
@@ -428,27 +398,27 @@ function calculatePriceForOption(optionValue: string | number): number {
 	justify-content: left;
 	align-items: center;
 	color: var(--color-white);
-	margin: 24px 0;
+	margin: var(--spacing-l) 0;
 
 	.quote {
-		font-size: 54px;
+		font-size: var(--font-size-3xl);
 		font-weight: 400;
 		letter-spacing: -2.16px;
 	}
 
 	.currency {
-		font-size: 54px;
+		font-size: var(--font-size-3xl);
 		font-weight: 400;
 	}
 
 	.price {
-		font-size: 54px;
+		font-size: var(--font-size-3xl);
 		font-weight: 400;
 		letter-spacing: -2.16px;
 	}
 
 	.recurring {
-		margin-left: 8px;
+		margin-left: var(--spacing-2xs);
 		color: rgba(255, 255, 255, 0.8);
 	}
 }
@@ -461,14 +431,14 @@ function calculatePriceForOption(optionValue: string | number): number {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
-		border-radius: 16px;
+		border-radius: var(--border-radius-base);
 		border: 1px solid rgba(255, 255, 255, 0.15);
 		background: rgba(255, 255, 255, 0.1);
-		padding: 16px;
+		padding: var(--spacing-s);
 		cursor: pointer;
 		color: var(--color-text-dark);
-		font-size: 14px;
-		gap: 24px;
+		font-size: var(--font-size-sm);
+		gap: var(--spacing-l);
 		height: 82px;
 		position: relative;
 		z-index: 20;
@@ -484,7 +454,7 @@ function calculatePriceForOption(optionValue: string | number): number {
 	}
 
 	&__active {
-		font-family: 'geomanist-book', sans-serif;
+		font-family: var(--font-family-geomanist);
 		font-size: 15px;
 		font-weight: 500;
 		color: var(--color-white);
@@ -513,7 +483,7 @@ function calculatePriceForOption(optionValue: string | number): number {
 		align-items: center;
 		transition: transform 0.3s ease;
 		color: var(--color-white);
-		right: 16px;
+		right: var(--spacing-s);
 
 		&_up {
 			transform: rotate(180deg);
@@ -539,20 +509,20 @@ function calculatePriceForOption(optionValue: string | number): number {
 		backdrop-filter: blur(25px);
 		border: 1px solid rgba(14, 9, 24, 0.15);
 		border-top: 0;
-		border-radius: 0 0 16px 16px;
-		padding: 0 8px 8px;
+		border-radius: 0 0 var(--border-radius-base) var(--border-radius-base);
+		padding: 0 var(--spacing-2xs) var(--spacing-2xs);
 		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
 	}
 
 	&__option {
 		position: relative;
 		cursor: pointer;
-		padding: 10px 24px;
+		padding: var(--spacing-xs) var(--spacing-l);
 		color: #d5cbe5;
 		transition: color 0.3s ease;
 
 		&:hover {
-			color: #ffffff;
+			color: var(--color-white);
 		}
 
 		&_selected {
@@ -586,7 +556,7 @@ function calculatePriceForOption(optionValue: string | number): number {
 
 .option {
 	&__price {
-		font-size: 16px;
+		font-size: var(--font-size-base);
 		font-weight: 500;
 		line-height: 170%;
 		color: var(--color-white);
@@ -598,13 +568,13 @@ function calculatePriceForOption(optionValue: string | number): number {
 }
 
 .unlimited {
-	border-radius: 16px;
+	border-radius: var(--border-radius-base);
 	border: 1px solid rgba(255, 255, 255, 0.15);
 	background: rgba(255, 255, 255, 0.1);
-	padding: 16px;
+	padding: var(--spacing-s);
 	display: flex;
 	align-items: center;
-	gap: 24px;
+	gap: var(--spacing-l);
 
 	&__icon {
 		display: flex;
@@ -616,13 +586,13 @@ function calculatePriceForOption(optionValue: string | number): number {
 	}
 
 	&__text {
-		font-size: 14px;
+		font-size: var(--font-size-sm);
 		color: var(--color-white);
 		font-weight: 400;
 	}
 
 	&__description {
-		font-size: 14px;
+		font-size: var(--font-size-sm);
 		color: var(--color-paragraphs);
 		font-weight: 300;
 	}
@@ -631,7 +601,7 @@ function calculatePriceForOption(optionValue: string | number): number {
 .features {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: var(--spacing-xs);
 	justify-content: center;
 	margin-bottom: var(--spacing-9xl);
 
@@ -646,11 +616,11 @@ function calculatePriceForOption(optionValue: string | number): number {
 	&__details {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: var(--spacing-2xs);
 	}
 
 	&__icon {
-		border-radius: 8px;
+		border-radius: var(--border-radius-sm);
 		background: rgba(101, 101, 101, 0.3);
 		backdrop-filter: blur(21.818180084228516px);
 		width: 16px;
@@ -661,7 +631,7 @@ function calculatePriceForOption(optionValue: string | number): number {
 	}
 
 	&__info {
-		font-size: 16px;
+		font-size: var(--font-size-base);
 		font-weight: 400;
 		color: var(--color-paragraphs);
 	}
@@ -673,14 +643,14 @@ function calculatePriceForOption(optionValue: string | number): number {
 	align-items: center;
 
 	&__seperator {
-		margin: 0 8px;
-		font-size: 12px;
+		margin: 0 var(--spacing-2xs);
+		font-size: var(--font-size-xs);
 		color: var(--color-paragraphs);
 		font-weight: 400;
 	}
 
 	&__icon {
-		border-radius: 8px;
+		border-radius: var(--border-radius-sm);
 		background: rgba(101, 101, 101, 0.3);
 		backdrop-filter: blur(21.818180084228516px);
 		width: 16px;
@@ -691,7 +661,7 @@ function calculatePriceForOption(optionValue: string | number): number {
 	}
 
 	&__info {
-		font-size: 16px;
+		font-size: var(--font-size-base);
 		font-weight: 400;
 		color: var(--color-paragraphs);
 	}
