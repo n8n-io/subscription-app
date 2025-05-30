@@ -15,7 +15,7 @@ defineProps<Props>();
 .card {
 	width: 100%;
 	padding: 27px 30px;
-	background-color: var(--color-background-xlight);
+	background-color: var(--color-dark);
 	border-radius: 8px;
 	border: 1px solid var(--color-foreground-base);
 	color: var(--color-white);
