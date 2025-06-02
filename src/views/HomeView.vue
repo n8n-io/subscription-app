@@ -299,6 +299,7 @@ function redirectToActivate() {
 					:plan="ENTERPRISE_PLAN"
 					@contact-us="onEnterpriseContactUs"
 					badgeVariant="orange"
+					theme="dark"
 				/>
 			</div>
 		</div>
@@ -366,6 +367,7 @@ function redirectToActivate() {
 	bottom: -284px;
 	background-position: 50%;
 	overflow: hidden;
+	opacity: 0.5;
 
 	@media (max-width: 992px) {
 		right: 4px;

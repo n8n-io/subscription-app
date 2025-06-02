@@ -15,6 +15,7 @@ import VButton from './VButton.vue';
 
 // Define the BadgeVariant type locally
 type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
+type Theme = 'light' | 'dark';
 
 export interface Props {
 	plan: Plan;
@@ -22,10 +23,12 @@ export interface Props {
 	defaultOption?: number;
 	recommended?: boolean;
 	badgeVariant?: BadgeVariant;
+	theme?: Theme;
 }
 
 const props = withDefaults(defineProps<Props>(), {
 	defaultOption: DEFAULT_ACTIVE_WORKFLOWS_OPTION,
+	theme: 'light',
 });
 
 const selected: Ref<string | number> = ref(props.defaultOption);
@@ -136,6 +139,7 @@ const isMoreThanMaxOption = computed(() => {
 		:class="[
 			$style.container,
 			recommended ? $style.halfbordered : $style.fullbordered,
+			theme === 'dark' ? $style.darkTheme : $style.lightTheme,
 		]"
 	>
 		<div :class="$style.section">
@@ -361,6 +365,14 @@ const isMoreThanMaxOption = computed(() => {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+}
+
+.lightTheme {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.darkTheme {
+	background: rgba(0, 0, 0, 0.1);
 }
 
 .pricingSection {
