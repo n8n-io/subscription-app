@@ -24,6 +24,7 @@ withDefaults(defineProps<Props>(), {
 	font-weight: 400;
 	font-size: 18px;
 	display: flex;
+	justify-content: center;
 
 	svg {
 		margin-top: 5px;

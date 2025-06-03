@@ -2,6 +2,13 @@
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PlanCard from '@/components/PlanCard.vue';
 import CopyInput from '@/components/CopyInput.vue';
+import InfoCard from '@/components/InfoCard.vue';
+import InfoBanner from '@/components/InfoBanner.vue';
+import BadgePill from '@/components/BadgePill.vue';
+import IconQuestion from '@/components/icons/IconQuestion.vue';
+import ContentHeading from '@/components/ContentHeading.vue';
+import FAQuestion from '@/components/FAQuestion.vue';
+import VButton from '@/components/VButton.vue';
 import {
 	COMMUNITY_PLAN,
 	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
@@ -10,7 +17,7 @@ import {
 	STARTUP_PLAN_NAME,
 	PLANS_FAQ,
 } from '@/constants';
-import { computed, onMounted, ref, type Ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { usePlansStore } from '@/stores/plans';
 import type {
 	LimitedPlan,
@@ -21,19 +28,16 @@ import type {
 import { useSubscriptionsStore } from '@/stores/subscriptions';
 import { isNumber } from '@/utils';
 import { ElNotification } from 'element-plus';
-import FAQuestion from '@/components/FAQuestion.vue';
 import telemetry from '../utils/telemetry';
-import InfoCard from '@/components/InfoCard.vue';
-import InfoBanner from '@/components/InfoBanner.vue';
 
 const loadingPlans = ref(true);
-const plans: Ref<Product[]> = ref([]);
+const plans = ref<Product[]>([]);
 const plansStore = usePlansStore();
 const subscriptionsStore = useSubscriptionsStore();
 
-const error: Ref<boolean> = ref(false);
-const waitingForSubscription: Ref<boolean> = ref(false);
-const subscription: Ref<Subscription | null> = ref(null);
+const error = ref(false);
+const waitingForSubscription = ref(false);
+const subscription = ref<Subscription | null>(null);
 
 const params = new URLSearchParams(window.location.search);
 const callbackParam = params.get('callback');
@@ -67,7 +71,6 @@ onMounted(async () => {
 		plans.value = await plansStore.getPlans();
 	} catch (e) {
 		error.value = true;
-
 		return;
 	}
 
@@ -218,6 +221,11 @@ function onEnterpriseContactUs() {
 	trackButtonClicked('enterprise_contact_us');
 }
 
+function onCommunityGetStarted() {
+	const url = new URL('https://github.com/n8n-io/n8n');
+	window.location.href = url.toString();
+}
+
 function redirectToActivate() {
 	if (subscription.value && callbackUrl) {
 		const url = new URL(callbackUrl);
@@ -227,15 +235,15 @@ function redirectToActivate() {
 }
 </script>
 
-<template>
-	<DefaultLayout
-		:title="
-			subscription
-				? $t('subscription.confirmation.title')
-				: $t('subscription.plans.title')
-		"
-	>
-		<InfoBanner v-if="error" theme="danger">
+<template
+	:title="
+		subscription
+			? $t('subscription.confirmation.title')
+			: $t('subscription.plans.title')
+	"
+>
+	<DefaultLayout :title="$t('subscription.plans.title')">
+		<InfoBanner v-if="error" theme="danger" :class="[$style.errorBanner]">
 			{{ $t('error.somethingWentWrong') }}
 		</InfoBanner>
 		<div
@@ -264,18 +272,20 @@ function redirectToActivate() {
 				/>
 			</InfoCard>
 
-			<div v-if="callbackUrl && subscription">
-				<el-button
-					type="primary"
-					size="large"
-					@click="redirectToActivate"
-					>{{ $t('subscription.activateRedirect.cta') }}</el-button
-				>
+			<div v-if="callbackUrl && subscription" :class="$style.activateCTA">
+				<VButton variant="primary" @click="redirectToActivate">{{
+					$t('subscription.activateRedirect.cta')
+				}}</VButton>
 			</div>
 		</div>
-		<div v-else-if="!loadingPlans" :class="$style.container">
-			<div :class="$style.plans">
-				<PlanCard :plan="COMMUNITY_PLAN" theme="secondary" />
+		<div v-else-if="!loadingPlans" class="">
+			<div :class="[$style.plans, $style.inner_container]">
+				<div :class="[$style.layer]" />
+				<PlanCard
+					:plan="COMMUNITY_PLAN"
+					badgeVariant="dark"
+					@get-started="onCommunityGetStarted"
+				/>
 				<PlanCard
 					:plan="STARTUP_PLAN"
 					:product="startupProduct"
@@ -283,47 +293,106 @@ function redirectToActivate() {
 					:recommended="false"
 					@start-trial="onStartTrial"
 					@contact-us="onStartupContactUs"
+					badgeVariant="pink"
 				/>
 				<PlanCard
 					:plan="ENTERPRISE_PLAN"
-					theme="tritiary"
 					@contact-us="onEnterpriseContactUs"
+					badgeVariant="orange"
+					theme="dark"
 				/>
 			</div>
+		</div>
+
+		<!-- FAQ section -->
+		<template #faq>
 			<div :class="$style.faq">
-				<h1>{{ $t('faq') }}</h1>
-				<div v-for="question in PLANS_FAQ" :key="question.questionKey">
-					<FAQuestion :question="question" />
+				<div :class="$style.faq__inner">
+					<div :class="$style.faq__header">
+						<BadgePill variant="black">
+							<template #icon>
+								<IconQuestion />
+							</template>
+							FAQs
+						</BadgePill>
+						<ContentHeading :class="[$style.faq__title]">{{
+							$t('faq')
+						}}</ContentHeading>
+					</div>
+					<div :class="$style.faq__content">
+						<div
+							v-for="(question, index) in PLANS_FAQ"
+							:key="index"
+						>
+							<FAQuestion :question="question" />
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		</template>
 	</DefaultLayout>
 </template>
 
 <style lang="scss" module>
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.inner_container {
+	padding: var(--spacing-5xl) var(--spacing-9xl);
+
+	@media (max-width: 1321px) {
+		padding: var(--spacing-5xl) var(--spacing-s);
+	}
 }
 
 .plans {
 	display: flex;
-	justify-content: center;
-	margin-bottom: 130px;
-	padding-top: 44px;
+	justify-content: space-between;
+	position: relative;
+	gap: var(--spacing-s);
 
-	> div + div {
-		margin-left: var(--spacing-m);
+	@media (max-width: 992px) {
+		flex-direction: column;
+		max-width: 555px;
+		margin: 0 auto;
 	}
+}
+
+.layer {
+	position: absolute;
+	background-image: url('@/assets/bg-pattern.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 1433px;
+	height: 1022px;
+	filter: blur(75px);
+	right: -318px;
+	bottom: -284px;
+	background-position: 50%;
+	overflow: hidden;
+	opacity: 0.5;
+
+	@media (max-width: 992px) {
+		right: 4px;
+		top: 34px;
+		bottom: 0;
+		transform: rotate(0deg);
+		width: 100%;
+		height: initial;
+		background-size: 170% 551%;
+		background-position: -137px -1828px;
+	}
+}
+
+.errorBanner {
+	margin: 0 16px;
 }
 
 .confirmation {
 	max-width: 810px;
 	margin: auto;
+	padding: 16px;
 
 	> * {
 		margin-bottom: var(--spacing-xs);
+		background-color: transparent !important;
 	}
 
 	> *:first-child {
@@ -331,16 +400,22 @@ function redirectToActivate() {
 	}
 }
 
+.activateCTA {
+	max-width: 300px;
+	margin: 0 auto;
+	padding: 0 var(--spacing-s);
+}
+
 .copy {
 	width: 100%;
-	padding: 27px 30px;
+	padding: var(--spacing-l) var(--spacing-xl);
 	background-color: var(--color-background-xlight);
-	border-radius: 8px;
-	margin-bottom: 18px;
+	border-radius: var(--border-radius-sm);
+	margin-bottom: var(--spacing-m);
 	border: 1px solid var(--color-foreground-base);
 
 	> div:first-child {
-		margin-bottom: 20px;
+		margin-bottom: var(--spacing-m);
 	}
 
 	label {
@@ -349,16 +424,46 @@ function redirectToActivate() {
 }
 
 .faq {
-	margin-bottom: var(--spacing-l);
-	width: 808px;
+	background: var(--gradient-dark);
 
-	h1 {
-		text-align: center;
-		margin-bottom: 48px;
+	@media (max-width: 992px) {
+		background: transparent;
 	}
 
-	> * {
-		margin-bottom: var(--spacing-s);
+	&__inner {
+		padding: var(--spacing-7xl);
+		display: flex;
+		max-width: 1440px;
+		margin: 0 auto;
+		justify-content: space-between;
+		gap: var(--spacing-2xl);
+
+		@media (max-width: 992px) {
+			flex-direction: column;
+			padding: var(--spacing-5xl) var(--spacing-s);
+			gap: var(--spacing-5xl);
+		}
+	}
+
+	&__header {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--spacing-xs);
+		max-width: 448px;
+	}
+
+	&__title {
+		@media (max-width: 992px) {
+			font-size: 38px;
+			line-height: 110%;
+		}
+	}
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 	}
 }
 </style>

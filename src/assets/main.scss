@@ -1,14 +1,21 @@
-@import './element.scss';
-@import './fonts.scss';
-@import './base.scss';
+// Main Application Styles
 
+// Import Element Plus theme
+@use './styles/element-plus-theme';
+
+// Import other styles
+@use './fonts';
+@use './base';
+
+// Main container
 #app {
-  margin: 0 auto;
-  font-weight: normal;
+	margin: 0 auto;
+	font-weight: normal;
 	height: 100vh;
 	position: relative;
 }
 
+// Color utility classes
 .primary {
 	color: var(--color-primary);
 }
@@ -21,34 +28,145 @@
 	color: var(--color-tritiary);
 }
 
-h1 {
-	font-size: 56px;
-}
-
-h3 {
-	font-size: 28px;
-}
-
+// Links
 a {
 	text-decoration: underline;
-	color: var(--color-text-dark);
-  transition: 0.4s;
+	color: var(--color-white);
+	transition: 0.4s;
 
 	&:hover {
-		color: var(--color-tritiary);
 		cursor: pointer;
 	}
 
 	&:active {
-		color: var(--color-tritiary);
+		color: var(--color-white);
 	}
 }
 
-.el-button--large {
-	color: var(--color-text-xlight) !important;
-	height: 64px;
-	span {
-		font-weight: 700;
-		font-size: 18px;
+// Element Plus overrides
+.el-button {
+	&--primary {
+		background-color: var(--color-primary);
+		border-color: var(--color-primary);
+
+		&:hover,
+		&:focus {
+			background-color: var(--el-color-primary-light-3);
+			border-color: var(--el-color-primary-light-3);
+		}
+
+		&:active {
+			background-color: var(--el-color-primary-dark-2);
+			border-color: var(--el-color-primary-dark-2);
+		}
 	}
+
+	&--secondary {
+		background-color: var(--color-secondary);
+		border-color: var(--color-secondary);
+
+		&:hover,
+		&:focus {
+			background-color: rgba(130, 135, 235, 0.7);
+			border-color: rgba(130, 135, 235, 0.7);
+		}
+
+		&:active {
+			background-color: rgba(104, 108, 188, 1);
+			border-color: rgba(104, 108, 188, 1);
+		}
+	}
+
+	&--large {
+		color: var(--color-text-xlight) !important;
+		height: 64px;
+		span {
+			font-weight: 700;
+			font-size: 18px;
+		}
+	}
+}
+
+.el-input,
+.el-select {
+	--el-input-hover-border-color: var(--color-primary);
+	--el-input-focus-border-color: var(--color-primary);
+}
+
+.el-checkbox {
+	--el-checkbox-checked-bg-color: var(--color-primary);
+	--el-checkbox-checked-input-border-color: var(--color-primary);
+	--el-checkbox-checked-icon-color: white;
+}
+
+.el-radio {
+	--el-radio-checked-bg-color: var(--color-primary);
+	--el-radio-checked-input-border-color: var(--color-primary);
+	--el-radio-checked-icon-color: white;
+}
+
+.el-card {
+	--el-card-bg-color: black;
+}
+
+.el-card__body {
+	background-color: black;
+}
+
+// Custom scrollbar styling
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(141deg, #077ac7, #6b21ef);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(141deg, #077ac7, #6b21ef);
+	box-shadow: 0 0 8px rgba(238, 79, 39, 0.5);
+}
+
+// Animations
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.fade-in {
+	animation: fadeIn 0.3s ease-in-out;
+}
+
+// Layout helpers
+.container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 var(--spacing-m);
+
+	@media (min-width: 992px) {
+		padding: 0 var(--spacing-l);
+	}
+}
+
+.page-section {
+	margin-bottom: var(--spacing-3xl);
+}
+
+// Responsive images
+.responsive-image {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
 }

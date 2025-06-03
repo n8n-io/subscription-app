@@ -58,6 +58,7 @@ export const COMMUNITY_PLAN: FreePlan = {
 	],
 	unlimited: true,
 	pricing: 'free',
+	primaryCTA: 'get-started',
 };
 
 export const STARTUP_PLAN: LimitedPlan = {
@@ -73,7 +74,7 @@ export const STARTUP_PLAN: LimitedPlan = {
 		FEATURE_VARIABLES,
 		FEATURE_LOG_STREAMING,
 		FEATURE_FORUM_SUPPORT,
-	],
+	].filter((feature) => !COMMUNITY_PLAN.features.includes(feature)),
 	primaryCTA: 'start-trial',
 	secondaryCTA: 'email',
 	unlimited: false,
@@ -105,7 +106,11 @@ export const ENTERPRISE_PLAN: CustomPlan = {
 		FEATURE_VARIABLES,
 		FEATURE_LOG_STREAMING,
 		FEATURE_DEDICATED_SUPPORT,
-	],
+	].filter(
+		(feature) =>
+			!COMMUNITY_PLAN.features.includes(feature) &&
+			!STARTUP_PLAN.features.includes(feature)
+	),
 	unlimited: true,
 	pricing: 'quote',
 	primaryCTA: 'email',

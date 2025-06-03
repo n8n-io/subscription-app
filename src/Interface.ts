@@ -34,7 +34,7 @@ export interface PaddleCheckoutSuccess {
 		passthrough: null;
 		prices?: {
 			customer?: {
-				items?: Array<{
+				items?: {
 					line_price: number;
 					discounts: unknown[];
 					recurring?: {
@@ -46,7 +46,7 @@ export interface PaddleCheckoutSuccess {
 						discounts: unknown[];
 						tax_rate: number;
 					};
-				}>;
+				}[];
 			};
 			vendor: unknown;
 		};
@@ -95,7 +95,7 @@ export interface PlanBase {
 	nameKey: string;
 	descriptionKey: string;
 	features: Feature[];
-	primaryCTA?: 'email' | 'start-trial';
+	primaryCTA?: 'email' | 'start-trial' | 'get-started';
 	secondaryCTA?: 'email';
 }
 

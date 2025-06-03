@@ -1,89 +1,283 @@
+// Base styles for the application
+@use 'sass:math';
+@use 'sass:color';
+@use './fonts';
+
+// Define root CSS variables
 :root {
-	--color-primary: #20B69E;
+	/* Spacing */
+	--spacing-2xs: 0.5rem;    /* 8px */
+	--spacing-xs: 0.75rem;    /* 12px */
+	--spacing-s: 1rem;        /* 16px */
+	--spacing-m: 1.25rem;     /* 20px */
+	--spacing-l: 1.5rem;      /* 24px */
+	--spacing-xl: 1.75rem;    /* 28px */
+	--spacing-2xl: 2rem;      /* 32px */
+	--spacing-3xl: 2.25rem;   /* 36px */
+	--spacing-4xl: 2.5rem;    /* 40px */
+	--spacing-5xl: 3rem;      /* 48px */
+	--spacing-6xl: 3.5rem;    /* 56px */
+	--spacing-7xl: 4rem;      /* 64px */
+	--spacing-9xl: 6rem;      /* 96px */
+	--spacing-5xs: 0.125rem;  /* Legacy - 2px */
+	--spacing-4xs: 0.25rem;   /* Legacy - 4px */
+	--spacing-3xs: 0.375rem;  /* Legacy - 6px */
+
+	/* Border radius */
+	--border-radius-sm: 0.5rem;     /* 8px */
+	--border-radius-base: 1rem;     /* 16px */
+	--border-radius-lg: 2rem;       /* 24px */
+	--border-radius-3xl: 2.75rem;   /* 44px */
+	--border-radius-xlarge: 12px;   /* Legacy */
+	--border-radius-large: 8px;     /* Legacy */
+	--border-radius-small: 2px;     /* Legacy */
+
+	/* Colors */
+	--color-primary: #20b69e;
+	--color-secondary: #8287eb;
+	--color-tritiary: #ea4b71;
+	--color-dark: #000000;
+	--color-white: #ffffff;
+	--color-paragraphs: #c4bbd3;
+	--color-dark-lavender: #4a4554;
+
+	/* Text colors */
 	--color-text-dark: #101330;
-	--color-text-base: #40425E;
+	--color-text-base: #40425e;
 	--color-text-light: #909399;
 	--color-text-xlight: #fff;
-	--color-secondary: #8287EB;
-	--color-tritiary: #EA4B71;
-	--color-success: #29A568;
-	--color-success-light: #7EC050;
+
+	/* Status colors */
+	--color-success: #29a568;
+	--color-success-light: #7ec050;
 	--color-danger: #f56c6c;
 
-	--color-foreground-light: #F8F9FB;
+	/* Background & foreground */
+	--color-foreground-light: #f8f9fb;
 	--color-foreground-base: #dbdfe7;
 	--color-foreground-xdark: #7d838f;
-
-	--color-background-light: #F5F5F5;
+	--color-background-light: #f5f5f5;
 	--color-background-xlight: #fff;
 	--color-background-dark: #101330;
 
-	--border-radius-xlarge: 12px;
-	--border-radius-large: 8px;
-	--border-radius-base: 4px;
-	--border-radius-small: 2px;
-	--border-color-base: var(--color-foreground-base);
-	--border-color-light: var(--color-foreground-light);
-
+	/* Border */
 	--border-style-base: solid;
 	--border-width-base: 1px;
+	--border-color-base: var(--color-foreground-base);
+	--border-color-light: var(--color-foreground-light);
 	--border-base: var(--border-width-base) var(--border-style-base) var(--color-foreground-base);
 
-	--font-size-3xs: 0.625rem;
-	--font-size-2xs: 0.75rem;
-	--font-size-xs: 0.8125rem;
-	--font-size-s: 0.875rem;
-	--font-size-m: 1rem;
-	--font-size-l: 1.125rem;
-	--font-size-xl: 1.25rem;
-	--font-size-2xl: 1.75rem;
+	/* Typography */
+	--font-size-sm: 0.875rem;    /* 14px */
+	--font-size-base: 1rem;      /* 16px */
+	--font-size-md: 1.125rem;    /* 18px */
+	--font-size-lg: 1.25rem;     /* 20px */
+	--font-size-xl: 1.5rem;      /* 24px */
+	--font-size-2xl: 1.75rem;    /* 28px */
+	--font-size-xxl: 3rem;       /* 48px */
+	--font-size-3xl: 3.375rem;   /* 54px */
+	--font-size-3xs: 0.625rem;   /* Legacy - 10px */
+	--font-size-2xs: 0.75rem;    /* Legacy - 12px */
+	--font-size-xs: 0.8125rem;   /* Legacy - 13px */
+	--font-size-s: 0.875rem;     /* Legacy - 14px */
+	--font-size-m: 1rem;         /* Legacy - 16px */
+	--font-size-l: 1.125rem;     /* Legacy - 18px */
 
+	/* Line heights */
 	--font-line-height-compact: 1.25;
 	--font-line-height-regular: 1.3;
 	--font-line-height-loose: 1.35;
 	--font-line-height-xloose: 1.5;
 
-	--font-family-title: 'sunset-gothic', sans-serif;
-	--font-family: 'moderat', sans-serif;
+	/* Font family */
+	--font-family-geomanist: 'geomanist', sans-serif;
+	--font-family-title: 'geomanist', sans-serif;
+	--font-family: 'geomanist', sans-serif;
 
-	--spacing-5xs: 0.125rem;
-	--spacing-4xs: 0.25rem;
-	--spacing-3xs: 0.375rem;
-	--spacing-2xs: 0.5rem;
-	--spacing-xs: 0.75rem;
-	--spacing-s: 1rem;
-	--spacing-m: 1.25rem;
-	--spacing-l: 1.5rem;
-	--spacing-xl: 2rem;
-	--spacing-2xl: 3rem;
-	--spacing-3xl: 4rem;
-	--spacing-4xl: 8rem;
-	--spacing-5xl: 16rem;
+	/* Gradients */
+	--gradient-silver-purple: linear-gradient(96deg, #fff -10.58%, #7c65a1 123.65%);
+	--gradient-dark: linear-gradient(180deg, #000 0%, #0e0918 100%);
+	--gradient-blue: linear-gradient(98deg, #077ac7 2.97%, #5237e5 78.57%, #6f33ed 100%);
+	
+	/* Element Plus Variables */
+	--el-color-primary: var(--color-primary);
+	--el-color-primary-light-3: rgba(32, 182, 158, 0.7);
+	--el-color-primary-light-5: rgba(32, 182, 158, 0.5);
+	--el-color-primary-light-7: rgba(32, 182, 158, 0.3);
+	--el-color-primary-light-8: rgba(32, 182, 158, 0.2);
+	--el-color-primary-light-9: rgba(32, 182, 158, 0.1);
+	--el-color-primary-dark-2: rgba(25, 145, 126, 1);
+	--el-text-color-primary: var(--color-text-dark);
+	--el-text-color-regular: var(--color-text-base);
+	--el-text-color-secondary: var(--color-text-light);
+	--el-border-radius-base: var(--border-radius-base);
+	--el-border-radius-small: var(--border-radius-small);
+	--el-border-radius-round: var(--border-radius-lg);
+	--el-font-family: var(--font-family);
+	--el-font-size-base: var(--font-size-base);
+	--el-font-size-small: var(--font-size-sm);
+	--el-font-size-large: var(--font-size-lg);
 }
 
+/* Base element styles */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  position: relative;
-  font-weight: normal;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	font-weight: normal;
 }
 
-h1, h2, h3 {
-	font-family: var(--font-family-title);
-  color: var(--color-text-dark);
+h1,
+h2,
+h3 {
+	font-size: var(--font-size-xxl);
+	font-weight: 400;
+}
+
+h1 {
+	font-size: var(--font-size-3xl);
+	line-height: 1.2;
+	font-weight: 400;
+}
+
+h2 {
+	font-size: var(--font-size-xxl);
+	line-height: 1.2;
+	font-weight: 400;
+}
+
+h3 {
+	font-size: var(--font-size-2xl);
+	line-height: 1.3;
+	font-weight: 400;
 }
 
 body {
-  min-height: 100vh;
-  color: var(--color-text-base);
-  background: var(--color-background-light);
-  transition: color 0.5s, background-color 0.5s;
-  line-height: var(--font-line-height-xloose);
-  font-family: var(--font-family);
-	font-size: 18px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-family: var(--font-family-geomanist);
+	min-height: 100vh;
+	color: var(--color-paragraphs);
+	background: var(--color-dark);
+	transition: color 0.5s, background-color 0.5s;
+	line-height: var(--font-line-height-xloose);
+	font-size: 16px;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+// Utility classes
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.justify-end {
+	justify-content: flex-end;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.full-height {
+	height: 100%;
+}
+
+.hidden {
+	display: none;
+}
+
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+// Spacing utility classes
+@each $name, $size in (
+	"2xs": var(--spacing-2xs),
+	"xs": var(--spacing-xs),
+	"s": var(--spacing-s),
+	"m": var(--spacing-m),
+	"l": var(--spacing-l),
+	"xl": var(--spacing-xl),
+	"2xl": var(--spacing-2xl),
+	"3xl": var(--spacing-3xl)
+) {
+	.mt-#{$name} {
+		margin-top: $size;
+	}
+
+	.mb-#{$name} {
+		margin-bottom: $size;
+	}
+
+	.ml-#{$name} {
+		margin-left: $size;
+	}
+
+	.mr-#{$name} {
+		margin-right: $size;
+	}
+
+	.pt-#{$name} {
+		padding-top: $size;
+	}
+
+	.pb-#{$name} {
+		padding-bottom: $size;
+	}
+
+	.pl-#{$name} {
+		padding-left: $size;
+	}
+
+	.pr-#{$name} {
+		padding-right: $size;
+	}
+}
+
+// Responsive utility classes
+.desktop-only {
+	@media (max-width: 992px) {
+		display: none !important;
+	}
+}
+
+.mobile-only {
+	@media (min-width: 992px) {
+		display: none !important;
+	}
 }

@@ -1,0 +1,43 @@
+// Define custom colors
+$primary-color: #20b69e;
+$secondary-color: #8287eb;
+$tritiary-color: #ea4b71;
+
+// Forward Element Plus variables with customizations
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': $primary-color,
+    ),
+    'success': (
+      'base': #29a568,
+    ),
+    'warning': (
+      'base': #e6a23c,
+    ),
+    'danger': (
+      'base': #f56c6c,
+    ),
+    'error': (
+      'base': #f56c6c,
+    ),
+    'info': (
+      'base': #909399,
+    ),
+  ),
+  $button-padding-horizontal: (
+    'default': 16px,
+  ),
+  $border-radius: (
+    'base': 16px,
+    'small': 2px,
+    'round': 32px,
+    'circle': 100%,
+  ),
+  $font-family: (
+    'base': "'geomanist', sans-serif",
+  )
+);
+
+// Import Element Plus styles
+@use 'element-plus/theme-chalk/src/index.scss';

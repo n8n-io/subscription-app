@@ -1,0 +1,90 @@
+// Main variables file - imports all variable partials
+// This file serves as the single entry point for all variable definitions
+// Note: These variables are imported globally in Vite config
+
+// 1. Import color variables
+@forward './colors';
+
+// 2. Import typography variables
+@forward './typography';
+
+// 3. Import spacing variables
+@forward './spacing';
+
+// 4. Import border variables
+@forward './borders';
+
+// 5. Utility mixins
+// Note: These mixins can only be used in regular .scss files,
+// not directly in Vue components' <style> blocks unless explicitly imported
+
+// Visually hide an element but keep it accessible for screen readers
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Truncate text with ellipsis
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Center elements with flexbox
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Space between elements with flexbox
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Standard transition for elements
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+// 6. Responsive breakpoints
+$breakpoints: (
+  'xs': 0,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  'xxl': 1400px
+);
+
+// Media query for minimum width
+@mixin media-breakpoint-up($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$breakpoint}.";
+  }
+}
+
+// Media query for maximum width
+@mixin media-breakpoint-down($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint) - 0.02) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$breakpoint}.";
+  }
+}
