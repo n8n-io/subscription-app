@@ -5,7 +5,7 @@ interface BadgeStylesProps {
 	text?: string;
 }
 
-export type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
+type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
 
 interface BadgeProps {
 	styles?: BadgeStylesProps;
