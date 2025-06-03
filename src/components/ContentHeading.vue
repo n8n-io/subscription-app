@@ -1,7 +1,11 @@
 <template>
 	<component
 		:is="tag"
-		:class="[$style.title, $style[`title--${props.color}`], props.class]"
+		:class="[
+			$style.title,
+			$style[`title--${props.color}`],
+			...(Array.isArray(props.class) ? props.class : [props.class]),
+		]"
 	>
 		<slot />
 	</component>
@@ -11,7 +15,7 @@
 interface HeadingProps {
 	tag?: string;
 	color?: 'gradient-silver-purple';
-	class?: string;
+	class?: string | string[];
 }
 
 const props = withDefaults(defineProps<HeadingProps>(), {

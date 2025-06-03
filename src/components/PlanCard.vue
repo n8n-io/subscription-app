@@ -17,7 +17,7 @@ import VButton from './VButton.vue';
 type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
 type Theme = 'light' | 'dark';
 
-export interface Props {
+interface Props {
 	plan: Plan;
 	product?: Product;
 	defaultOption?: number;
