@@ -11,7 +11,7 @@
 	</component>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 interface HeadingProps {
 	tag?: string;
 	color?: 'gradient-silver-purple';
