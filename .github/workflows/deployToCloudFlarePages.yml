@@ -1,0 +1,42 @@
+name: Deploy to Cloudflare Pages
+
+on:
+    push:
+        branches:
+            - main
+            - staging
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 20.x
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build app
+              run: |
+                  if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+                    npm run build:prod
+                  else
+                    npm run build:test
+                  fi
+                  cp dist/index.html dist/404.html
+
+            - name: Deploy to Cloudflare Pages
+              run: |
+                  if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+                    npx wrangler pages deploy dist --project-name=subscription-app
+                  else
+                    npx wrangler pages deploy dist --project-name=subscription-app --branch=staging
+                  fi
+              env:
+                  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
