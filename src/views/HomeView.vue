@@ -278,7 +278,17 @@ function redirectToActivate() {
 				}}</VButton>
 			</div>
 		</div>
-		<div v-else-if="!loadingPlans" class="">
+		<div v-else-if="!loadingPlans">
+			<div :class="[$style.pricingToggle]">
+				<ToggleSwitch v-model="isAnnual" class="gap-2">
+					<template #label-left>
+						<p>Monthly</p>
+					</template>
+					<template #label-right>
+						<p>Annually</p>
+					</template>
+				</ToggleSwitch>
+			</div>
 			<div :class="[$style.plans, $style.inner_container]">
 				<div :class="[$style.layer]" />
 				<PlanCard
@@ -340,6 +350,11 @@ function redirectToActivate() {
 	@media (max-width: 1321px) {
 		padding: var(--spacing-5xl) var(--spacing-s);
 	}
+}
+
+.pricingToggle {
+	display: flex;
+	justify-content: center;
 }
 
 .plans {
