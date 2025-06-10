@@ -57,12 +57,7 @@ export default {
 	'subscription.plans.title': 'Self-hosted plans',
 	'subscription.confirmation.title': 'Plan upgraded',
 	faq: 'Frequently asked questions',
-	'faq.sharing.question': 'What does ‘collaborate on workflows’ mean?',
-	'faq.sharing.answer': `It means the ability to: <br/>1. Share workflows with other users, so that they can also edit them, run them or inspect their executions<br/>2. Share credentials with other users, so that they can use them in their own workflows`,
-	'faq.whatAreActiveWorkflows.question': '* What are active workflows?',
-	'faq.whatAreActiveWorkflows.answer': `Workflows are either 'test' or 'active'. An 'active' workflow can be triggered automatically (e.g. at regular intervals, or when an event happens in another system). <br/> <br/> Note that if an active workflow contains multiple triggers, each will count as an active workflow. For example, 1 active workflow with 3 triggers will count as 3 active workflows.`,
-	'faq.logStreaming.question': 'What is log streaming?',
-	'faq.logStreaming.answer': `Log streaming allows you to automatically pipe n8n activity to an external log aggregator of your choice (e.g. Datadog, Splunk, syslog), allowing you to deal with them using a similar process to the one you use for other tools.`,
+
 	'faq.whatIsAnExecution.question': 'What is an execution?',
 	'faq.whatIsAnExecution.answer':
 		"Executions are much more powerful than the 'operations' or 'tasks' that you're billed on in other products.<br/><br/>An execution <strong>is a single run of your entire workflow</strong>. It doesn't matter how many steps are in the workflow or how much data it processes — it's still a single execution.<br/><br/>This makes your usage more predictable than other tools where you pay individually for every step or task. Plus, with n8n workflows, you can do things in a single execution that would take 10,000 operations in other tools.",
@@ -111,11 +106,7 @@ export default {
 	'faq.wireTransfer.question': 'Can I pay by wire transfer?',
 	'faq.wireTransfer.answer':
 		'Yes, we offer payment by invoice and wire transfer for the <strong>Annual</strong> Business plan. Please reach out to our sales team using this form.',
-	'faq.support.question':
-		'What is the difference between forum and dedicated support?',
-	'faq.support.answer': `Dedicated support gives you direct access to our in-house support startup, with an SLA for response times. <br/> <br/> Forum support is offered on the <a href="https://community.n8n.io/" target="_blank">n8n community forum</a>, which consists of over 4,000 tech enthusiasts and professionals plus our community engineers.`,
-	'faq.whatAreTestWorkflows.question': `What are test workflows?`,
-	'faq.whatAreTestWorkflows.answer': `Workflows are either 'test' or 'active'. A 'test' workflow is triggered by clicking a button in n8n. This is handy when building workflows as it gives you immediate feedback on whether things are working. <br/> <br/> Test workflows can be activated when they’re ready, which allows them to be triggered automatically.`,
+
 	'management.cancel.success':
 		'Your plan was cancelled, but will be available for another {days} days.',
 	'management.cancel.success.soon':
