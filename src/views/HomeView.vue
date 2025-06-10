@@ -22,6 +22,8 @@ import telemetry from '../utils/telemetry';
 const subscriptionsStore = useSubscriptionsStore();
 const waitingForSubscription = ref(false);
 const subscription = ref<Subscription | null>(null);
+const error = ref<string | null>(null);
+const loadingPlans = ref(false);
 
 const params = new URLSearchParams(window.location.search);
 const callbackParam = params.get('callback');
@@ -250,7 +252,10 @@ function redirectToActivate() {
 					@get-started="onCommunityGetStarted"
 				/>
 				<StaticPlanCard
-					:plan="STATIC_PLANS.business"
+					:plan="{
+						...STATIC_PLANS.business,
+						price: STATIC_PLANS.business.basePrice,
+					}"
 					:isAnnual="isAnnual"
 					:recommended="true"
 					@start-trial="onSubscribe"
