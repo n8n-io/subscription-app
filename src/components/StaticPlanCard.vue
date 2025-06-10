@@ -152,7 +152,8 @@
 				<span :class="$style.unlimited__icon"><IconInfinity /></span>
 				<div :class="$style.unlimited__info">
 					<span :class="$style.unlimited__text">
-						Unlimited executions
+						Unlimited
+						{{ plan.id === 'community' ? 'executions' : 'users' }}
 					</span>
 					<span :class="$style.unlimited__description">
 						and unlimited workflows

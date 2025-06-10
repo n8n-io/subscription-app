@@ -9,28 +9,56 @@ export const TENANT_ID: string = import.meta.env.VITE_LICENSE_TENANT_ID || '1';
 
 export const PLANS_FAQ: FAQ[] = [
 	{
-		questionKey: 'faq.whatAreActiveWorkflows.question',
-		answerKey: 'faq.whatAreActiveWorkflows.answer',
-	},
-	{
-		questionKey: 'faq.whatAreTestWorkflows.question',
-		answerKey: 'faq.whatAreTestWorkflows.answer',
-	},
-	{
 		questionKey: 'faq.whatIsAnExecution.question',
 		answerKey: 'faq.whatIsAnExecution.answer',
 	},
 	{
-		questionKey: 'faq.support.question',
-		answerKey: 'faq.support.answer',
+		questionKey: 'faq.productionExecution.question',
+		answerKey: 'faq.productionExecution.answer',
 	},
 	{
-		questionKey: 'faq.logStreaming.question',
-		answerKey: 'faq.logStreaming.answer',
+		questionKey: 'faq.supportDifference.question',
+		answerKey: 'faq.supportDifference.answer',
 	},
 	{
-		questionKey: 'faq.sharing.question',
-		answerKey: 'faq.sharing.answer',
+		questionKey: 'faq.collaborateWorkflows.question',
+		answerKey: 'faq.collaborateWorkflows.answer',
+	},
+	{
+		questionKey: 'faq.quotaExceeded.question',
+		answerKey: 'faq.quotaExceeded.answer',
+	},
+	{
+		questionKey: 'faq.usageMonitoring.question',
+		answerKey: 'faq.usageMonitoring.answer',
+	},
+	{
+		questionKey: 'faq.afterSubscription.question',
+		answerKey: 'faq.afterSubscription.answer',
+	},
+	{
+		questionKey: 'faq.licenseInstances.question',
+		answerKey: 'faq.licenseInstances.answer',
+	},
+	{
+		questionKey: 'faq.cancelSubscription.question',
+		answerKey: 'faq.cancelSubscription.answer',
+	},
+	{
+		questionKey: 'faq.freeTrial.question',
+		answerKey: 'faq.freeTrial.answer',
+	},
+	{
+		questionKey: 'faq.executionCounts.question',
+		answerKey: 'faq.executionCounts.answer',
+	},
+	{
+		questionKey: 'faq.assessExecutions.question',
+		answerKey: 'faq.assessExecutions.answer',
+	},
+	{
+		questionKey: 'faq.wireTransfer.question',
+		answerKey: 'faq.wireTransfer.answer',
 	},
 ];
 
@@ -135,7 +163,6 @@ export const STATIC_PLANS = {
 			'For teams that need to collaborate and scale workflows executions.',
 		basePrice: 8000,
 		features: [
-			'Everything in Community plan',
 			'6 shared projects',
 			'SSO, SAML and LDAP',
 			'Different environments',
@@ -155,7 +182,6 @@ export const STATIC_PLANS = {
 			'Ideal for businesses with strict security and performance requirements',
 		price: 'contact',
 		features: [
-			'Everything in Business plan',
 			'Unlimited shared projects',
 			'Dedicated support with SLAs',
 			'Log streaming',
@@ -164,7 +190,7 @@ export const STATIC_PLANS = {
 			'API key scoping',
 			'Additional date ranges on Insights',
 		],
-		executions: '600k+',
+		executions: 'unlimited',
 		workflows: 'unlimited',
 		users: 'unlimited',
 		primaryCTA: 'contact-us',
