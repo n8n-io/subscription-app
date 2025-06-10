@@ -1,152 +1,198 @@
-import type {
-	CustomPlan,
-	FAQ,
-	Feature,
-	FreePlan,
-	LimitedPlan,
-} from './Interface';
+import type { FAQ } from './Interface';
 
 export const LICENSE_SERVER_URL = 'https://license.n8n.io/';
-
-export const FEATURE_FORUM_SUPPORT: Feature = {
-	labelKey: 'feature.forumSupport',
-};
-
-export const FEATURE_UNLIMITED_USERS: Feature = {
-	labelKey: 'feature.unlimitedUsers',
-};
-
-export const FEATURE_DEDICATED_SUPPORT: Feature = {
-	labelKey: 'feature.dedicatedSupport',
-};
-
-export const FEATURE_SHARING: Feature = {
-	labelKey: 'feature.sharing',
-};
-
-export const FEATURE_SSO: Feature = {
-	labelKey: 'feature.saml',
-};
-
-export const FEATURE_VARIABLES: Feature = {
-	labelKey: 'feature.variables',
-};
-
-export const FEATURE_LOG_STREAMING: Feature = {
-	labelKey: 'feature.logStreaming',
-};
-
-export const FEATURE_UNLIMITED_WORKFLOWS: Feature = {
-	labelKey: 'feature.unlimitedTestWorkflows',
-};
-
-export const FEATURE_UNLIMITED_EXECUTIONS: Feature = {
-	labelKey: 'feature.unlimitedExecutions',
-};
-
-export const DEFAULT_ACTIVE_WORKFLOWS_OPTION = 4;
-export const MORE_THAN_MAX_OPTION = '200+';
-
-export const COMMUNITY_PLAN: FreePlan = {
-	id: 'community',
-	nameKey: 'plan.community',
-	descriptionKey: 'plan.community.description',
-	features: [
-		FEATURE_UNLIMITED_WORKFLOWS,
-		FEATURE_UNLIMITED_EXECUTIONS,
-		FEATURE_FORUM_SUPPORT,
-	],
-	unlimited: true,
-	pricing: 'free',
-	primaryCTA: 'get-started',
-};
-
-export const STARTUP_PLAN: LimitedPlan = {
-	id: 'startup',
-	nameKey: 'plan.startup',
-	descriptionKey: 'plan.startup.description',
-	features: [
-		FEATURE_UNLIMITED_WORKFLOWS,
-		FEATURE_UNLIMITED_EXECUTIONS,
-		FEATURE_UNLIMITED_USERS,
-		FEATURE_SHARING,
-		FEATURE_SSO,
-		FEATURE_VARIABLES,
-		FEATURE_LOG_STREAMING,
-		FEATURE_FORUM_SUPPORT,
-	].filter((feature) => !COMMUNITY_PLAN.features.includes(feature)),
-	primaryCTA: 'start-trial',
-	secondaryCTA: 'email',
-	unlimited: false,
-	unitSize: 25,
-	options: [
-		{ value: 4 },
-		{ value: 5 },
-		{ value: 6 },
-		{ value: 7 },
-		{ value: 8 },
-		{
-			value: MORE_THAN_MAX_OPTION,
-			labelKey: 'features.activeWorkflows.moreThanMax',
-		},
-	],
-	pricing: 'custom',
-};
-
-export const ENTERPRISE_PLAN: CustomPlan = {
-	id: 'enterprise',
-	nameKey: 'plan.enterprise',
-	descriptionKey: 'plan.enterprise.description',
-	features: [
-		FEATURE_UNLIMITED_WORKFLOWS,
-		FEATURE_UNLIMITED_EXECUTIONS,
-		FEATURE_UNLIMITED_USERS,
-		FEATURE_SHARING,
-		FEATURE_SSO,
-		FEATURE_VARIABLES,
-		FEATURE_LOG_STREAMING,
-		FEATURE_DEDICATED_SUPPORT,
-	].filter(
-		(feature) =>
-			!COMMUNITY_PLAN.features.includes(feature) &&
-			!STARTUP_PLAN.features.includes(feature)
-	),
-	unlimited: true,
-	pricing: 'quote',
-	primaryCTA: 'email',
-};
 
 export const SUPPORT_EMAIL = 'sales@n8n.io';
 export const ENTERPRISE_CONTACT_FORM_URL =
 	'https://n8n-community.typeform.com/to/y9X2YuGa';
 export const TENANT_ID: string = import.meta.env.VITE_LICENSE_TENANT_ID || '1';
-export const PLANS_ON_PREM_GROUP = 'on-prem';
-export const STARTUP_PLAN_NAME = 'Startup';
-export const CURRENCY_USD = 'USD';
 
 export const PLANS_FAQ: FAQ[] = [
-	{
-		questionKey: 'faq.whatAreActiveWorkflows.question',
-		answerKey: 'faq.whatAreActiveWorkflows.answer',
-	},
-	{
-		questionKey: 'faq.whatAreTestWorkflows.question',
-		answerKey: 'faq.whatAreTestWorkflows.answer',
-	},
 	{
 		questionKey: 'faq.whatIsAnExecution.question',
 		answerKey: 'faq.whatIsAnExecution.answer',
 	},
 	{
-		questionKey: 'faq.support.question',
-		answerKey: 'faq.support.answer',
+		questionKey: 'faq.productionExecution.question',
+		answerKey: 'faq.productionExecution.answer',
 	},
 	{
-		questionKey: 'faq.logStreaming.question',
-		answerKey: 'faq.logStreaming.answer',
+		questionKey: 'faq.supportDifference.question',
+		answerKey: 'faq.supportDifference.answer',
 	},
 	{
-		questionKey: 'faq.sharing.question',
-		answerKey: 'faq.sharing.answer',
+		questionKey: 'faq.collaborateWorkflows.question',
+		answerKey: 'faq.collaborateWorkflows.answer',
+	},
+	{
+		questionKey: 'faq.quotaExceeded.question',
+		answerKey: 'faq.quotaExceeded.answer',
+	},
+	{
+		questionKey: 'faq.usageMonitoring.question',
+		answerKey: 'faq.usageMonitoring.answer',
+	},
+	{
+		questionKey: 'faq.afterSubscription.question',
+		answerKey: 'faq.afterSubscription.answer',
+	},
+	{
+		questionKey: 'faq.licenseInstances.question',
+		answerKey: 'faq.licenseInstances.answer',
+	},
+	{
+		questionKey: 'faq.cancelSubscription.question',
+		answerKey: 'faq.cancelSubscription.answer',
+	},
+	{
+		questionKey: 'faq.freeTrial.question',
+		answerKey: 'faq.freeTrial.answer',
+	},
+	{
+		questionKey: 'faq.executionCounts.question',
+		answerKey: 'faq.executionCounts.answer',
+	},
+	{
+		questionKey: 'faq.assessExecutions.question',
+		answerKey: 'faq.assessExecutions.answer',
+	},
+	{
+		questionKey: 'faq.wireTransfer.question',
+		answerKey: 'faq.wireTransfer.answer',
 	},
 ];
+
+export interface PricingTier {
+	executions: number;
+	priceMonthly: number;
+	priceAnnual: number;
+	priceIds: {
+		monthly: string;
+		annual: string;
+	};
+}
+
+export const BUSINESS_PRICING_TIERS_PRODUCTION: PricingTier[] = [
+	{
+		executions: 480000,
+		priceMonthly: 667,
+		priceAnnual: 8000,
+		priceIds: {
+			monthly: 'pri_01jvby47fzh40fbbf8e4agfyf4',
+			annual: 'pri_01jvby634p61d0qynw87036n7t',
+		},
+	},
+	{
+		executions: 600000,
+		priceMonthly: 834,
+		priceAnnual: 10000,
+		priceIds: {
+			monthly: 'pri_01jvpa8852ersvg2yt9mgwxwpp',
+			annual: 'pri_01jvpabct5a4gry9y8s3ah9k6v',
+		},
+	},
+	{
+		executions: 900000,
+		priceMonthly: 1250,
+		priceAnnual: 15000,
+		priceIds: {
+			monthly: 'pri_01jvpad1sxpa62xjwvwy68nntk',
+			annual: 'pri_01jvpadxbbh3jh8tdjzy84c0wa',
+		},
+	},
+	{
+		executions: 1200000,
+		priceMonthly: 1667,
+		priceAnnual: 20000,
+		priceIds: {
+			monthly: 'pri_01jvpaeza812qk9gafcmtkncz8',
+			annual: 'pri_01jvpafwd2vphpn8ebw7y0sqtd',
+		},
+	},
+	{
+		executions: 1800000,
+		priceMonthly: 2500,
+		priceAnnual: 30000,
+		priceIds: {
+			monthly: 'pri_01jvpagxazkjcvng2hwwn159hg',
+			annual: 'pri_01jvpaj8h7z0x20jxd77t8pprn',
+		},
+	},
+];
+
+export const BUSINESS_PRICING_TIERS_SANDBOX: PricingTier[] = [
+	{
+		executions: 40000,
+		priceMonthly: 800,
+		priceAnnual: 8000,
+		priceIds: {
+			monthly: 'pri_01jvpc7dfa9773e8t5s948rp76',
+			annual: 'pri_01jvpc8akq2ktkk66tjakh4xs6',
+		},
+	},
+];
+
+import { isProductionMode } from '@/utils/environment';
+
+export const BUSINESS_PRICING_TIERS: PricingTier[] = isProductionMode()
+	? BUSINESS_PRICING_TIERS_PRODUCTION
+	: BUSINESS_PRICING_TIERS_SANDBOX;
+
+export const STATIC_PLANS = {
+	community: {
+		id: 'community',
+		name: 'Community',
+		description:
+			'Everything a single user needs to get started with automation.',
+		price: 0,
+		features: [
+			'Visual canvas',
+			'All integrations (+600)',
+			'AI agent builder',
+			'Code steps in workflows',
+			'Forum support',
+		],
+		executions: 'unlimited',
+		workflows: 'unlimited',
+		primaryCTA: 'get-started',
+	},
+	business: {
+		id: 'business',
+		name: 'Business',
+		description:
+			'For teams that need to collaborate and scale workflows executions.',
+		basePrice: 8000,
+		features: [
+			'6 shared projects',
+			'SSO, SAML and LDAP',
+			'Different environments',
+			'Global variables',
+			'Version control using Git',
+			'Insights',
+		],
+		workflows: 'unlimited',
+		users: 'unlimited',
+		primaryCTA: 'subscribe',
+		pricingTiers: BUSINESS_PRICING_TIERS,
+	},
+	enterprise: {
+		id: 'enterprise',
+		name: 'Enterprise',
+		description:
+			'Ideal for businesses with strict security and performance requirements',
+		price: 'contact',
+		features: [
+			'Unlimited shared projects',
+			'Dedicated support with SLAs',
+			'Log streaming',
+			'External secret store integration',
+			'Invoice billing',
+			'API key scoping',
+			'Additional date ranges on Insights',
+		],
+		executions: 'unlimited',
+		workflows: 'unlimited',
+		users: 'unlimited',
+		primaryCTA: 'contact-us',
+	},
+};

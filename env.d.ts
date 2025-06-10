@@ -9,7 +9,11 @@ declare module '*.vue' {
 interface ImportMetaEnv {
 	readonly VITE_APP_TITLE: string;
 	readonly VITE_LICENSE_TENANT_ID: string;
+	readonly VITE_PADDLE_ENVIRONMENT: string;
+	readonly VITE_PADDLE_CLIENT_SIDE_TOKEN: string;
+	readonly VITE_PADDLE_BILLING_PORTAL: string;
 	readonly BASE_URL: string;
+	readonly MODE: string;
 }
 
 interface ImportMeta {

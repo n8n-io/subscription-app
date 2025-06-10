@@ -64,13 +64,20 @@ export interface PaddleCheckoutSuccess {
 
 export interface Paddle {
 	Environment: {
-		set: (key: 'sandbox') => void;
+		set: (environment: 'sandbox' | 'production') => void;
 	};
-	Setup: (info: { vendor: number }) => void;
+	Initialize: (info: { token: string }) => void;
 	Checkout: {
 		open: (info: {
-			override: string;
-			successCallback: (data: PaddleCheckoutSuccess) => void;
+			items?: Array<{
+				priceId: string;
+				quantity?: number;
+			}>;
+			settings?: {
+				successUrl?: string;
+			};
+			successCallback?: (data: PaddleCheckoutSuccess) => void;
+			closeCallback?: () => void;
 		}) => void;
 	};
 }
@@ -80,82 +87,6 @@ export interface OpenApiError {
 	message: string;
 	errors?: {}[];
 }
-
-export interface Option {
-	value: string | number;
-	labelKey?: string;
-}
-
-export interface Feature {
-	labelKey: string;
-}
-
-export interface PlanBase {
-	id: string;
-	nameKey: string;
-	descriptionKey: string;
-	features: Feature[];
-	primaryCTA?: 'email' | 'start-trial' | 'get-started';
-	secondaryCTA?: 'email';
-}
-
-export interface LimitedPlan extends PlanBase {
-	unlimited: false;
-	unitSize: number;
-	options: Option[];
-	pricing: 'custom';
-}
-
-export interface FreePlan extends PlanBase {
-	unlimited: true;
-	pricing: 'free';
-}
-
-export interface CustomPlan extends PlanBase {
-	unlimited: true;
-	pricing: 'quote';
-}
-
-export type Plan = LimitedPlan | FreePlan | CustomPlan;
-
-export interface ExtraPackage {
-	id: string;
-	max: number;
-	min: number;
-	price: {
-		USD: number;
-	};
-	quota: string;
-	type: 'package';
-	units: number;
-}
-
-export interface ActiveWorkflowsExtraPackage extends ExtraPackage {
-	id: 'activeWorkflows';
-	quota: 'quota:activeWorkflows';
-}
-
-export type Extras = ActiveWorkflowsExtraPackage;
-
-export type Product = {
-	group: 'on-prem';
-	metadata: {
-		planName: string;
-		position: number;
-		terms: {
-			billingFrequency: 'monthly' | 'yearly';
-			isMainPlan: boolean;
-			paddlePlanId: number;
-			price: {
-				USD: number;
-			};
-			trialDays: number;
-			extras: Extras[];
-		};
-	};
-	productId: string;
-	tenantId: number;
-};
 
 export type CheckoutSession = {
 	id: string;
@@ -182,4 +113,15 @@ export interface FAQ {
 
 export interface SubscriptionCancellation {
 	expiry: string;
+}
+
+export type BillingPeriod = 'monthly' | 'annual';
+
+export interface ProductMapping {
+	monthly: string;
+	annual: string;
+}
+
+export interface WorkflowProductMappings {
+	[workflowCount: number]: ProductMapping;
 }
