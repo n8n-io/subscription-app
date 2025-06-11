@@ -13,13 +13,11 @@ import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import { STATIC_PLANS, PLANS_FAQ } from '@/constants';
 import { onMounted, ref, watch } from 'vue';
 import type { Subscription, PaddleCheckoutSuccess } from '@/Interface';
-import { useSubscriptionsStore } from '@/stores/subscriptions';
 import { openPaddleCheckout } from '@/api/paddleCheckout';
 import { getEnvironmentConfig } from '@/utils/environment';
 import { ElNotification } from 'element-plus';
 import telemetry from '../utils/telemetry';
 
-const subscriptionsStore = useSubscriptionsStore();
 const waitingForSubscription = ref(false);
 const subscription = ref<Subscription | null>(null);
 const error = ref<string | null>(null);
@@ -51,27 +49,6 @@ watch(waitingForSubscription, (waiting) => {
 
 function scrollToTop() {
 	document.body.scrollTop = document.documentElement.scrollTop = 0;
-}
-
-async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
-	try {
-		waitingForSubscription.value = true;
-		subscription.value = await subscriptionsStore.createSubscription(
-			checkoutSessionId,
-			paddleCheckoutId
-		);
-		waitingForSubscription.value = false;
-	} catch (e) {
-		waitingForSubscription.value = false;
-		if (e instanceof Error) {
-			ElNotification({
-				message: e.message,
-				type: 'error',
-				position: 'bottom-right',
-				showClose: false,
-			});
-		}
-	}
 }
 
 function trackButtonClicked(
@@ -136,19 +113,10 @@ async function onSubscribe(priceId: string, executions: number) {
 		await openPaddleCheckout({
 			productId: priceId,
 			successCallback: (data) => {
-				// Generate a mock checkout session ID for tracking
-				const mockCheckoutId = `direct_${Date.now()}`;
-				onCheckout(
-					mockCheckoutId,
-					data.checkout?.id || `paddle_${Date.now()}`
-				);
 				trackCheckout({
 					successEvent: data,
 					quota: executions,
 				});
-			},
-			closeCallback: () => {
-				// Handle checkout close if needed
 			},
 		});
 	} catch (e) {
