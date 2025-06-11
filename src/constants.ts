@@ -5,6 +5,8 @@ export const LICENSE_SERVER_URL = 'https://license.n8n.io/';
 export const SUPPORT_EMAIL = 'sales@n8n.io';
 export const ENTERPRISE_CONTACT_FORM_URL =
 	'https://n8n-community.typeform.com/to/y9X2YuGa';
+export const BUSINESS_CONTACT_FORM_URL =
+	'https://n8n-community.typeform.com/to/nTaly8BO';
 export const TENANT_ID: string = import.meta.env.VITE_LICENSE_TENANT_ID || '1';
 
 export const PLANS_FAQ: FAQ[] = [
@@ -63,7 +65,8 @@ export const PLANS_FAQ: FAQ[] = [
 ];
 
 export interface PricingTier {
-	executions: number;
+	executionsMonthly: number;
+	executionsAnnual: number;
 	priceMonthly: number;
 	priceAnnual: number;
 	priceIds: {
@@ -74,8 +77,9 @@ export interface PricingTier {
 
 export const BUSINESS_PRICING_TIERS_PRODUCTION: PricingTier[] = [
 	{
-		executions: 480000,
-		priceMonthly: 667,
+		executionsMonthly: 40000,
+		executionsAnnual: 480000,
+		priceMonthly: 800,
 		priceAnnual: 8000,
 		priceIds: {
 			monthly: 'pri_01jvby47fzh40fbbf8e4agfyf4',
@@ -83,36 +87,40 @@ export const BUSINESS_PRICING_TIERS_PRODUCTION: PricingTier[] = [
 		},
 	},
 	{
-		executions: 600000,
-		priceMonthly: 834,
-		priceAnnual: 10000,
+		executionsMonthly: 50000,
+		executionsAnnual: 600000,
+		priceMonthly: 985,
+		priceAnnual: 9852,
 		priceIds: {
 			monthly: 'pri_01jvpa8852ersvg2yt9mgwxwpp',
 			annual: 'pri_01jvpabct5a4gry9y8s3ah9k6v',
 		},
 	},
 	{
-		executions: 900000,
-		priceMonthly: 1250,
-		priceAnnual: 15000,
+		executionsMonthly: 75000,
+		executionsAnnual: 900000,
+		priceMonthly: 1456,
+		priceAnnual: 14555,
 		priceIds: {
 			monthly: 'pri_01jvpad1sxpa62xjwvwy68nntk',
 			annual: 'pri_01jvpadxbbh3jh8tdjzy84c0wa',
 		},
 	},
 	{
-		executions: 1200000,
-		priceMonthly: 1667,
-		priceAnnual: 20000,
+		executionsMonthly: 100000,
+		executionsAnnual: 1200000,
+		priceMonthly: 1726,
+		priceAnnual: 17260,
 		priceIds: {
 			monthly: 'pri_01jvpaeza812qk9gafcmtkncz8',
 			annual: 'pri_01jvpafwd2vphpn8ebw7y0sqtd',
 		},
 	},
 	{
-		executions: 1800000,
-		priceMonthly: 2500,
-		priceAnnual: 30000,
+		executionsMonthly: 150000,
+		executionsAnnual: 1800000,
+		priceMonthly: 2189,
+		priceAnnual: 21890,
 		priceIds: {
 			monthly: 'pri_01jvpagxazkjcvng2hwwn159hg',
 			annual: 'pri_01jvpaj8h7z0x20jxd77t8pprn',
@@ -122,7 +130,8 @@ export const BUSINESS_PRICING_TIERS_PRODUCTION: PricingTier[] = [
 
 export const BUSINESS_PRICING_TIERS_SANDBOX: PricingTier[] = [
 	{
-		executions: 40000,
+		executionsMonthly: 40000,
+		executionsAnnual: 480000,
 		priceMonthly: 800,
 		priceAnnual: 8000,
 		priceIds: {
