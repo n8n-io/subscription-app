@@ -33,7 +33,7 @@ export default {
 	'feature.unlimitedExecutions': 'Unlimited executions',
 	'features.activeWorkflows.active': 'active workflows* and',
 	'features.activeWorkflows.count': '{ count } active workflows*',
-	'features.activeWorkflows.price': '${ count }/month',
+	'features.activeWorkflows.price': '€{ count }/month',
 	'features.activeWorkflows.moreThanMax': 'Over 200 active workflows *',
 	'pricing.dollars': '$',
 	'pricing.permonth': 'per month',
@@ -64,7 +64,7 @@ export default {
 	'faq.productionExecution.question':
 		'Your plan include set number of production execution. What is a production execution?',
 	'faq.productionExecution.answer':
-		'We only count production execution as part of your usage.<br/><br/>Production executions occur when a triggering event or schedule <strong>automatically</strong> runs a workflow, as opposed to manual executions (<a href="https://www.notion.so/1035b6e0c94f80918e8ce9a3892fcb60?pvs=21" target="_blank">see details here</a>).<br/><br/>Additionally, sub-workflows executions that are triggered from the "execute trigger" node do not count towards your usage quota.',
+		'We only count production execution as part of your usage.<br/><br/>Production executions occur when a triggering event or schedule <strong>automatically</strong> runs a workflow, as opposed to manual executions (<a href="https://docs.n8n.io/workflows/executions/manual-partial-and-production-executions/" target="_blank">see details here</a>).<br/><br/>Additionally, sub-workflows executions that are triggered from the "execute trigger" node do not count towards your usage quota.',
 	'faq.supportDifference.question':
 		'What is the difference between forum and dedicated support?',
 	'faq.supportDifference.answer':
@@ -105,7 +105,7 @@ export default {
 		"If you're already using n8n, you can assess your weekly or monthly usage by reviewing your instance's execution logs.<br/><br/>If you're not yet using n8n, you can estimate your usage by listing your main use cases and evaluating how often each one will run. Here are a few examples:<br/><br/>• <strong>Scheduled workflows:</strong> For workflows triggered on a regular schedule, count how many times the schedule runs in a month. For instance, a daily schedule would result in 30 or 31 executions per month, while one that runs every 5 minutes would result in about 8,600–8,900 executions monthly.<br/>• <strong>Webhook-based workflows:</strong> Estimate how many times the event that triggers your webhook occurs per day. That number equals your daily executions.<br/>• <strong>Chatbot use case:</strong> Estimate how many conversations the chatbot will handle each week, based on your user base and expected frequency of interaction. Then multiply that by the average number of messages per conversation. This gives you the total weekly executions for the chatbot.",
 	'faq.wireTransfer.question': 'Can I pay by wire transfer?',
 	'faq.wireTransfer.answer':
-		'Yes, we offer payment by invoice and wire transfer for the <strong>Annual</strong> Business plan. Please reach out to our sales team using this form.',
+		'Yes, we offer payment by invoice and wire transfer for the <strong>Annual</strong> Business plan. Please reach out to our sales team using <a href="https://n8n-community.typeform.com/to/nTaly8BO" target="_blank">this form.</a>',
 
 	'management.cancel.success':
 		'Your plan was cancelled, but will be available for another {days} days.',

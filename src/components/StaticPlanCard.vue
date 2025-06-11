@@ -30,7 +30,7 @@
 					Contact us
 				</span>
 				<span v-else>
-					<span :class="$style.currency">$</span>
+					<span :class="$style.currency">€</span>
 					<span :class="$style.price">
 						{{ displayPrice }}
 					</span>
@@ -53,12 +53,13 @@
 				>
 					<span :class="$style.dropdown__workflows">{{
 						selectedTier
-							? formatExecutions(selectedTier.executions)
+							? formatExecutions(currentExecutions)
 							: 'Select tier'
 					}}</span>
 					<div>
 						<span :class="$style.dropdown__active">
-							executions / year
+							Production executions /
+							{{ props.isAnnual ? 'year' : 'month' }}
 						</span>
 						<span :class="$style.dropdown__test">
 							with unlimited steps
@@ -113,34 +114,39 @@
 					<div :class="$style.dropdown__content">
 						<div
 							v-for="tier in plan.pricingTiers"
-							:key="tier.executions"
+							:key="tier.executionsAnnual"
 							:class="[
 								$style.dropdown__option,
-								selectedTier?.executions === tier.executions
+								selectedTier?.executionsAnnual ===
+								tier.executionsAnnual
 									? $style.dropdown__option_selected
 									: '',
 							]"
 							@click="selectTier(tier)"
 						>
 							<div :class="$style.option__price">
-								${{
+								€{{
 									isAnnual
 										? tier.priceAnnual
 										: tier.priceMonthly
 								}}/{{ isAnnual ? 'year' : 'month' }}
 							</div>
 							<div :class="$style.option__description">
-								{{ formatExecutions(tier.executions) }}
-								executions / year
+								{{
+									formatExecutions(
+										props.isAnnual
+											? tier.executionsAnnual
+											: tier.executionsMonthly
+									)
+								}}
+								Production executions /
+								{{ props.isAnnual ? 'year' : 'month' }}
 							</div>
 						</div>
 					</div>
 				</div>
-				<div
-					v-if="plan.pricingTiers && plan.pricingTiers.length === 1"
-					:class="$style.singleTier"
-				>
-					<small>{{ getEnvironmentNote() }}</small>
+				<div v-if="plan.id === 'business'" :class="$style.singleTier">
+					<small>{{ getStartsAtMessage() }}</small>
 				</div>
 			</div>
 
@@ -159,6 +165,9 @@
 						and unlimited workflows
 					</span>
 				</div>
+			</div>
+			<div v-if="plan.id === 'enterprise'" :class="$style.singleTier">
+				<small>{{ getStartsAtMessage() }}</small>
 			</div>
 		</div>
 
@@ -187,7 +196,7 @@
 					<VButton
 						v-if="plan.primaryCTA === 'contact-us'"
 						variant="primary"
-						@click="$emit('contactUs')"
+						@click="openContactForm"
 					>
 						Contact us
 					</VButton>
@@ -213,6 +222,15 @@
 						Get started
 					</VButton>
 				</div>
+				<!-- Business plan specific CTA buttons -->
+				<template v-if="plan.id === 'business'">
+					<span :class="$style.cta__seperator">or</span>
+					<div :class="$style.secondaryCTA">
+						<VButton variant="secondary" @click="openMainSupport">
+							Contact us
+						</VButton>
+					</div>
+				</template>
 			</div>
 		</div>
 	</div>
@@ -221,7 +239,10 @@
 <script setup lang="ts">
 import { computed, ref, type Ref, onMounted, onBeforeUnmount } from 'vue';
 import type { PricingTier } from '@/constants';
-import { isSandboxMode } from '@/utils/environment';
+import {
+	BUSINESS_CONTACT_FORM_URL,
+	ENTERPRISE_CONTACT_FORM_URL,
+} from '@/constants';
 import BadgePill from './BadgePill.vue';
 import IconTick from './icons/IconTick.vue';
 import IconThunder from './icons/IconThunder.vue';
@@ -295,6 +316,15 @@ const displayPrice = computed(() => {
 	return typeof props.plan.price === 'number' ? props.plan.price : 0;
 });
 
+const currentExecutions = computed(() => {
+	if (props.plan.id === 'business' && selectedTier.value) {
+		return props.isAnnual
+			? selectedTier.value.executionsAnnual
+			: selectedTier.value.executionsMonthly;
+	}
+	return 0;
+});
+
 function formatExecutions(count: number): string {
 	if (count >= 1000000) {
 		return `${(count / 1000000).toFixed(1)}M`;
@@ -340,12 +370,33 @@ function onStartTrial() {
 	const billingPeriod = props.isAnnual ? 'annual' : 'monthly';
 	const priceId = selectedTier.value.priceIds[billingPeriod];
 
-	emit('startTrial', priceId, selectedTier.value.executions, billingPeriod);
+	emit('startTrial', priceId, currentExecutions.value, billingPeriod);
 }
 
-function getEnvironmentNote(): string {
-	if (isSandboxMode()) {
-		return 'Sandbox mode: Limited pricing tiers available for testing';
+function trackContactUs() {
+	emit('contactUs');
+}
+
+function openMainSupport() {
+	window.location.href = BUSINESS_CONTACT_FORM_URL;
+	trackContactUs();
+}
+
+function openContactForm() {
+	if (props.plan.id === 'enterprise') {
+		window.location.href = ENTERPRISE_CONTACT_FORM_URL;
+	} else {
+		window.location.href = BUSINESS_CONTACT_FORM_URL;
+	}
+	trackContactUs();
+}
+
+function getStartsAtMessage(): string {
+	if (props.plan.id === 'business') {
+		return 'Starts at 480k production executions / year with unlimited steps';
+	}
+	if (props.plan.id === 'enterprise') {
+		return 'Starts at 600k production executions / year with unlimited steps';
 	}
 	return '';
 }
@@ -451,24 +502,21 @@ function getEnvironmentNote(): string {
 		line-height: 90%;
 		letter-spacing: -0.03em;
 		color: var(--color-white);
-		min-width: 100px;
 	}
 
 	&__active {
 		font-family: var(--font-family-geomanist);
-		font-size: 15px;
-		font-weight: 500;
+		font-size: var(--font-size-sm);
 		color: var(--color-white);
-		line-height: 140%;
+		font-weight: 400;
 		letter-spacing: 0.025em;
 		display: flex;
 	}
 
 	&__test {
-		font-size: 15px;
-		font-weight: 300;
+		font-size: var(--font-size-sm);
 		color: var(--color-paragraphs);
-		line-height: 140%;
+		font-weight: 300;
 		letter-spacing: 0.025em;
 	}
 
