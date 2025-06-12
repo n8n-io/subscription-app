@@ -139,6 +139,16 @@ export const BUSINESS_PRICING_TIERS_SANDBOX: PricingTier[] = [
 			annual: 'pri_01jvpc8akq2ktkk66tjakh4xs6',
 		},
 	},
+	{
+		executionsMonthly: 50000,
+		executionsAnnual: 600000,
+		priceMonthly: 985,
+		priceAnnual: 9852,
+		priceIds: {
+			monthly: 'pri_01jxftgqg8z7cwhg2fhc0bxdde',
+			annual: 'pri_01jxftg026k3ra6y34r2hcdxkb',
+		},
+	},
 ];
 
 import { isProductionMode } from '@/utils/environment';
@@ -188,7 +198,7 @@ export const STATIC_PLANS = {
 		id: 'enterprise',
 		name: 'Enterprise',
 		description:
-			'Ideal for businesses with strict security and performance requirements',
+			'Ideal for businesses with strict security and performance requirements.',
 		price: 'contact',
 		features: [
 			'Unlimited shared projects',
