@@ -239,10 +239,7 @@
 <script setup lang="ts">
 import { computed, ref, type Ref, onMounted, onBeforeUnmount } from 'vue';
 import type { PricingTier } from '@/constants';
-import {
-	BUSINESS_CONTACT_FORM_URL,
-	ENTERPRISE_CONTACT_FORM_URL,
-} from '@/constants';
+
 import BadgePill from './BadgePill.vue';
 import IconTick from './icons/IconTick.vue';
 import IconThunder from './icons/IconThunder.vue';
@@ -378,16 +375,10 @@ function trackContactUs() {
 }
 
 function openMainSupport() {
-	window.location.href = BUSINESS_CONTACT_FORM_URL;
 	trackContactUs();
 }
 
 function openContactForm() {
-	if (props.plan.id === 'enterprise') {
-		window.location.href = ENTERPRISE_CONTACT_FORM_URL;
-	} else {
-		window.location.href = BUSINESS_CONTACT_FORM_URL;
-	}
 	trackContactUs();
 }
 

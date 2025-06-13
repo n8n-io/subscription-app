@@ -120,4 +120,22 @@ export default {
 	'management.startup': 'Startup plan:',
 	'management.business': 'Business plan:',
 	'error.somethingWentWrong': 'Something went wrong',
+
+	'thankYou.title': 'Thank you!',
+	'thankYou.success.message':
+		'Your subscription has been successfully activated!',
+	'thankYou.nextSteps.title': 'What happens next?',
+	'thankYou.nextSteps.step1.title': '1. Check your email',
+	'thankYou.nextSteps.step1.description':
+		'You will receive a license key by email shortly. This key is required to activate your Business plan features.',
+	'thankYou.nextSteps.step2.title': '2. Apply your license key',
+	'thankYou.nextSteps.step2.description':
+		'Follow the steps outlined in our <a href="https://docs.n8n.io/license-key/" target="_blank">documentation</a> to apply your license key to your n8n instance.',
+	'thankYou.nextSteps.step3.title': '3. Start using Business features',
+	'thankYou.nextSteps.step3.description':
+		"Once activated, you'll have access to all Business plan features including unlimited active workflows, advanced sharing capabilities, and more!",
+	'thankYou.actions.manageSubscription': 'Manage your subscription',
+	'thankYou.support.title': 'Need help?',
+	'thankYou.support.description':
+		"If you have any questions or need assistance, don't hesitate to <a href='https://n8n.io/support' target='_blank'>contact our support team</a>. We're here to help you get the most out of n8n!",
 };

@@ -2,6 +2,7 @@ declare global {
 	interface Window {
 		Paddle?: Paddle;
 		rudderanalytics?: RudderStack;
+		tf?: Typeform;
 	}
 }
 
@@ -124,4 +125,25 @@ export interface ProductMapping {
 
 export interface WorkflowProductMappings {
 	[workflowCount: number]: ProductMapping;
+}
+
+export interface TypeformWidget {
+	unmount: () => void;
+}
+
+export interface Typeform {
+	createWidget: (
+		formId: string,
+		options: {
+			container: HTMLElement;
+			opacity?: number;
+			hideHeaders?: boolean;
+			hideFooter?: boolean;
+			height?: number | string;
+			medium?: string;
+			hidden?: Record<string, string | number>;
+			onSubmit?: () => void;
+			onReady?: () => void;
+		}
+	) => TypeformWidget;
 }
