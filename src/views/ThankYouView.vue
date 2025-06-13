@@ -109,6 +109,7 @@ function goToManagement() {
 
 .infoCard {
 	margin-bottom: 24px;
+	border: none;
 }
 
 .content {
@@ -157,7 +158,7 @@ function goToManagement() {
 
 .supportCard {
 	background: var(--color-background-darker);
-	border: 1px solid var(--color-foreground-light);
+	border: none;
 }
 
 .supportContent {

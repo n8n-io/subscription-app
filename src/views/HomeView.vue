@@ -10,6 +10,7 @@ import ContentHeading from '@/components/ContentHeading.vue';
 import FAQuestion from '@/components/FAQuestion.vue';
 import VButton from '@/components/VButton.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
+import TypeformModal from '@/components/TypeformModal.vue';
 import { STATIC_PLANS, PLANS_FAQ } from '@/constants';
 import { onMounted, ref, watch } from 'vue';
 import type { Subscription, PaddleCheckoutSuccess } from '@/Interface';
@@ -32,6 +33,12 @@ const source = params.get('source');
 
 const isAnnual = ref(false);
 const envConfig = getEnvironmentConfig();
+
+// Enterprise contact modal state
+const showEnterpriseModal = ref(false);
+
+// Business contact modal state
+const showBusinessModal = ref(false);
 
 onMounted(async () => {
 	telemetry.page('plans', 'plans');
@@ -112,9 +119,9 @@ async function onSubscribe(priceId: string, executions: number) {
 	try {
 		await openPaddleCheckout({
 			productId: priceId,
-			successCallback: (data) => {
+			successCallback: (checkoutData) => {
 				trackCheckout({
-					successEvent: data,
+					successEvent: checkoutData,
 					quota: executions,
 				});
 			},
@@ -133,10 +140,48 @@ async function onSubscribe(priceId: string, executions: number) {
 
 function onBusinessContactUs() {
 	trackButtonClicked('business_contact_us');
+	showBusinessModal.value = true;
+}
+
+function onBusinessContactCompleted() {
+	showBusinessModal.value = false;
+	// Analytics event for form completion
+	telemetry.track('Business contact form completed', {
+		form_type: 'business_contact',
+		source: 'website',
+	});
+}
+
+function onBusinessContactClosed() {
+	showBusinessModal.value = false;
+	// Analytics event for form close
+	telemetry.track('Business contact form closed', {
+		form_type: 'business_contact',
+		source: 'website',
+	});
 }
 
 function onEnterpriseContactUs() {
 	trackButtonClicked('enterprise_contact_us');
+	showEnterpriseModal.value = true;
+}
+
+function onEnterpriseContactCompleted() {
+	showEnterpriseModal.value = false;
+	// Analytics event for form completion
+	telemetry.track('Enterprise contact form completed', {
+		form_type: 'enterprise_contact',
+		source: 'website',
+	});
+}
+
+function onEnterpriseContactClosed() {
+	showEnterpriseModal.value = false;
+	// Analytics event for form close
+	telemetry.track('Enterprise contact form closed', {
+		form_type: 'enterprise_contact',
+		source: 'website',
+	});
 }
 
 function onCommunityGetStarted() {
@@ -263,6 +308,24 @@ function redirectToActivate() {
 						</div>
 					</div>
 				</div>
+
+				<!-- Business Contact Modal -->
+				<TypeformModal
+					:is-visible="showBusinessModal"
+					:typeform-id="'nTaly8BO'"
+					hidden-fields="source=website,plan=business"
+					@completed="onBusinessContactCompleted"
+					@close="onBusinessContactClosed"
+				/>
+
+				<!-- Enterprise Contact Modal -->
+				<TypeformModal
+					:is-visible="showEnterpriseModal"
+					:typeform-id="'y9X2YuGa'"
+					hidden-fields="source=website,plan=enterprise"
+					@completed="onEnterpriseContactCompleted"
+					@close="onEnterpriseContactClosed"
+				/>
 			</div>
 		</template>
 	</DefaultLayout>
