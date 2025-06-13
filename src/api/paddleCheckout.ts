@@ -26,8 +26,8 @@ async function initializePaddle(options: DirectCheckoutOptions): Promise<void> {
 		token: paddleConfig.clientToken,
 		eventCallback: (data: any) => {
 			if (data.name === 'checkout.completed') {
-				const managementUrl = `${baseUrl}/manage?token=${data.data.transaction_id}`;
-				window.location.href = managementUrl;
+				const thankYouUrl = `${baseUrl}/thank-you?token=${data.data.transaction_id}`;
+				window.location.href = thankYouUrl;
 			}
 			if (options.successCallback) {
 				options.successCallback(data);

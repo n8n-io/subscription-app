@@ -1,5 +1,7 @@
 import ManagementView from '@/views/ManagementView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
+import ThankYouView from '@/views/ThankYouView.vue';
+
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 
@@ -15,6 +17,11 @@ const router = createRouter({
 			path: '/manage',
 			name: 'management',
 			component: ManagementView,
+		},
+		{
+			path: '/thank-you',
+			name: 'thank-you',
+			component: ThankYouView,
 		},
 		{
 			path: '/:pathMatch(.*)*',
