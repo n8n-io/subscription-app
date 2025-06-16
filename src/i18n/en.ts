@@ -98,7 +98,7 @@ export default {
 	'faq.executionCounts.question':
 		"How will I see how many production executions I've used?",
 	'faq.executionCounts.answer':
-		'You can review your production execution counts under your <a href="https://docs.n8n.io/insights/" target="_blank">Insights Dashboard</a>. Additionally, for annual Business plan subscribers, the n8n team will reach out to you when you are close to reaching 80% of your annual quota.',
+		'You can review your production execution counts under your <a href="https://docs.n8n.io/insights/" target="_blank">Insights Dashboard</a>. Additionally, you will receive a weekly email providing you with your production execution counts across all instances where you may have applied your Business plan license key. For annual Business plan subscribers, the n8n team will reach out to you when you are close to reaching 80% of your annual quota.',
 	'faq.assessExecutions.question':
 		'How can I assess how many production executions I need?',
 	'faq.assessExecutions.answer':
@@ -106,6 +106,9 @@ export default {
 	'faq.wireTransfer.question': 'Can I pay by wire transfer?',
 	'faq.wireTransfer.answer':
 		'Yes, we offer payment by invoice and wire transfer for the <strong>Annual</strong> Business plan. Please reach out to our sales team using <a href="https://n8n-community.typeform.com/to/nTaly8BO" target="_blank">this form.</a>',
+	'faq.startupDiscount.question': 'Do you offer a discount for startups?',
+	'faq.startupDiscount.answer':
+		'We do, please refer to our <a href="https://www.notion.so/n8n/Supercharge-Your-Startup-with-n8n-e64d5892eb6a43b19a18124595d77625" target="_blank">Startup page</a> for more information and retrieve a discount code.',
 
 	'management.cancel.success':
 		'Your plan was cancelled, but will be available for another {days} days.',
