@@ -44,12 +44,12 @@ interface InfoCard {
 	id: string | number;
 	title: string;
 	description: string;
-	button?: InfoCardButton;
+	button: InfoCardButton;
 }
 
 interface InfoCardSectionComponent {
 	title: string;
-	cards?: InfoCard[];
+	cards: InfoCard[];
 }
 
 const props = defineProps<InfoCardSectionComponent>();
