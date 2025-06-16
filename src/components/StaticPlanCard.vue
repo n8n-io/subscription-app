@@ -166,6 +166,27 @@
 					</span>
 				</div>
 			</div>
+			<div
+				v-else-if="plan.executions === 'custom'"
+				:class="$style.unlimited"
+			>
+				<span
+					:class="[
+						$style.unlimited__icon,
+						$style.unlimited__iconWhite,
+					]"
+				>
+					<IconSettings />
+				</span>
+				<div :class="$style.unlimited__info">
+					<span :class="$style.unlimited__text">
+						Custom number of workflow executions
+					</span>
+					<span :class="$style.unlimited__description">
+						with unlimited steps
+					</span>
+				</div>
+			</div>
 			<div v-if="plan.id === 'enterprise'" :class="$style.singleTier">
 				<small>{{ getStartsAtMessage() }}</small>
 			</div>
@@ -245,6 +266,7 @@ import IconTick from './icons/IconTick.vue';
 import IconThunder from './icons/IconThunder.vue';
 import IconInfinity from './icons/IconInfinity.vue';
 import VButton from './VButton.vue';
+import IconSettings from './icons/IconSettings.vue';
 
 type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
 type Theme = 'light' | 'dark';
@@ -611,9 +633,14 @@ function getStartsAtMessage(): string {
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-l);
+	min-height: 82px;
 
 	&__icon {
 		display: flex;
+	}
+
+	&__iconWhite {
+		color: var(--color-white);
 	}
 
 	&__info {

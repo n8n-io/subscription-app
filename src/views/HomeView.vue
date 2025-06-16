@@ -11,7 +11,7 @@ import FAQuestion from '@/components/FAQuestion.vue';
 import VButton from '@/components/VButton.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import TypeformModal from '@/components/TypeformModal.vue';
-import { STATIC_PLANS, PLANS_FAQ } from '@/constants';
+import { STATIC_PLANS, PLANS_FAQ, INFO_CARDS } from '@/constants';
 import { onMounted, ref, watch } from 'vue';
 import type { Subscription, PaddleCheckoutSuccess } from '@/Interface';
 import { openPaddleCheckout } from '@/api/paddleCheckout';
@@ -22,11 +22,13 @@ import telemetry from '../utils/telemetry';
 const waitingForSubscription = ref(false);
 const subscription = ref<Subscription | null>(null);
 const error = ref<string | null>(null);
-const loadingPlans = ref(false);
 
 const params = new URLSearchParams(window.location.search);
 const callbackParam = params.get('callback');
 const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
+
+const infoCardTitle = INFO_CARDS.title;
+const infoCards = INFO_CARDS.cards;
 
 const instanceId = params.get('instanceid');
 const source = params.get('source');
@@ -184,11 +186,6 @@ function onEnterpriseContactClosed() {
 	});
 }
 
-function onCommunityGetStarted() {
-	const url = new URL('https://github.com/n8n-io/n8n');
-	window.location.href = url.toString();
-}
-
 function redirectToActivate() {
 	if (subscription.value && callbackUrl) {
 		const url = new URL(callbackUrl);
@@ -241,47 +238,44 @@ function redirectToActivate() {
 				}}</VButton>
 			</div>
 		</div>
-		<div v-else-if="!loadingPlans">
-			<div v-if="envConfig.isSandbox" :class="$style.environmentBadge">
-				<span :class="$style.badge"
-					>{{ envConfig.displayName }} Mode</span
-				>
-			</div>
-			<div :class="[$style.pricingToggle]">
-				<ToggleSwitch v-model="isAnnual" class="gap-2">
-					<template #label-left>
-						<p>Monthly</p>
-					</template>
-					<template #label-right>
-						<p>Annually</p>
-					</template>
-				</ToggleSwitch>
-			</div>
-			<div :class="[$style.plans, $style.inner_container]">
-				<div :class="[$style.layer]" />
-				<StaticPlanCard
-					:plan="STATIC_PLANS.community"
-					badgeVariant="dark"
-					@get-started="onCommunityGetStarted"
-				/>
-				<StaticPlanCard
-					:plan="{
-						...STATIC_PLANS.business,
-						price: STATIC_PLANS.business.basePrice,
-					}"
-					:isAnnual="isAnnual"
-					:recommended="true"
-					@start-trial="onSubscribe"
-					@contact-us="onBusinessContactUs"
-					badgeVariant="pink"
-				/>
-				<StaticPlanCard
-					:plan="STATIC_PLANS.enterprise"
-					@contact-us="onEnterpriseContactUs"
-					badgeVariant="orange"
-					theme="dark"
-				/>
-			</div>
+
+		<div v-if="envConfig.isSandbox" :class="$style.environmentBadge">
+			<span :class="$style.badge">{{ envConfig.displayName }} Mode</span>
+		</div>
+		<div :class="[$style.pricingToggle]">
+			<ToggleSwitch v-model="isAnnual" class="gap-2">
+				<template #label-left>
+					<p>Monthly</p>
+				</template>
+				<template #label-right>
+					<p>Annually</p>
+				</template>
+			</ToggleSwitch>
+		</div>
+		<div :class="[$style.plans, $style.inner_container]">
+			<div :class="[$style.layer]" />
+			<StaticPlanCard
+				:plan="{
+					...STATIC_PLANS.business,
+					price: STATIC_PLANS.business.basePrice,
+				}"
+				:isAnnual="isAnnual"
+				:recommended="true"
+				@start-trial="onSubscribe"
+				@contact-us="onBusinessContactUs"
+				badgeVariant="pink"
+			/>
+			<StaticPlanCard
+				:plan="STATIC_PLANS.enterprise"
+				@contact-us="onEnterpriseContactUs"
+				badgeVariant="orange"
+				theme="dark"
+			/>
+		</div>
+
+		<!-- INFO card section -->
+		<div :class="[$style.infoCards, $style.inner_container]">
+			<InfoCardSection :title="infoCardTitle" :cards="infoCards" />
 		</div>
 
 		<!-- FAQ section -->
@@ -366,6 +360,9 @@ function redirectToActivate() {
 	justify-content: space-between;
 	position: relative;
 	gap: var(--spacing-s);
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 
 	@media (max-width: 992px) {
 		flex-direction: column;
@@ -397,6 +394,21 @@ function redirectToActivate() {
 		height: initial;
 		background-size: 170% 551%;
 		background-position: -137px -1828px;
+	}
+}
+
+.infoCards {
+	padding: var(--spacing-7xl);
+	display: flex;
+	max-width: 1440px;
+	margin: 0 auto;
+	justify-content: space-between;
+	gap: var(--spacing-2xl);
+
+	@media (max-width: 992px) {
+		flex-direction: column;
+		padding: var(--spacing-5xl) var(--spacing-s);
+		gap: var(--spacing-5xl);
 	}
 }
 

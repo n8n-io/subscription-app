@@ -81,15 +81,6 @@ function goToManagement() {
 						</div>
 					</div>
 				</InfoCard>
-
-				<InfoCard :class="$style.supportCard">
-					<div :class="$style.supportContent">
-						<h3 :class="$style.heading">
-							{{ $t('thankYou.support.title') }}
-						</h3>
-						<p v-html="$t('thankYou.support.description')"></p>
-					</div>
-				</InfoCard>
 			</div>
 		</div>
 	</DefaultLayout>

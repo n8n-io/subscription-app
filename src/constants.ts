@@ -62,6 +62,10 @@ export const PLANS_FAQ: FAQ[] = [
 		questionKey: 'faq.wireTransfer.question',
 		answerKey: 'faq.wireTransfer.answer',
 	},
+	{
+		questionKey: 'faq.startupDiscount.question',
+		answerKey: 'faq.startupDiscount.answer',
+	},
 ];
 
 export interface PricingTier {
@@ -209,9 +213,44 @@ export const STATIC_PLANS = {
 			'API key scoping',
 			'Additional date ranges on Insights',
 		],
-		executions: 'unlimited',
+		executions: 'custom',
 		workflows: 'unlimited',
 		users: 'unlimited',
 		primaryCTA: 'contact-us',
 	},
+};
+
+export const INFO_CARDS = {
+	title: 'Looking for something else?',
+	cards: [
+		{
+			id: 1,
+			title: 'See why n8n is the most cost-effective option in the market',
+			description:
+				'You only pay for full workflow executions, not for each operation, step, or task.',
+			button: {
+				text: 'Learn more',
+				url: 'https://blog.n8n.io/n8n-execution-advantage/?_gl=1*1lqfxz0*_gcl_au*NzIyMjU0Mzk0LjE3NDcyMjkzMTc.*_ga*MTE0NDc5MTE3NS4xNzQ3ODMzMzI5*_ga_0SC4FF2FH9*czE3NTAwNTc4MjEkbzQxJGcxJHQxNzUwMDU5MTgzJGo1NiRsMCRoMA..',
+			},
+		},
+		{
+			id: 1,
+			title: 'Community Edition',
+			description: 'A basic version of n8n is available on GitHub.',
+			button: {
+				text: 'View docs',
+				url: 'https://docs.n8n.io/hosting/?_gl=1*1cwmczd*_gcl_au*NzIyMjU0Mzk0LjE3NDcyMjkzMTc.*_ga*MTE0NDc5MTE3NS4xNzQ3ODMzMzI5*_ga_0SC4FF2FH9*czE3NTAwNTc4MjEkbzQxJGcxJHQxNzUwMDU5MTk4JGo0MSRsMCRoMA..',
+			},
+		},
+		{
+			id: 1,
+			title: 'Startup Plan',
+			description:
+				'For startups with up to 20 employees that raised up to $5M.',
+			button: {
+				text: "Let's start",
+				url: 'https://n8n.notion.site/Supercharge-Your-Startup-with-n8n-e64d5892eb6a43b19a18124595d77625',
+			},
+		},
+	],
 };
