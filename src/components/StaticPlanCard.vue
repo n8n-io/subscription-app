@@ -27,15 +27,28 @@
 						(plan.id === 'business' && selectedTier === null)
 					"
 				>
-					Contact us
+					Contact sales
 				</span>
-				<span v-else>
-					<span :class="$style.currency">€</span>
+				<span v-else :class="$style.priceContainer">
+					<span
+						v-if="isAnnual && monthlyPriceFromAnnual > 0"
+						:class="$style.crossedOutPrice"
+					>
+						{{ formatPrice(monthlyPrice) }}
+					</span>
 					<span :class="$style.price">
-						{{ displayPrice }}
+						{{
+							formatPrice(
+								isAnnual ? monthlyPriceFromAnnual : displayPrice
+							)
+						}}
 					</span>
 					<span :class="[$style.recurring]">
-						{{ isAnnual ? ' / year' : ' / month' }}
+						{{
+							isAnnual
+								? ' / per month, billed annually'
+								: ' / month'
+						}}
 					</span>
 				</span>
 			</div>
@@ -125,10 +138,12 @@
 							@click="selectTier(tier)"
 						>
 							<div :class="$style.option__price">
-								€{{
-									isAnnual
-										? tier.priceAnnual
-										: tier.priceMonthly
+								{{
+									formatPrice(
+										isAnnual
+											? tier.priceAnnual
+											: tier.priceMonthly
+									)
 								}}/{{ isAnnual ? 'year' : 'month' }}
 							</div>
 							<div :class="$style.option__description">
@@ -219,7 +234,7 @@
 						variant="primary"
 						@click="openContactForm"
 					>
-						Contact us
+						Contact sales
 					</VButton>
 					<VButton
 						v-else-if="plan.primaryCTA === 'start-trial'"
@@ -248,7 +263,7 @@
 					<span :class="$style.cta__seperator">or</span>
 					<div :class="$style.secondaryCTA">
 						<VButton variant="secondary" @click="openMainSupport">
-							Contact us
+							Contact sales
 						</VButton>
 					</div>
 				</template>
@@ -335,6 +350,22 @@ const displayPrice = computed(() => {
 	return typeof props.plan.price === 'number' ? props.plan.price : 0;
 });
 
+const monthlyPrice = computed(() => {
+	if (props.plan.id === 'community') return 0;
+	if (props.plan.id === 'business' && selectedTier.value) {
+		return selectedTier.value.priceMonthly;
+	}
+	return typeof props.plan.price === 'number' ? props.plan.price : 0;
+});
+
+const monthlyPriceFromAnnual = computed(() => {
+	if (props.plan.id === 'community') return 0;
+	if (props.plan.id === 'business' && selectedTier.value) {
+		return Math.round(selectedTier.value.priceAnnual / 12);
+	}
+	return 0;
+});
+
 const currentExecutions = computed(() => {
 	if (props.plan.id === 'business' && selectedTier.value) {
 		return props.isAnnual
@@ -352,6 +383,10 @@ function formatExecutions(count: number): string {
 		return `${(count / 1000).toFixed(0)}K`;
 	}
 	return count.toString();
+}
+
+function formatPrice(price: number): string {
+	return '€' + price.toLocaleString('de-DE');
 }
 
 function getPreviousPlan(planId: string): string {
@@ -475,7 +510,21 @@ function getStartsAtMessage(): string {
 		font-weight: 400;
 	}
 
+	.priceContainer {
+		display: flex;
+		align-items: baseline;
+		gap: 8px;
+	}
+
 	.price {
+		font-size: var(--font-size-3xl);
+		font-weight: 400;
+		letter-spacing: -2.16px;
+	}
+
+	.crossedOutPrice {
+		color: rgba(255, 255, 255, 0.7);
+		text-decoration: line-through;
 		font-size: var(--font-size-3xl);
 		font-weight: 400;
 		letter-spacing: -2.16px;
