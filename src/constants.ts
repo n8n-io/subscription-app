@@ -23,6 +23,10 @@ export const PLANS_FAQ: FAQ[] = [
 		answerKey: 'faq.supportDifference.answer',
 	},
 	{
+		questionKey: 'faq.businessPlanSupport.question',
+		answerKey: 'faq.businessPlanSupport.answer',
+	},
+	{
 		questionKey: 'faq.collaborateWorkflows.question',
 		answerKey: 'faq.collaborateWorkflows.answer',
 	},
@@ -187,6 +191,7 @@ export const STATIC_PLANS = {
 		basePrice: 8000,
 		features: [
 			'6 shared projects',
+			'Forum support',
 			'SSO, SAML and LDAP',
 			'Different environments',
 			'Global variables',

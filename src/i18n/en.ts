@@ -69,6 +69,10 @@ export default {
 		'What is the difference between forum and dedicated support?',
 	'faq.supportDifference.answer':
 		"Dedicated support means direct access to our in-house team, with guaranteed response times available through SLAs. It's built for teams who are running business-critical workflows and who need fast, reliable answers.<br/><br/>Forum support is available through the n8n community, home to over 45,000 AI and automation enthusiasts, professionals, and community engineers ready to help and share solutions.",
+	'faq.businessPlanSupport.question':
+		'Does the business plan include support?',
+	'faq.businessPlanSupport.answer':
+		'The Business Plan is a self-serve option and dedicated support is supported only in our Enterprise plan. We encourage you to browse our <a href="https://community.n8n.io/" target="_blank">community forum</a> to find answers or post questions of your own.',
 	'faq.collaborateWorkflows.question':
 		"What does 'collaborate on workflows' mean?",
 	'faq.collaborateWorkflows.answer':
