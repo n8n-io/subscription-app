@@ -269,6 +269,23 @@
 				</template>
 			</div>
 		</div>
+
+		<!-- Business plan terms and conditions -->
+		<div v-if="plan.id === 'business'" :class="$style.termsNotice">
+			<small>
+				By continuing, you agree to our
+				<a
+					href="https://n8n.io/legal/?_gl=1*1wtpiaz*_gcl_au*NzIyMjU0Mzk0LjE3NDcyMjkzMTc.*_ga*MTE0NDc5MTE3NS4xNzQ3ODMzMzI5*_ga_0SC4FF2FH9*czE3NTAyNDM5NTgkbzQ4JGcxJHQxNzUwMjQ0NDY1JGo2MCRsMCRoMA..#terms"
+					target="_blank"
+					>terms and conditions</a
+				>.
+				<a
+					href="https://n8n.io/legal/?_gl=1*x5q6sk*_gcl_au*NzIyMjU0Mzk0LjE3NDcyMjkzMTc.*_ga*MTE0NDc5MTE3NS4xNzQ3ODMzMzI5*_ga_0SC4FF2FH9*czE3NTAyNDM5NTgkbzQ4JGcxJHQxNzUwMjQ0NDY1JGo2MCRsMCRoMA..#privacy"
+					target="_blank"
+					>Privacy policy</a
+				>.
+			</small>
+		</div>
 	</div>
 </template>
 
@@ -456,9 +473,11 @@ function getStartsAtMessage(): string {
 	border: 1px solid rgba(255, 255, 255, 0.15);
 	background: rgba(255, 255, 255, 0.1);
 	padding: var(--spacing-s);
+	padding-bottom: calc(var(--spacing-s) + 40px);
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 }
 
 .lightTheme {
@@ -781,6 +800,29 @@ function getStartsAtMessage(): string {
 		color: var(--color-paragraphs);
 		font-size: var(--font-size-xs);
 		font-style: italic;
+	}
+}
+
+.termsNotice {
+	position: absolute;
+	bottom: var(--spacing-s);
+	left: var(--spacing-s);
+	right: var(--spacing-s);
+	text-align: center;
+
+	small {
+		color: var(--color-paragraphs);
+		font-size: var(--font-size-xs);
+		font-style: italic;
+
+		a {
+			color: var(--color-paragraphs);
+			text-decoration: underline;
+
+			&:hover {
+				color: var(--color-white);
+			}
+		}
 	}
 }
 </style>
