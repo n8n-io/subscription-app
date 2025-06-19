@@ -72,7 +72,7 @@ header {
 	margin: 0 auto;
 
 	@media (max-width: 992px) {
-		padding: 0 var(--spacing-s);
+		padding: 0 var(--spacing-s) var(--spacing-5xl) var(--spacing-s);
 		font-size: 38px;
 		line-height: 110%;
 	}

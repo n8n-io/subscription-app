@@ -378,7 +378,7 @@ const monthlyPrice = computed(() => {
 const monthlyPriceFromAnnual = computed(() => {
 	if (props.plan.id === 'community') return 0;
 	if (props.plan.id === 'business' && selectedTier.value) {
-		return Math.round(selectedTier.value.priceAnnual / 12);
+		return Math.ceil(selectedTier.value.priceAnnual / 12);
 	}
 	return 0;
 });
@@ -501,6 +501,7 @@ function getStartsAtMessage(): string {
 	font-size: var(--font-size-md);
 	color: var(--color-paragraphs);
 	line-height: 150%;
+	max-width: 462px;
 }
 
 .plan_includes {
@@ -519,7 +520,7 @@ function getStartsAtMessage(): string {
 	margin: var(--spacing-l) 0;
 
 	.quote {
-		font-size: var(--font-size-3xl);
+		font-size: var(--font-size-xxl);
 		font-weight: 400;
 		letter-spacing: -2.16px;
 	}
@@ -536,7 +537,7 @@ function getStartsAtMessage(): string {
 	}
 
 	.price {
-		font-size: var(--font-size-3xl);
+		font-size: var(--font-size-xxl);
 		font-weight: 400;
 		letter-spacing: -2.16px;
 	}
@@ -544,7 +545,7 @@ function getStartsAtMessage(): string {
 	.crossedOutPrice {
 		color: rgba(255, 255, 255, 0.7);
 		text-decoration: line-through;
-		font-size: var(--font-size-3xl);
+		font-size: var(--font-size-xxl);
 		font-weight: 400;
 		letter-spacing: -2.16px;
 	}
