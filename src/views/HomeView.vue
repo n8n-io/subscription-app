@@ -33,7 +33,7 @@ const infoCards = INFO_CARDS.cards;
 const instanceId = params.get('instanceid');
 const source = params.get('source');
 
-const isAnnual = ref(false);
+const isAnnual = ref(true);
 const envConfig = getEnvironmentConfig();
 
 // Enterprise contact modal state
