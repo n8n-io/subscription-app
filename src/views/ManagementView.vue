@@ -10,6 +10,7 @@ import telemetry from '../utils/telemetry';
 
 const i18n = useI18n();
 const subscriptionsStore = useSubscriptionsStore();
+const billingPortalUrl = import.meta.env.VITE_PADDLE_BILLING_PORTAL;
 
 const managementToken = ref('');
 const cancelled: Ref<null | { daysLeft: number }> = ref(null);
@@ -97,9 +98,25 @@ async function onCancel() {
 				</InfoCard>
 			</div>
 			<InfoCard v-else>
-				<span v-html="$t('management.cta.1')"></span>
-				<a @click="onCancel"> {{ $t('management.cta.2') }}</a
-				>{{ $t('management.cta.3') }}
+				<div>
+					<span v-html="$t('management.cta.1')"></span>
+					<h3 :class="[$style.heading]">
+						{{ $t('management.startup') }}
+					</h3>
+					<p>
+						{{ $t('management.cta.2') }}
+						<a @click="onCancel"> {{ $t('management.cta.3') }}</a>
+					</p>
+					<h3 :class="[$style.heading]">
+						{{ $t('management.business') }}
+					</h3>
+					<p>
+						{{ $t('management.cta.2') }}
+						<a :href="billingPortalUrl">
+							{{ $t('management.cta.3') }}</a
+						>
+					</p>
+				</div>
 			</InfoCard>
 		</div>
 	</DefaultLayout>
@@ -113,6 +130,9 @@ async function onCancel() {
 	label {
 		font-weight: 600;
 	}
+}
+.heading {
+	margin-top: 24px;
 }
 .cancelled {
 	> * {

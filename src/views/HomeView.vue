@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import PlanCard from '@/components/PlanCard.vue';
+import StaticPlanCard from '@/components/StaticPlanCard.vue';
 import CopyInput from '@/components/CopyInput.vue';
 import InfoCard from '@/components/InfoCard.vue';
 import InfoBanner from '@/components/InfoBanner.vue';
@@ -9,56 +9,38 @@ import IconQuestion from '@/components/icons/IconQuestion.vue';
 import ContentHeading from '@/components/ContentHeading.vue';
 import FAQuestion from '@/components/FAQuestion.vue';
 import VButton from '@/components/VButton.vue';
-import {
-	COMMUNITY_PLAN,
-	DEFAULT_ACTIVE_WORKFLOWS_OPTION,
-	ENTERPRISE_PLAN,
-	STARTUP_PLAN,
-	STARTUP_PLAN_NAME,
-	PLANS_FAQ,
-} from '@/constants';
-import { computed, onMounted, ref, watch } from 'vue';
-import { usePlansStore } from '@/stores/plans';
-import type {
-	LimitedPlan,
-	Product,
-	Subscription,
-	PaddleCheckoutSuccess,
-} from '@/Interface';
-import { useSubscriptionsStore } from '@/stores/subscriptions';
-import { isNumber } from '@/utils';
+import ToggleSwitch from '@/components/ToggleSwitch.vue';
+import TypeformModal from '@/components/TypeformModal.vue';
+import { STATIC_PLANS, PLANS_FAQ, INFO_CARDS } from '@/constants';
+import { onMounted, ref, watch } from 'vue';
+import type { Subscription, PaddleCheckoutSuccess } from '@/Interface';
+import { openPaddleCheckout } from '@/api/paddleCheckout';
+import { getEnvironmentConfig } from '@/utils/environment';
 import { ElNotification } from 'element-plus';
 import telemetry from '../utils/telemetry';
 
-const loadingPlans = ref(true);
-const plans = ref<Product[]>([]);
-const plansStore = usePlansStore();
-const subscriptionsStore = useSubscriptionsStore();
-
-const error = ref(false);
 const waitingForSubscription = ref(false);
 const subscription = ref<Subscription | null>(null);
+const error = ref<string | null>(null);
 
 const params = new URLSearchParams(window.location.search);
 const callbackParam = params.get('callback');
 const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
 
+const infoCardTitle = INFO_CARDS.title;
+const infoCards = INFO_CARDS.cards;
+
 const instanceId = params.get('instanceid');
 const source = params.get('source');
 
-const startupProduct = computed(() => {
-	return plans.value.find(
-		(plan) =>
-			plan.metadata.planName === STARTUP_PLAN_NAME &&
-			plan.metadata.terms.billingFrequency === 'monthly'
-	);
-});
+const isAnnual = ref(true);
+const envConfig = getEnvironmentConfig();
 
-const defaultActiveWorkflows = ref(DEFAULT_ACTIVE_WORKFLOWS_OPTION);
+// Enterprise contact modal state
+const showEnterpriseModal = ref(false);
 
-function isValidOption(plan: LimitedPlan, value: number): boolean {
-	return !!plan.options.find((option) => option.value === value);
-}
+// Business contact modal state
+const showBusinessModal = ref(false);
 
 onMounted(async () => {
 	telemetry.page('plans', 'plans');
@@ -66,30 +48,6 @@ onMounted(async () => {
 		...(instanceId ? { instance_id: instanceId } : {}),
 		...(source ? { source } : {}),
 	});
-
-	try {
-		plans.value = await plansStore.getPlans();
-	} catch (e) {
-		error.value = true;
-		return;
-	}
-
-	const startupProductId = startupProduct.value?.productId;
-	const activeWorkflowPackages = params.get('activewfs') || '';
-	if (
-		startupProductId &&
-		isNumber(activeWorkflowPackages) &&
-		isValidOption(STARTUP_PLAN, parseInt(activeWorkflowPackages))
-	) {
-		defaultActiveWorkflows.value = parseInt(activeWorkflowPackages);
-	}
-
-	loadingPlans.value = false;
-
-	const checkout = params.get('checkout');
-	if (checkout === 'startup' && startupProductId) {
-		await onStartTrial(startupProductId, defaultActiveWorkflows.value);
-	}
 });
 
 watch(waitingForSubscription, (waiting) => {
@@ -102,32 +60,13 @@ function scrollToTop() {
 	document.body.scrollTop = document.documentElement.scrollTop = 0;
 }
 
-async function onCheckout(checkoutSessionId: string, paddleCheckoutId: string) {
-	try {
-		waitingForSubscription.value = true;
-		subscription.value = await subscriptionsStore.createSubscription(
-			checkoutSessionId,
-			paddleCheckoutId
-		);
-		waitingForSubscription.value = false;
-	} catch (e) {
-		waitingForSubscription.value = false;
-		if (e instanceof Error) {
-			ElNotification({
-				message: e.message,
-				type: 'error',
-				position: 'bottom-right',
-				showClose: false,
-			});
-		}
-	}
-}
-
 function trackButtonClicked(
 	action:
 		| 'startup_get_started'
+		| 'business_get_started'
 		| 'enterprise_contact_us'
 		| 'startup_contact_us'
+		| 'business_contact_us'
 ) {
 	telemetry.track('User clicked button on plans page', {
 		action,
@@ -172,32 +111,20 @@ function trackCheckout(data: {
 	telemetry.track('User submitted payment details successfully', params);
 }
 
-async function onStartTrial(productId: string, activeWorkflows: number) {
-	trackButtonClicked('startup_get_started');
+async function onSubscribe(priceId: string, executions: number) {
+	trackButtonClicked('business_get_started');
 
 	if (!window.Paddle) {
 		return;
 	}
 
 	try {
-		const checkoutSession = await plansStore.checkout(
-			productId,
-			activeWorkflows
-		);
-
-		window.Paddle.Setup({ vendor: checkoutSession.paddle.setup.vendor });
-
-		if (checkoutSession.paddle.sandbox) {
-			window.Paddle.Environment.set('sandbox');
-		}
-
-		window.Paddle.Checkout.open({
-			override: checkoutSession.paddle.checkout.override,
-			successCallback: (data) => {
-				onCheckout(checkoutSession.id, data.checkout.id);
+		await openPaddleCheckout({
+			productId: priceId,
+			successCallback: (checkoutData) => {
 				trackCheckout({
-					successEvent: data,
-					quota: activeWorkflows,
+					successEvent: checkoutData,
+					quota: executions,
 				});
 			},
 		});
@@ -213,17 +140,50 @@ async function onStartTrial(productId: string, activeWorkflows: number) {
 	}
 }
 
-function onStartupContactUs() {
-	trackButtonClicked('startup_contact_us');
+function onBusinessContactUs() {
+	trackButtonClicked('business_contact_us');
+	showBusinessModal.value = true;
+}
+
+function onBusinessContactCompleted() {
+	showBusinessModal.value = false;
+	// Analytics event for form completion
+	telemetry.track('Business contact form completed', {
+		form_type: 'business_contact',
+		source: 'website',
+	});
+}
+
+function onBusinessContactClosed() {
+	showBusinessModal.value = false;
+	// Analytics event for form close
+	telemetry.track('Business contact form closed', {
+		form_type: 'business_contact',
+		source: 'website',
+	});
 }
 
 function onEnterpriseContactUs() {
 	trackButtonClicked('enterprise_contact_us');
+	showEnterpriseModal.value = true;
 }
 
-function onCommunityGetStarted() {
-	const url = new URL('https://github.com/n8n-io/n8n');
-	window.location.href = url.toString();
+function onEnterpriseContactCompleted() {
+	showEnterpriseModal.value = false;
+	// Analytics event for form completion
+	telemetry.track('Enterprise contact form completed', {
+		form_type: 'enterprise_contact',
+		source: 'website',
+	});
+}
+
+function onEnterpriseContactClosed() {
+	showEnterpriseModal.value = false;
+	// Analytics event for form close
+	telemetry.track('Enterprise contact form closed', {
+		form_type: 'enterprise_contact',
+		source: 'website',
+	});
 }
 
 function redirectToActivate() {
@@ -278,30 +238,44 @@ function redirectToActivate() {
 				}}</VButton>
 			</div>
 		</div>
-		<div v-else-if="!loadingPlans" class="">
-			<div :class="[$style.plans, $style.inner_container]">
-				<div :class="[$style.layer]" />
-				<PlanCard
-					:plan="COMMUNITY_PLAN"
-					badgeVariant="dark"
-					@get-started="onCommunityGetStarted"
-				/>
-				<PlanCard
-					:plan="STARTUP_PLAN"
-					:product="startupProduct"
-					:defaultOption="defaultActiveWorkflows"
-					:recommended="false"
-					@start-trial="onStartTrial"
-					@contact-us="onStartupContactUs"
-					badgeVariant="pink"
-				/>
-				<PlanCard
-					:plan="ENTERPRISE_PLAN"
-					@contact-us="onEnterpriseContactUs"
-					badgeVariant="orange"
-					theme="dark"
-				/>
-			</div>
+
+		<div v-if="envConfig.isSandbox" :class="$style.environmentBadge">
+			<span :class="$style.badge">{{ envConfig.displayName }} Mode</span>
+		</div>
+		<div :class="[$style.pricingToggle]">
+			<ToggleSwitch v-model="isAnnual" class="gap-2">
+				<template #label-left>
+					<p>Monthly</p>
+				</template>
+				<template #label-right>
+					<p>Annually</p>
+				</template>
+			</ToggleSwitch>
+		</div>
+		<div :class="[$style.plans, $style.inner_container]">
+			<div :class="[$style.layer]" />
+			<StaticPlanCard
+				:plan="{
+					...STATIC_PLANS.business,
+					price: STATIC_PLANS.business.basePrice,
+				}"
+				:isAnnual="isAnnual"
+				:recommended="true"
+				@start-trial="onSubscribe"
+				@contact-us="onBusinessContactUs"
+				badgeVariant="pink"
+			/>
+			<StaticPlanCard
+				:plan="STATIC_PLANS.enterprise"
+				@contact-us="onEnterpriseContactUs"
+				badgeVariant="orange"
+				theme="dark"
+			/>
+		</div>
+
+		<!-- INFO card section -->
+		<div :class="[$style.infoCards, $style.inner_container]">
+			<InfoCardSection :title="infoCardTitle" :cards="infoCards" />
 		</div>
 
 		<!-- FAQ section -->
@@ -328,6 +302,24 @@ function redirectToActivate() {
 						</div>
 					</div>
 				</div>
+
+				<!-- Business Contact Modal -->
+				<TypeformModal
+					:is-visible="showBusinessModal"
+					:typeform-id="'nTaly8BO'"
+					hidden-fields="source=website,plan=business"
+					@completed="onBusinessContactCompleted"
+					@close="onBusinessContactClosed"
+				/>
+
+				<!-- Enterprise Contact Modal -->
+				<TypeformModal
+					:is-visible="showEnterpriseModal"
+					:typeform-id="'y9X2YuGa'"
+					hidden-fields="source=website,plan=enterprise"
+					@completed="onEnterpriseContactCompleted"
+					@close="onEnterpriseContactClosed"
+				/>
 			</div>
 		</template>
 	</DefaultLayout>
@@ -342,11 +334,35 @@ function redirectToActivate() {
 	}
 }
 
+.pricingToggle {
+	display: flex;
+	justify-content: center;
+}
+
+.environmentBadge {
+	display: flex;
+	justify-content: center;
+	margin-bottom: var(--spacing-s);
+}
+
+.badge {
+	background: rgba(255, 193, 7, 0.2);
+	color: #ffc107;
+	padding: var(--spacing-2xs) var(--spacing-xs);
+	border-radius: var(--border-radius-sm);
+	font-size: var(--font-size-xs);
+	font-weight: 500;
+	border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
 .plans {
 	display: flex;
 	justify-content: space-between;
 	position: relative;
 	gap: var(--spacing-s);
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 
 	@media (max-width: 992px) {
 		flex-direction: column;
@@ -378,6 +394,21 @@ function redirectToActivate() {
 		height: initial;
 		background-size: 170% 551%;
 		background-position: -137px -1828px;
+	}
+}
+
+.infoCards {
+	padding: var(--spacing-7xl);
+	display: flex;
+	max-width: 1440px;
+	margin: 0 auto;
+	justify-content: space-between;
+	gap: var(--spacing-2xl);
+
+	@media (max-width: 992px) {
+		flex-direction: column;
+		padding: var(--spacing-5xl) var(--spacing-s);
+		gap: var(--spacing-5xl);
 	}
 }
 
