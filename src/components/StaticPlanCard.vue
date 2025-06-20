@@ -24,10 +24,13 @@
 					:class="$style.quote"
 					v-if="
 						plan.price === 'contact' ||
-						(plan.id === 'business' && selectedTier === null)
+						(plan.id === 'business' &&
+							selectedTier === null &&
+							!showCustomProduct) ||
+						(plan.id === 'business' && showCustomProduct)
 					"
 				>
-					Contact sales
+					{{ showCustomProduct ? 'Custom' : 'Contact sales' }}
 				</span>
 				<span v-else :class="$style.priceContainer">
 					<span
@@ -64,18 +67,33 @@
 							: null
 					"
 				>
-					<span :class="$style.dropdown__workflows">{{
+					<span
+						v-if="showCustomProduct"
+						:class="$style.dropdown__workflows"
+					>
+						<IconSettings />
+					</span>
+					<span v-else :class="$style.dropdown__workflows">{{
 						selectedTier
 							? formatExecutions(currentExecutions)
 							: 'Select tier'
 					}}</span>
 					<div>
 						<span :class="$style.dropdown__active">
-							Production executions /
-							{{ props.isAnnual ? 'year' : 'month' }}
+							{{
+								showCustomProduct
+									? 'Custom executions'
+									: `Production executions / ${
+											props.isAnnual ? 'year' : 'month'
+									  }`
+							}}
 						</span>
 						<span :class="$style.dropdown__test">
-							with unlimited steps
+							{{
+								showCustomProduct
+									? 'custom active workflows'
+									: 'with unlimited steps'
+							}}
 						</span>
 					</div>
 					<span
@@ -158,6 +176,20 @@
 								{{ props.isAnnual ? 'year' : 'month' }}
 							</div>
 						</div>
+						<div
+							:class="[
+								$style.dropdown__option,
+								showCustomProduct
+									? $style.dropdown__option_selected
+									: '',
+							]"
+							@click="selectCustomTier"
+						>
+							<div :class="$style.option__price">Custom plan</div>
+							<div :class="$style.option__description">
+								Custom executions, custom active workflows
+							</div>
+						</div>
 					</div>
 				</div>
 				<div v-if="plan.id === 'business'" :class="$style.singleTier">
@@ -228,7 +260,13 @@
 			</div>
 
 			<div :class="$style.cta">
-				<div v-if="plan.primaryCTA" :class="$style.primaryCTA">
+				<div
+					v-if="
+						plan.primaryCTA &&
+						!(plan.id === 'business' && showCustomProduct)
+					"
+					:class="$style.primaryCTA"
+				>
 					<VButton
 						v-if="plan.primaryCTA === 'contact-us'"
 						variant="primary"
@@ -247,6 +285,11 @@
 						v-else-if="plan.primaryCTA === 'subscribe'"
 						variant="primary"
 						@click="onStartTrial"
+						:style="
+							plan.id === 'business' && showCustomProduct
+								? 'display: none'
+								: ''
+						"
 					>
 						Subscribe
 					</VButton>
@@ -258,9 +301,14 @@
 						Get started
 					</VButton>
 				</div>
+
 				<!-- Business plan specific CTA buttons -->
 				<template v-if="plan.id === 'business'">
-					<span :class="$style.cta__seperator">or</span>
+					<span
+						v-if="!showCustomProduct"
+						:class="$style.cta__seperator"
+						>or</span
+					>
 					<div :class="$style.secondaryCTA">
 						<VButton variant="secondary" @click="openMainSupport">
 							Contact sales
@@ -290,7 +338,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, type Ref, onMounted, onBeforeUnmount } from 'vue';
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import type { PricingTier } from '@/constants';
 
 import BadgePill from './BadgePill.vue';
@@ -330,9 +378,12 @@ const props = withDefaults(defineProps<Props>(), {
 	isAnnual: false,
 });
 
-const selectedTier: Ref<PricingTier | null> = ref(null);
+const selectedTier = ref<PricingTier | null>(null);
 const showDropdown = ref(false);
 const dropdownElement = ref<HTMLElement | null>(null);
+const showCustomProduct = ref(false);
+const locale = navigator.language;
+const currency = locale === 'en-US' ? '$' : '€';
 
 const emit = defineEmits<{
 	(
@@ -403,7 +454,7 @@ function formatExecutions(count: number): string {
 }
 
 function formatPrice(price: number): string {
-	return '€' + price.toLocaleString('de-DE');
+	return currency + price.toLocaleString('de-DE');
 }
 
 function getPreviousPlan(planId: string): string {
@@ -423,6 +474,13 @@ function toggleDropdown() {
 
 function selectTier(tier: PricingTier) {
 	selectedTier.value = tier;
+	showCustomProduct.value = false;
+	showDropdown.value = false;
+}
+
+function selectCustomTier() {
+	showCustomProduct.value = true;
+	selectedTier.value = null;
 	showDropdown.value = false;
 }
 
