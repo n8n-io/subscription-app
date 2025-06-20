@@ -146,7 +146,6 @@ function onBusinessContactUs() {
 }
 
 function onBusinessContactCompleted() {
-	showBusinessModal.value = false;
 	// Analytics event for form completion
 	telemetry.track('Business contact form completed', {
 		form_type: 'business_contact',
@@ -169,7 +168,6 @@ function onEnterpriseContactUs() {
 }
 
 function onEnterpriseContactCompleted() {
-	showEnterpriseModal.value = false;
 	// Analytics event for form completion
 	telemetry.track('Enterprise contact form completed', {
 		form_type: 'enterprise_contact',
