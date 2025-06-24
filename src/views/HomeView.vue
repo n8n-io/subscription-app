@@ -25,7 +25,12 @@ const error = ref<string | null>(null);
 
 const params = new URLSearchParams(window.location.search);
 const callbackParam = params.get('callback');
+const startupParam = params.get('plan');
+const isStartup = startupParam === 'startup';
 const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
+const planDetails = isStartup
+	? { ...STATIC_PLANS.startup, price: STATIC_PLANS.startup.basePrice }
+	: { ...STATIC_PLANS.business, price: STATIC_PLANS.business.basePrice };
 
 const infoCardTitle = INFO_CARDS.title;
 const infoCards = INFO_CARDS.cards;
@@ -146,7 +151,6 @@ function onBusinessContactUs() {
 }
 
 function onBusinessContactCompleted() {
-	showBusinessModal.value = false;
 	// Analytics event for form completion
 	telemetry.track('Business contact form completed', {
 		form_type: 'business_contact',
@@ -169,7 +173,6 @@ function onEnterpriseContactUs() {
 }
 
 function onEnterpriseContactCompleted() {
-	showEnterpriseModal.value = false;
 	// Analytics event for form completion
 	telemetry.track('Enterprise contact form completed', {
 		form_type: 'enterprise_contact',
@@ -202,7 +205,14 @@ function redirectToActivate() {
 			: $t('subscription.plans.title')
 	"
 >
-	<DefaultLayout :title="$t('subscription.plans.title')">
+	<DefaultLayout
+		:title="
+			isStartup
+				? $t('plan.startup.title')
+				: $t('subscription.plans.title')
+		"
+		:subtitle="isStartup ? $t('plan.startup.subtitle') : ''"
+	>
 		<InfoBanner v-if="error" theme="danger" :class="[$style.errorBanner]">
 			{{ $t('error.somethingWentWrong') }}
 		</InfoBanner>
@@ -255,10 +265,7 @@ function redirectToActivate() {
 		<div :class="[$style.plans, $style.inner_container]">
 			<div :class="[$style.layer]" />
 			<StaticPlanCard
-				:plan="{
-					...STATIC_PLANS.business,
-					price: STATIC_PLANS.business.basePrice,
-				}"
+				:plan="planDetails"
 				:isAnnual="isAnnual"
 				:recommended="true"
 				@start-trial="onSubscribe"
