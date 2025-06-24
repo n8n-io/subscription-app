@@ -17,6 +17,9 @@ export default {
 	'cta.contactUs': 'Contact us',
 	'plan.community.includes': 'This plan includes:',
 	'plan.startup.includes': 'Everything in Starter plan, plus:',
+	'plan.startup.title': 'Self-hosted plans for Startups',
+	'plan.startup.subtitle':
+		'For startups with up to 20 employees that raised up to $5M. You can keep using our startup offer for one year or until you no longer fulfill these requirements (whichever is longer)',
 	'plan.enterprise.includes': 'Everything in Pro plan, plus:',
 	'plan.enterprise': 'Enterprise',
 	'plan.enterprise.description':

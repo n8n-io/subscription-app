@@ -159,11 +159,81 @@ export const BUSINESS_PRICING_TIERS_SANDBOX: PricingTier[] = [
 	},
 ];
 
+export const STARTUP_PRICING_TIERS_SANDBOX: PricingTier[] = [
+	{
+		executionsMonthly: 40000,
+		executionsAnnual: 480000,
+		priceMonthly: 400,
+		priceAnnual: 4000,
+		priceIds: {
+			monthly: 'pri_01jyehgjbqgsctrytpzx55y9nw',
+			annual: 'pri_01jyehhg9ar0xv1t16p2qjzxg1',
+		},
+	},
+];
+
+export const STARTUP_PRICING_TIERS_PRODUCTION: PricingTier[] = [
+	{
+		executionsMonthly: 40000,
+		executionsAnnual: 480000,
+		priceMonthly: 400,
+		priceAnnual: 4000,
+		priceIds: {
+			monthly: 'pri_01jyegkx7200mfypvra163c7g0',
+			annual: 'pri_01jyegnqzw7k2hqahtfr8gz3wq',
+		},
+	},
+	{
+		executionsMonthly: 50000,
+		executionsAnnual: 600000,
+		priceMonthly: 492.5,
+		priceAnnual: 4926,
+		priceIds: {
+			monthly: 'pri_01jyegr9x66830tr5vmbthdwm7',
+			annual: 'pri_01jyegtky0c01rgmjka6zmzfsj',
+		},
+	},
+	{
+		executionsMonthly: 75000,
+		executionsAnnual: 900000,
+		priceMonthly: 728,
+		priceAnnual: 7277.5,
+		priceIds: {
+			monthly: 'pri_01jyegw2fbx11nrp4tzwz1ah60',
+			annual: 'pri_01jyegxsdr6caak7b67dgc5cfd',
+		},
+	},
+	{
+		executionsMonthly: 100000,
+		executionsAnnual: 1200000,
+		priceMonthly: 863,
+		priceAnnual: 8630,
+		priceIds: {
+			monthly: 'pri_01jyegz5jtkn1d2zrdpms6mtfe',
+			annual: 'pri_01jyeh0ff0tqd3csqhdrb2jxxn',
+		},
+	},
+	{
+		executionsMonthly: 150000,
+		executionsAnnual: 1800000,
+		priceMonthly: 1094.5,
+		priceAnnual: 10945,
+		priceIds: {
+			monthly: 'pri_01jyeh1s2ssa5hggpy8tbvdk4w',
+			annual: 'pri_01jyeh395xaa4x45h55zkrs7nm',
+		},
+	},
+];
+
 import { isProductionMode } from '@/utils/environment';
 
 export const BUSINESS_PRICING_TIERS: PricingTier[] = isProductionMode()
 	? BUSINESS_PRICING_TIERS_PRODUCTION
 	: BUSINESS_PRICING_TIERS_SANDBOX;
+
+export const STARTUP_PRICING_TIERS: PricingTier[] = isProductionMode()
+	? STARTUP_PRICING_TIERS_PRODUCTION
+	: STARTUP_PRICING_TIERS_SANDBOX;
 
 export const STATIC_PLANS = {
 	community: {
@@ -202,6 +272,26 @@ export const STATIC_PLANS = {
 		users: 'unlimited',
 		primaryCTA: 'subscribe',
 		pricingTiers: BUSINESS_PRICING_TIERS,
+	},
+	startup: {
+		id: 'startup',
+		name: 'Startup',
+		description:
+			'For teams that need to collaborate and scale workflows executions.',
+		basePrice: 4000,
+		features: [
+			'6 shared projects',
+			'Forum support',
+			'SSO, SAML and LDAP',
+			'Different environments',
+			'Global variables',
+			'Version control using Git',
+			'Insights',
+		],
+		workflows: 'unlimited',
+		users: 'unlimited',
+		primaryCTA: 'subscribe',
+		pricingTiers: STARTUP_PRICING_TIERS,
 	},
 	enterprise: {
 		id: 'enterprise',

@@ -24,10 +24,11 @@
 					:class="$style.quote"
 					v-if="
 						plan.price === 'contact' ||
-						(plan.id === 'business' &&
+						((plan.id === 'business' || plan.id === 'startup') &&
 							selectedTier === null &&
 							!showCustomProduct) ||
-						(plan.id === 'business' && showCustomProduct)
+						((plan.id === 'business' || plan.id === 'startup') &&
+							showCustomProduct)
 					"
 				>
 					{{ showCustomProduct ? 'Custom' : 'Contact sales' }}
@@ -57,7 +58,10 @@
 			</div>
 
 			<!-- Business plan tier selector -->
-			<div v-if="plan.id === 'business'" :class="$style.dropdown">
+			<div
+				v-if="plan.id === 'business' || plan.id === 'startup'"
+				:class="$style.dropdown"
+			>
 				<div
 					ref="dropdownElement"
 					:class="$style.dropdown__selected"
@@ -192,7 +196,10 @@
 						</div>
 					</div>
 				</div>
-				<div v-if="plan.id === 'business'" :class="$style.singleTier">
+				<div
+					v-if="plan.id === 'business' || plan.id === 'startup'"
+					:class="$style.singleTier"
+				>
 					<small>{{ getStartsAtMessage() }}</small>
 				</div>
 			</div>
@@ -263,7 +270,10 @@
 				<div
 					v-if="
 						plan.primaryCTA &&
-						!(plan.id === 'business' && showCustomProduct)
+						!(
+							(plan.id === 'business' || plan.id === 'startup') &&
+							showCustomProduct
+						)
 					"
 					:class="$style.primaryCTA"
 				>
@@ -286,7 +296,8 @@
 						variant="primary"
 						@click="onStartTrial"
 						:style="
-							plan.id === 'business' && showCustomProduct
+							(plan.id === 'business' || plan.id === 'startup') &&
+							showCustomProduct
 								? 'display: none'
 								: ''
 						"
@@ -303,7 +314,9 @@
 				</div>
 
 				<!-- Business plan specific CTA buttons -->
-				<template v-if="plan.id === 'business'">
+				<template
+					v-if="plan.id === 'business' || plan.id === 'startup'"
+				>
 					<span
 						v-if="!showCustomProduct"
 						:class="$style.cta__seperator"
@@ -319,7 +332,10 @@
 		</div>
 
 		<!-- Business plan terms and conditions -->
-		<div v-if="plan.id === 'business'" :class="$style.termsNotice">
+		<div
+			v-if="plan.id === 'business' || plan.id === 'startup'"
+			:class="$style.termsNotice"
+		>
 			<small>
 				By continuing, you agree to our
 				<a
@@ -398,7 +414,10 @@ const emit = defineEmits<{
 
 // Set default tier for business plan
 onMounted(() => {
-	if (props.plan.id === 'business' && props.plan.pricingTiers?.length) {
+	if (
+		(props.plan.id === 'business' || props.plan.id === 'startup') &&
+		props.plan.pricingTiers?.length
+	) {
 		selectedTier.value = props.plan.pricingTiers[0];
 	}
 	document.addEventListener('click', closeDropdown);
@@ -410,7 +429,10 @@ onBeforeUnmount(() => {
 
 const displayPrice = computed(() => {
 	if (props.plan.id === 'community') return 0;
-	if (props.plan.id === 'business' && selectedTier.value) {
+	if (
+		(props.plan.id === 'business' || props.plan.id === 'startup') &&
+		selectedTier.value
+	) {
 		return props.isAnnual
 			? selectedTier.value.priceAnnual
 			: selectedTier.value.priceMonthly;
@@ -420,7 +442,10 @@ const displayPrice = computed(() => {
 
 const monthlyPrice = computed(() => {
 	if (props.plan.id === 'community') return 0;
-	if (props.plan.id === 'business' && selectedTier.value) {
+	if (
+		(props.plan.id === 'business' || props.plan.id === 'startup') &&
+		selectedTier.value
+	) {
 		return selectedTier.value.priceMonthly;
 	}
 	return typeof props.plan.price === 'number' ? props.plan.price : 0;
@@ -428,14 +453,20 @@ const monthlyPrice = computed(() => {
 
 const monthlyPriceFromAnnual = computed(() => {
 	if (props.plan.id === 'community') return 0;
-	if (props.plan.id === 'business' && selectedTier.value) {
+	if (
+		(props.plan.id === 'business' || props.plan.id === 'startup') &&
+		selectedTier.value
+	) {
 		return Math.ceil(selectedTier.value.priceAnnual / 12);
 	}
 	return 0;
 });
 
 const currentExecutions = computed(() => {
-	if (props.plan.id === 'business' && selectedTier.value) {
+	if (
+		(props.plan.id === 'business' || props.plan.id === 'startup') &&
+		selectedTier.value
+	) {
 		return props.isAnnual
 			? selectedTier.value.executionsAnnual
 			: selectedTier.value.executionsMonthly;
@@ -464,7 +495,7 @@ function getPreviousPlan(planId: string): string {
 		case 'enterprise':
 			return 'Business';
 		default:
-			return '';
+			return 'Community';
 	}
 }
 
@@ -515,7 +546,10 @@ function openContactForm() {
 }
 
 function getStartsAtMessage(): string {
-	if (props.plan.id === 'business') {
+	if (
+		(props.plan.id === 'business' || props.plan.id === 'startup') &&
+		selectedTier.value
+	) {
 		return 'Starts at 480k production executions / year with unlimited steps';
 	}
 	if (props.plan.id === 'enterprise') {
