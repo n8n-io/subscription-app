@@ -3,6 +3,7 @@ import ContentHeading from '@/components/ContentHeading.vue';
 
 export interface Props {
 	title: string;
+	subtitle?: string;
 }
 
 defineProps<Props>();
@@ -19,6 +20,9 @@ defineProps<Props>();
 		<div :class="[$style.container]">
 			<ContentHeading tag="h1" :class="$style.title">
 				{{ title }}
+			</ContentHeading>
+			<ContentHeading v-if="subtitle" tag="p" :class="$style.subtitle">
+				{{ subtitle }}
 			</ContentHeading>
 			<slot></slot>
 		</div>
@@ -75,6 +79,20 @@ header {
 		padding: 0 var(--spacing-s) var(--spacing-5xl) var(--spacing-s);
 		font-size: 38px;
 		line-height: 110%;
+	}
+}
+
+.subtitle {
+	margin-bottom: var(--spacing-5xl);
+	font-size: var(--font-size-md);
+	line-height: 1.5;
+	text-align: center;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+
+	@media (max-width: 992px) {
+		padding: 0 var(--spacing-s) var(--spacing-5xl) var(--spacing-s);
 	}
 }
 
