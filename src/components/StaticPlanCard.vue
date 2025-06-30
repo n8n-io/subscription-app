@@ -96,7 +96,7 @@
 							{{
 								showCustomProduct
 									? 'custom active workflows'
-									: 'with unlimited steps'
+									: 'with unlimited workflows, steps and users'
 							}}
 						</span>
 					</div>
