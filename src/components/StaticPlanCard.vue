@@ -289,7 +289,7 @@
 						variant="primary"
 						@click="onStartTrial"
 					>
-						Start free trial
+						Start 14 day trial
 					</VButton>
 					<VButton
 						v-else-if="plan.primaryCTA === 'subscribe'"
