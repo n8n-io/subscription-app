@@ -270,7 +270,7 @@ export const STATIC_PLANS = {
 		],
 		workflows: 'unlimited',
 		users: 'unlimited',
-		primaryCTA: 'subscribe',
+		primaryCTA: 'start-trial',
 		pricingTiers: BUSINESS_PRICING_TIERS,
 	},
 	startup: {
