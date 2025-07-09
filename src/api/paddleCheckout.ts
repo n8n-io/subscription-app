@@ -1,4 +1,5 @@
 import { getEnvironmentConfig } from '@/utils/environment';
+import type { CustomerData } from '@/components/CustomerInfoModal.vue';
 
 const paddleConfig = getEnvironmentConfig();
 
@@ -6,6 +7,7 @@ export interface DirectCheckoutOptions {
 	productId: string;
 	successUrl?: string;
 	successCallback?: (data: any) => void;
+	customerData?: CustomerData;
 }
 
 async function initializePaddle(options: DirectCheckoutOptions): Promise<void> {
@@ -50,6 +52,30 @@ export async function openPaddleCheckout(
 				},
 			],
 		};
+
+		// Add customer data if provided
+		if (options.customerData) {
+			checkoutOptions.customer = {
+				email: options.customerData.email,
+				address: {
+					countryCode: options.customerData.address.countryCode,
+					postalCode: options.customerData.address.postalCode,
+					city: options.customerData.address.city,
+					firstLine: options.customerData.address.firstLine,
+				},
+				business: {
+					name: options.customerData.business.name,
+				},
+			};
+
+			// Add optional fields if present
+			if (options.customerData.address.region) {
+				checkoutOptions.customer.address.region = options.customerData.address.region;
+			}
+			if (options.customerData.business.taxIdentifier) {
+				checkoutOptions.customer.business.taxIdentifier = options.customerData.business.taxIdentifier;
+			}
+		}
 
 		window.Paddle!.Checkout.open(checkoutOptions);
 	} catch (error) {
