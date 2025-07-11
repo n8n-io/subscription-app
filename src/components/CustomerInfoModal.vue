@@ -2,7 +2,7 @@
 	<div v-if="isVisible" :class="$style.overlay" @click="closeModal">
 		<div :class="$style.modal" @click.stop>
 			<button :class="$style.closeButton" @click="closeModal">
-				<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+				<svg width="24" height="24" viewBox="0 0 24 24">
 					<path
 						d="M18 6L6 18"
 						stroke="currentColor"
@@ -18,104 +18,105 @@
 				</svg>
 			</button>
 			<div :class="$style.content">
-				<h2 :class="$style.title">Complete Your Information</h2>
-				<p :class="$style.subtitle">
-					Please fill in your details to start your 14-day trial
-				</p>
+				<h2 :class="$style.title">Complete your information</h2>
 				<form @submit.prevent="handleSubmit" :class="$style.form">
 					<div :class="$style.section">
 						<h3 :class="$style.sectionTitle">
-							Contact Information
+							Contact information
 						</h3>
 						<div :class="$style.formGroup">
-							<label :class="$style.label">Email *</label>
+							<label for="email" :class="$style.label"
+								>Email *</label
+							>
 							<input
+								id="email"
+								name="email"
 								v-model="formData.email"
 								type="email"
 								:class="$style.input"
 								placeholder="your@email.com"
+								data-lastpass-ignore
 								required
 							/>
 						</div>
 					</div>
-
 					<div :class="$style.section">
 						<h3 :class="$style.sectionTitle">
-							Business Information
+							{{
+								isPurchasingForCompany
+									? 'Company address'
+									: 'Address'
+							}}
 						</h3>
 						<div :class="$style.formGroup">
-							<label :class="$style.label">Company Name</label>
+							<label for="address-line" :class="$style.label"
+								>Address line *</label
+							>
 							<input
-								v-model="formData.business.name"
-								type="text"
-								:class="$style.input"
-								placeholder="Your Company Name"
-							/>
-						</div>
-						<div :class="$style.formGroup">
-							<label :class="$style.label">Tax ID</label>
-							<input
-								v-model="formData.business.taxIdentifier"
-								type="text"
-								:class="$style.input"
-								placeholder="Tax Identification Number"
-							/>
-						</div>
-					</div>
-
-					<div :class="$style.section">
-						<h3 :class="$style.sectionTitle">Address</h3>
-						<div :class="$style.formGroup">
-							<label :class="$style.label">Address Line *</label>
-							<input
+								id="address-line"
+								name="address-line"
 								v-model="formData.address.firstLine"
 								type="text"
 								:class="$style.input"
 								placeholder="Street address"
+								data-lastpass-ignore
 								required
 							/>
 						</div>
 						<div :class="$style.formRow">
 							<div :class="$style.formGroup">
-								<label :class="$style.label"
+								<label for="state-region" :class="$style.label"
 									>State/Region</label
 								>
 								<input
+									id="state-region"
+									name="state-region"
 									v-model="formData.address.region"
 									type="text"
 									:class="$style.input"
 									placeholder="State or Region"
+									data-lastpass-ignore
 								/>
 							</div>
 							<div :class="$style.formGroup">
-								<label :class="$style.label">City *</label>
+								<label for="city" :class="$style.label"
+									>City *</label
+								>
 								<input
+									id="city"
+									name="city"
 									v-model="formData.address.city"
 									type="text"
 									:class="$style.input"
 									placeholder="City"
+									data-lastpass-ignore
 									required
 								/>
 							</div>
 						</div>
 						<div :class="$style.formRow">
 							<div :class="$style.formGroup">
-								<label :class="$style.label"
-									>Postal Code *</label
+								<label for="postal-code" :class="$style.label"
+									>Postal code *</label
 								>
 								<input
+									id="postal-code"
+									name="postal-code"
 									v-model="formData.address.postalCode"
 									type="text"
 									:class="$style.input"
-									placeholder="Postal Code"
+									placeholder="Postal code"
+									data-lastpass-ignore
 									required
 								/>
 							</div>
 							<div :class="$style.formGroup">
-								<label :class="$style.label"
-									>Country Code *</label
+								<label for="country-code" :class="$style.label"
+									>Country code *</label
 								>
 								<select
+									id="country-code"
+									name="country-code"
 									v-model="formData.address.countryCode"
 									:class="$style.input"
 									required
@@ -408,25 +409,78 @@
 							</div>
 						</div>
 					</div>
+					<div :class="$style.section">
+						<label :class="$style.checkboxWrapper">
+							<input
+								v-model="isPurchasingForCompany"
+								type="checkbox"
+								:class="$style.checkboxInput"
+							/>
+							<span :class="$style.checkboxCustom">
+								<svg
+									v-if="isPurchasingForCompany"
+									width="12"
+									height="10"
+									viewBox="0 0 12 10"
+								>
+									<path
+										d="M1 5L4.5 8.5L11 1.5"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							</span>
+							<span :class="$style.checkboxLabel">
+								I'm purchasing for a company
+							</span>
+						</label>
+					</div>
+
+					<div v-if="isPurchasingForCompany" :class="$style.section">
+						<h3 :class="$style.sectionTitle">
+							Business information
+						</h3>
+						<div :class="$style.formGroup">
+							<label for="company-name" :class="$style.label"
+								>Company name *</label
+							>
+							<input
+								id="company-name"
+								name="company-name"
+								v-model="formData.business.name"
+								type="text"
+								:class="$style.input"
+								placeholder="Company name"
+								data-lastpass-ignore
+								:required="isPurchasingForCompany"
+							/>
+						</div>
+						<div :class="$style.formGroup">
+							<label for="tax-id" :class="$style.label"
+								>Tax ID *</label
+							>
+							<input
+								id="tax-id"
+								name="tax-id"
+								v-model="formData.business.taxIdentifier"
+								type="text"
+								:class="$style.input"
+								placeholder="Tax identification number"
+								data-lastpass-ignore
+								:required="isPurchasingForCompany"
+							/>
+						</div>
+					</div>
 
 					<div :class="$style.footer">
-						<VButton
-							type="button"
-							variant="secondary"
-							@click="closeModal"
-						>
-							Cancel
-						</VButton>
 						<VButton
 							type="submit"
 							variant="primary"
 							:disabled="isSubmitting"
 						>
-							{{
-								isSubmitting
-									? 'Processing...'
-									: 'Start 14 day trial'
-							}}
+							Add your payment information and start 14 day trial
 						</VButton>
 					</div>
 				</form>
@@ -466,6 +520,7 @@ const emit = defineEmits<{
 }>();
 
 const isSubmitting = ref(false);
+const isPurchasingForCompany = ref(false);
 
 const formData = reactive<CustomerData>({
 	email: '',
@@ -495,6 +550,7 @@ function resetForm() {
 	formData.address.firstLine = '';
 	formData.business.name = '';
 	formData.business.taxIdentifier = '';
+	isPurchasingForCompany.value = false;
 }
 
 async function handleSubmit() {
@@ -520,6 +576,12 @@ async function handleSubmit() {
 	}
 	if (formData.business.taxIdentifier) {
 		customerData.business.taxIdentifier = formData.business.taxIdentifier;
+	}
+
+	// Only include business data if user is purchasing for a company
+	if (!isPurchasingForCompany.value) {
+		customerData.business.name = '';
+		delete customerData.business.taxIdentifier;
 	}
 
 	emit('submit', customerData);
@@ -617,7 +679,7 @@ watch(
 	font-size: var(--font-size-xxl);
 	font-weight: 600;
 	color: var(--color-white);
-	margin-bottom: var(--spacing-xs);
+	margin-bottom: var(--spacing-2xl);
 	text-align: center;
 }
 
@@ -680,13 +742,26 @@ watch(
 	font-size: var(--font-size-base);
 	color: var(--color-white);
 	transition: all 0.2s;
+	box-sizing: border-box;
+	outline: none;
+	position: relative;
+
+	/* Hide LastPass icon */
+	&[data-lastpass-icon-root] {
+		padding-right: var(--spacing-s) !important;
+	}
+
+	/* Additional LastPass prevention */
+	&[data-lastpass-icon-root='true'] {
+		padding-right: var(--spacing-s) !important;
+		background-position: left center !important;
+	}
 
 	&::placeholder {
 		color: rgba(255, 255, 255, 0.4);
 	}
 
 	&:focus {
-		outline: none;
 		border-color: #077ac7;
 		background: rgba(255, 255, 255, 0.15);
 	}
@@ -698,12 +773,14 @@ watch(
 
 select.input {
 	appearance: none;
-	background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right var(--spacing-s) center rgba(255, 255, 255, 0.1);
+	background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+		no-repeat right var(--spacing-s) center rgba(255, 255, 255, 0.1);
 	background-size: 20px;
 	padding-right: calc(var(--spacing-s) + 24px);
-	
+
 	&:focus {
-		background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right var(--spacing-s) center rgba(255, 255, 255, 0.15);
+		background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+			no-repeat right var(--spacing-s) center rgba(255, 255, 255, 0.15);
 		background-size: 20px;
 	}
 }
@@ -712,7 +789,71 @@ select.input {
 	display: flex;
 	gap: var(--spacing-m);
 	margin-top: var(--spacing-xl);
-	justify-content: flex-end;
+	justify-content: center;
+}
+
+.checkboxWrapper {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-s);
+	cursor: pointer;
+	user-select: none;
+
+	&:hover .checkboxCustom {
+		border-color: rgba(7, 122, 199, 0.8);
+		background: rgba(7, 122, 199, 0.1);
+	}
+}
+
+.checkboxInput {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+
+	&:focus + .checkboxCustom {
+		border-color: #077ac7;
+		outline: 2px solid rgba(7, 122, 199, 0.2);
+		outline-offset: 2px;
+	}
+
+	&:checked + .checkboxCustom {
+		background: #077ac7;
+		border-color: #077ac7;
+	}
+}
+
+.checkboxCustom {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 4px;
+	background: rgba(255, 255, 255, 0.05);
+	transition: all 0.2s ease;
+	flex-shrink: 0;
+	color: white;
+}
+
+.checkboxLabel {
+	font-size: var(--font-size-base);
+	color: var(--color-white);
+	line-height: 1.4;
+}
+
+/* Global LastPass styles - prevent layout shifts */
+:global(div[data-lastpass-root]) {
+	display: none !important;
+}
+
+:global(div[data-lastpass-icon-root]) {
+	display: none !important;
+}
+
+:global(.lp-modal) {
+	display: none !important;
 }
 
 @media (max-width: 768px) {
