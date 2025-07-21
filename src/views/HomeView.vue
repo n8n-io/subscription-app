@@ -11,6 +11,8 @@ import FAQuestion from '@/components/FAQuestion.vue';
 import VButton from '@/components/VButton.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import TypeformModal from '@/components/TypeformModal.vue';
+import CustomerInfoModal from '@/components/CustomerInfoModal.vue';
+import type { CustomerData } from '@/components/CustomerInfoModal.vue';
 import { STATIC_PLANS, PLANS_FAQ, INFO_CARDS } from '@/constants';
 import { onMounted, ref, watch } from 'vue';
 import type { Subscription, PaddleCheckoutSuccess } from '@/Interface';
@@ -46,6 +48,13 @@ const showEnterpriseModal = ref(false);
 
 // Business contact modal state
 const showBusinessModal = ref(false);
+
+// Customer info modal state
+const showCustomerInfoModal = ref(false);
+const pendingCheckoutData = ref<{
+	priceId: string;
+	executions: number;
+} | null>(null);
 
 onMounted(async () => {
 	telemetry.page('plans', 'plans');
@@ -120,19 +129,35 @@ async function onSubscribe(priceId: string, executions: number) {
 	trackButtonClicked('business_get_started');
 
 	if (!window.Paddle) {
+		ElNotification({
+			message: 'Paddle checkout is not available',
+			type: 'error',
+			position: 'bottom-right',
+			showClose: false,
+		});
 		return;
 	}
 
+	// Store checkout data and show customer info modal
+	pendingCheckoutData.value = { priceId, executions };
+	showCustomerInfoModal.value = true;
+}
+
+async function handleCustomerInfoSubmit(customerData: CustomerData) {
+	if (!pendingCheckoutData.value) return;
+
 	try {
 		await openPaddleCheckout({
-			productId: priceId,
+			productId: pendingCheckoutData.value.priceId,
+			customerData,
 			successCallback: (checkoutData) => {
 				trackCheckout({
 					successEvent: checkoutData,
-					quota: executions,
+					quota: pendingCheckoutData.value!.executions,
 				});
 			},
 		});
+		showCustomerInfoModal.value = false;
 	} catch (e) {
 		if (e instanceof Error) {
 			ElNotification({
@@ -326,6 +351,13 @@ function redirectToActivate() {
 					hidden-fields="source=website,plan=enterprise"
 					@completed="onEnterpriseContactCompleted"
 					@close="onEnterpriseContactClosed"
+				/>
+
+				<!-- Customer Info Modal -->
+				<CustomerInfoModal
+					:is-visible="showCustomerInfoModal"
+					@submit="handleCustomerInfoSubmit"
+					@close="showCustomerInfoModal = false"
 				/>
 			</div>
 		</template>
