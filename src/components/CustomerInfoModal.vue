@@ -26,7 +26,12 @@
 						</h3>
 						<div :class="$style.formGroup">
 							<label for="email" :class="$style.label"
-								>Email *</label
+								>{{
+									isPurchasingForPersonalUse
+										? 'Email'
+										: 'Company Email'
+								}}
+								*</label
 							>
 							<input
 								id="email"
@@ -34,7 +39,11 @@
 								v-model="formData.email"
 								type="email"
 								:class="$style.input"
-								placeholder="your@email.com"
+								:placeholder="
+									isPurchasingForPersonalUse
+										? 'your@email.com'
+										: 'company@example.com'
+								"
 								data-lastpass-ignore
 								required
 							/>
@@ -43,9 +52,9 @@
 					<div :class="$style.section">
 						<h3 :class="$style.sectionTitle">
 							{{
-								isPurchasingForCompany
-									? 'Company address'
-									: 'Address'
+								isPurchasingForPersonalUse
+									? 'Address'
+									: 'Company address'
 							}}
 						</h3>
 						<div :class="$style.formGroup">
@@ -409,36 +418,10 @@
 							</div>
 						</div>
 					</div>
-					<div :class="$style.section">
-						<label :class="$style.checkboxWrapper">
-							<input
-								v-model="isPurchasingForCompany"
-								type="checkbox"
-								:class="$style.checkboxInput"
-							/>
-							<span :class="$style.checkboxCustom">
-								<svg
-									v-if="isPurchasingForCompany"
-									width="12"
-									height="10"
-									viewBox="0 0 12 10"
-								>
-									<path
-										d="M1 5L4.5 8.5L11 1.5"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-							</span>
-							<span :class="$style.checkboxLabel">
-								I'm purchasing for a company
-							</span>
-						</label>
-					</div>
-
-					<div v-if="isPurchasingForCompany" :class="$style.section">
+					<div
+						v-if="!isPurchasingForPersonalUse"
+						:class="$style.section"
+					>
 						<h3 :class="$style.sectionTitle">
 							Business information
 						</h3>
@@ -454,12 +437,12 @@
 								:class="$style.input"
 								placeholder="Company name"
 								data-lastpass-ignore
-								:required="isPurchasingForCompany"
+								:required="!isPurchasingForPersonalUse"
 							/>
 						</div>
 						<div :class="$style.formGroup">
 							<label for="tax-id" :class="$style.label"
-								>Tax ID *</label
+								>Tax ID</label
 							>
 							<input
 								id="tax-id"
@@ -469,9 +452,37 @@
 								:class="$style.input"
 								placeholder="Tax identification number"
 								data-lastpass-ignore
-								:required="isPurchasingForCompany"
 							/>
 						</div>
+					</div>
+
+					<div :class="$style.section">
+						<label :class="$style.checkboxWrapper">
+							<input
+								v-model="isPurchasingForPersonalUse"
+								type="checkbox"
+								:class="$style.checkboxInput"
+							/>
+							<span :class="$style.checkboxCustom">
+								<svg
+									v-if="isPurchasingForPersonalUse"
+									width="12"
+									height="10"
+									viewBox="0 0 12 10"
+								>
+									<path
+										d="M1 5L4.5 8.5L11 1.5"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							</span>
+							<span :class="$style.checkboxLabel">
+								I am purchasing for personal use
+							</span>
+						</label>
 					</div>
 
 					<div :class="$style.footer">
@@ -520,7 +531,7 @@ const emit = defineEmits<{
 }>();
 
 const isSubmitting = ref(false);
-const isPurchasingForCompany = ref(false);
+const isPurchasingForPersonalUse = ref(false);
 
 const formData = reactive<CustomerData>({
 	email: '',
@@ -550,7 +561,7 @@ function resetForm() {
 	formData.address.firstLine = '';
 	formData.business.name = '';
 	formData.business.taxIdentifier = '';
-	isPurchasingForCompany.value = false;
+	isPurchasingForPersonalUse.value = false;
 }
 
 async function handleSubmit() {
@@ -578,8 +589,8 @@ async function handleSubmit() {
 		customerData.business.taxIdentifier = formData.business.taxIdentifier;
 	}
 
-	// Only include business data if user is purchasing for a company
-	if (!isPurchasingForCompany.value) {
+	// Only include business data if user is NOT purchasing for personal use
+	if (isPurchasingForPersonalUse.value) {
 		customerData.business.name = '';
 		delete customerData.business.taxIdentifier;
 	}
