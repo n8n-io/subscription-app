@@ -27,12 +27,7 @@ const error = ref<string | null>(null);
 
 const params = new URLSearchParams(window.location.search);
 const callbackParam = params.get('callback');
-const startupParam = params.get('plan');
-const isStartup = startupParam === 'startup';
 const callbackUrl = callbackParam ? decodeURIComponent(callbackParam) : '';
-const planDetails = isStartup
-	? { ...STATIC_PLANS.startup, price: STATIC_PLANS.startup.basePrice }
-	: { ...STATIC_PLANS.business, price: STATIC_PLANS.business.basePrice };
 
 const infoCardTitle = INFO_CARDS.title;
 const infoCards = INFO_CARDS.cards;
@@ -232,11 +227,8 @@ function redirectToActivate() {
 >
 	<DefaultLayout
 		:title="
-			isStartup
-				? $t('plan.startup.title')
-				: $t('subscription.plans.title')
+			$t('subscription.plans.title')
 		"
-		:subtitle="isStartup ? $t('plan.startup.subtitle') : ''"
 	>
 		<InfoBanner v-if="error" theme="danger" :class="[$style.errorBanner]">
 			{{ $t('error.somethingWentWrong') }}
@@ -287,15 +279,22 @@ function redirectToActivate() {
 				</template>
 			</ToggleSwitch>
 		</div>
-		<div :class="[$style.plans, $style.inner_container]">
+		<div :class="[$style.plans]">
 			<div :class="[$style.layer]" />
 			<StaticPlanCard
-				:plan="planDetails"
+				:plan="{ ...STATIC_PLANS.startup, price: STATIC_PLANS.startup.basePrice }"
 				:isAnnual="isAnnual"
 				:recommended="true"
 				@start-trial="onSubscribe"
 				@contact-us="onBusinessContactUs"
 				badgeVariant="pink"
+			/>
+			<StaticPlanCard
+				:plan="{ ...STATIC_PLANS.business, price: STATIC_PLANS.business.basePrice }"
+				:isAnnual="isAnnual"
+				@start-trial="onSubscribe"
+				@contact-us="onBusinessContactUs"
+				badgeVariant="orange"
 			/>
 			<StaticPlanCard
 				:plan="STATIC_PLANS.enterprise"
@@ -395,18 +394,20 @@ function redirectToActivate() {
 }
 
 .plans {
+	padding: var(--spacing-7xl);
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	position: relative;
 	gap: var(--spacing-s);
-	max-width: 1200px;
+	max-width: 1440px;
 	margin-left: auto;
 	margin-right: auto;
 
-	@media (max-width: 992px) {
+	@media (max-width: 1154px) {
 		flex-direction: column;
 		max-width: 555px;
 		margin: 0 auto;
+		padding: var(--spacing-5xl) var(--spacing-s);
 	}
 }
 
@@ -424,7 +425,7 @@ function redirectToActivate() {
 	overflow: hidden;
 	opacity: 0.5;
 
-	@media (max-width: 992px) {
+	@media (max-width: 1154px) {
 		right: 4px;
 		top: 34px;
 		bottom: 0;
