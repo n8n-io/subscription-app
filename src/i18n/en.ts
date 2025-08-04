@@ -26,7 +26,7 @@ export default {
 		'For larger companies with compliance requirements',
 	'plan.startup': 'Startup',
 	'plan.startup.description':
-		'For startups with up to 20 employees that raised up to $5M',
+		'For startups with up to 20 employees and less than $5M in funding.',
 	'feature.ldap': 'LDAP',
 	'feature.saml': 'SSO SAML and LDAP',
 	'feature.variables': 'Global variables',

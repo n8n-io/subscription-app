@@ -277,7 +277,7 @@ export const STATIC_PLANS = {
 		id: 'startup',
 		name: 'Startup',
 		description:
-			'For teams that need to collaborate and scale workflows executions.',
+			'For startups with up to 20 employees and less than $5M in funding.',
 		basePrice: 4000,
 		features: [
 			'6 shared projects',
