@@ -372,7 +372,7 @@ import VButton from './VButton.vue';
 import IconSettings from './icons/IconSettings.vue';
 import IconInfo from './icons/IconInfo.vue';
 
-type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
+type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink' | 'green';
 type Theme = 'light' | 'dark';
 
 interface StaticPlan {
