@@ -15,6 +15,17 @@
 			</div>
 			<div :class="$style.description">
 				{{ plan.description }}
+				<span
+					v-if="plan.id === 'startup'"
+					:class="$style.tooltipContainer"
+				>
+					<IconInfo :class="$style.tooltipIcon" />
+					<span :class="$style.tooltip">
+						You can keep the startup offer for one year, or longer,
+						as long as you continue to meet the eligibility
+						criteria.
+					</span>
+				</span>
 			</div>
 		</div>
 
@@ -111,7 +122,6 @@
 							width="20"
 							height="20"
 							viewBox="0 0 20 20"
-							fill="none"
 							xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
@@ -134,7 +144,6 @@
 				>
 					<svg
 						viewBox="0 0 330 16"
-						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
 						:class="$style.dropdown__svg"
 					>
@@ -191,7 +200,7 @@
 						>
 							<div :class="$style.option__price">Custom plan</div>
 							<div :class="$style.option__description">
-								Custom executions, custom active workflows
+								Custom executions
 							</div>
 						</div>
 					</div>
@@ -314,9 +323,7 @@
 				</div>
 
 				<!-- Business plan specific CTA buttons -->
-				<template
-					v-if="plan.id === 'business' || plan.id === 'startup'"
-				>
+				<template v-if="plan.id === 'business'">
 					<span
 						v-if="!showCustomProduct"
 						:class="$style.cta__seperator"
@@ -363,8 +370,9 @@ import IconThunder from './icons/IconThunder.vue';
 import IconInfinity from './icons/IconInfinity.vue';
 import VButton from './VButton.vue';
 import IconSettings from './icons/IconSettings.vue';
+import IconInfo from './icons/IconInfo.vue';
 
-type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
+type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink' | 'green';
 type Theme = 'light' | 'dark';
 
 interface StaticPlan {
@@ -565,7 +573,7 @@ function getStartsAtMessage(): string {
 	border: 1px solid rgba(255, 255, 255, 0.15);
 	background: rgba(255, 255, 255, 0.1);
 	padding: var(--spacing-s);
-	padding-bottom: calc(var(--spacing-s) + 40px);
+	padding-bottom: calc(var(--spacing-s) + 60px);
 	flex: 1;
 	display: flex;
 	flex-direction: column;
@@ -917,5 +925,69 @@ function getStartsAtMessage(): string {
 			}
 		}
 	}
+}
+
+.tooltipContainer {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.tooltipIcon {
+	cursor: pointer;
+	opacity: 0.7;
+	transition: opacity 0.2s ease;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.tooltip {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background: rgba(0, 0, 0, 0.9);
+	color: var(--color-white);
+	padding: var(--spacing-xs);
+	border-radius: var(--border-radius-sm);
+	font-size: var(--font-size-sm);
+	z-index: 1000;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s ease;
+	margin-bottom: var(--spacing-2xs);
+	width: 350px;
+	white-space: normal;
+	line-height: 1.4;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		border: 5px solid transparent;
+		border-top-color: rgba(0, 0, 0, 0.9);
+	}
+
+	@media (max-width: 768px) {
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%);
+		width: 280px;
+
+		&::after {
+			left: 50%;
+			right: auto;
+			transform: translateX(-50%);
+		}
+	}
+}
+
+.tooltipContainer:hover .tooltip {
+	opacity: 1;
+	pointer-events: auto;
 }
 </style>
