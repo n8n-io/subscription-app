@@ -339,9 +339,9 @@ export const INFO_CARDS = {
 		},
 		{
 			id: 1,
-			title: 'Startup Plan',
+			title: 'Learn more about the Start-up Plan',
 			description:
-				'For startups with up to 20 employees that raised up to $5M.',
+				"Are you a start-up with fewer than 20 employees? See if you're eligible for our Start-up Plan and get 50% off the Business plan.",
 			button: {
 				text: "Let's start",
 				url: 'https://n8n.notion.site/Supercharge-Your-Startup-with-n8n-e64d5892eb6a43b19a18124595d77625',

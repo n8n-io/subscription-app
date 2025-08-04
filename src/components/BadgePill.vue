@@ -5,7 +5,7 @@ interface BadgeStylesProps {
 	text?: string;
 }
 
-type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink';
+type BadgeVariant = 'dark' | 'orange' | 'black' | 'pink' | 'green';
 
 interface BadgeProps {
 	styles?: BadgeStylesProps;
@@ -73,7 +73,8 @@ withDefaults(defineProps<BadgeProps>(), {
 
 	&--pink,
 	&--orange,
-	&--dark {
+	&--dark,
+	&--green {
 		background-image: radial-gradient(
 				circle closest-corner at 50% 160%,
 				#8b5261,
@@ -139,6 +140,25 @@ withDefaults(defineProps<BadgeProps>(), {
 			padding-top: 0;
 			box-shadow: none;
 			background-image: none;
+		}
+
+		&--green {
+			background: radial-gradient(
+					44.05% 98.48% at 21.99% 10.19%,
+					rgba(255, 255, 255, 0.4) 0%,
+					rgba(255, 255, 255, 0) 100%
+				),
+				linear-gradient(
+					0deg,
+					rgba(46, 182, 125, 0.75) 0%,
+					rgba(46, 182, 125, 0.75) 100%
+				),
+				radial-gradient(
+					270.11% 383.68% at -68.45% -100.86%,
+					rgba(19, 138, 242, 0.9) 0%,
+					rgba(46, 182, 125, 0.9) 100%
+				);
+			background-blend-mode: normal, overlay, normal;
 		}
 	}
 

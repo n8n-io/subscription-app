@@ -12,6 +12,7 @@ import VButton from '@/components/VButton.vue';
 import ToggleSwitch from '@/components/ToggleSwitch.vue';
 import TypeformModal from '@/components/TypeformModal.vue';
 import CustomerInfoModal from '@/components/CustomerInfoModal.vue';
+import InfoCardSection from '@/components/InfoCardSection.vue';
 import type { CustomerData } from '@/components/CustomerInfoModal.vue';
 import { STATIC_PLANS, PLANS_FAQ, INFO_CARDS } from '@/constants';
 import { onMounted, ref, watch } from 'vue';
@@ -225,11 +226,7 @@ function redirectToActivate() {
 			: $t('subscription.plans.title')
 	"
 >
-	<DefaultLayout
-		:title="
-			$t('subscription.plans.title')
-		"
-	>
+	<DefaultLayout :title="$t('subscription.plans.title')">
 		<InfoBanner v-if="error" theme="danger" :class="[$style.errorBanner]">
 			{{ $t('error.somethingWentWrong') }}
 		</InfoBanner>
@@ -282,7 +279,10 @@ function redirectToActivate() {
 		<div :class="[$style.plans]">
 			<div :class="[$style.layer]" />
 			<StaticPlanCard
-				:plan="{ ...STATIC_PLANS.startup, price: STATIC_PLANS.startup.basePrice }"
+				:plan="{
+					...STATIC_PLANS.startup,
+					price: STATIC_PLANS.startup.basePrice,
+				}"
 				:isAnnual="isAnnual"
 				:recommended="true"
 				@start-trial="onSubscribe"
@@ -290,11 +290,14 @@ function redirectToActivate() {
 				badgeVariant="pink"
 			/>
 			<StaticPlanCard
-				:plan="{ ...STATIC_PLANS.business, price: STATIC_PLANS.business.basePrice }"
+				:plan="{
+					...STATIC_PLANS.business,
+					price: STATIC_PLANS.business.basePrice,
+				}"
 				:isAnnual="isAnnual"
 				@start-trial="onSubscribe"
 				@contact-us="onBusinessContactUs"
-				badgeVariant="orange"
+				badgeVariant="green"
 			/>
 			<StaticPlanCard
 				:plan="STATIC_PLANS.enterprise"
