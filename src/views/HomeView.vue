@@ -121,8 +121,14 @@ function trackCheckout(data: {
 	telemetry.track('User submitted payment details successfully', params);
 }
 
-async function onSubscribe(priceId: string, executions: number) {
-	trackButtonClicked('business_get_started');
+async function onSubscribe(
+	priceId: string,
+	executions: number,
+	plan: 'startup' | 'business'
+) {
+	trackButtonClicked(
+		plan === 'startup' ? 'startup_get_started' : 'business_get_started'
+	);
 
 	if (!window.Paddle) {
 		ElNotification({
@@ -166,8 +172,10 @@ async function handleCustomerInfoSubmit(customerData: CustomerData) {
 	}
 }
 
-function onBusinessContactUs() {
-	trackButtonClicked('business_contact_us');
+function onBusinessContactUs(plan: 'startup' | 'business') {
+	trackButtonClicked(
+		plan === 'startup' ? 'startup_contact_us' : 'business_contact_us'
+	);
 	showBusinessModal.value = true;
 }
 
@@ -285,8 +293,11 @@ function redirectToActivate() {
 				}"
 				:isAnnual="isAnnual"
 				:recommended="true"
-				@start-trial="onSubscribe"
-				@contact-us="onBusinessContactUs"
+				@start-trial="
+					(priceId, executions) =>
+						onSubscribe(priceId, executions, 'startup')
+				"
+				@contact-us="() => onBusinessContactUs('startup')"
 				badgeVariant="pink"
 			/>
 			<StaticPlanCard
@@ -295,8 +306,11 @@ function redirectToActivate() {
 					price: STATIC_PLANS.business.basePrice,
 				}"
 				:isAnnual="isAnnual"
-				@start-trial="onSubscribe"
-				@contact-us="onBusinessContactUs"
+				@start-trial="
+					(priceId, executions) =>
+						onSubscribe(priceId, executions, 'business')
+				"
+				@contact-us="() => onBusinessContactUs('business')"
 				badgeVariant="green"
 			/>
 			<StaticPlanCard
